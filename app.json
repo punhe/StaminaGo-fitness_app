@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "StaminaGo",
-    "slug": "StaminaGo",
+    "name": "StaminaGo-FE",
+    "slug": "StaminaGo-FE",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
