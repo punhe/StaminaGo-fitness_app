@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "expo-router";
-import { markers } from "../assets/markers"; // Giả sử markers nằm trong 'assets/markers'
+import { markers } from "../components/markers"; // Giả sử markers nằm trong 'assets/markers'
 
 const INITIAL_REGION = {
-  latitude: 37.33,
-  longitude: -122,
-  latitudeDelta: 2,
-  longitudeDelta: 2,
+  latitude: 13.804023, // Latitude for FPT University Quy Nhon
+    longitude: 109.219143, // Longitude for FPT University Quy Nhon
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01
 };
 
 export default function MapPage() {
@@ -42,13 +42,6 @@ export default function MapPage() {
     Alert.alert(marker.name);
   };
 
-  const calloutPressed = (ev) => {
-    console.log(ev);
-  };
-
-  const onRegionChange = (region) => {
-    console.log(region);
-  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -59,7 +52,6 @@ export default function MapPage() {
         showsMyLocationButton
         provider={PROVIDER_GOOGLE}
         ref={mapRef}
-        onRegionChangeComplete={onRegionChange}
       >
         {markers.map((marker, index) => (
           <Marker
@@ -68,7 +60,7 @@ export default function MapPage() {
             coordinate={marker}
             onPress={() => onMarkerSelected(marker)}
           >
-            <Callout onPress={calloutPressed}>
+            <Callout>
               <View style={{ padding: 10 }}>
                 <Text style={{ fontSize: 24 }}>Hello</Text>
               </View>
