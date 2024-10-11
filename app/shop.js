@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -6,83 +6,59 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Button,
 } from "react-native";
-import image1 from "../assets/img1.jpeg";
+import { useNavigation } from "@react-navigation/native";
+import { CartContext } from "./cartContext";
 
-// Sample data with product image, name, price, and quantity
 const products = [
   {
     id: "1",
     name: "Product 1",
     price: "$10",
-    quantity: "5 left",
-    image: image1,
+    quantity: 5,
+    image: "https://via.placeholder.com/100",
   },
   {
     id: "2",
     name: "Product 2",
-    price: "$20",
-    quantity: "2 left",
-    image: image1,
-  },
-  {
-    id: "3",
-    name: "Product 3",
     price: "$15",
-    quantity: "7 left",
+    quantity: 3,
     image: "https://via.placeholder.com/100",
   },
-  {
-    id: "4",
-    name: "Product 4",
-    price: "$25",
-    quantity: "3 left",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: "5",
-    name: "Product 5",
-    price: "$30",
-    quantity: "1 left",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: "6",
-    name: "Product 6",
-    price: "$12",
-    quantity: "4 left",
-    image: "https://via.placeholder.com/100",
-  },
+  // Add more products here
 ];
 
-const ProductCard = ({ item }) => (
-  <TouchableOpacity style={styles.card}>
-    <View style={{ flex: 1 }}>
-      <Image source={item.image} style={styles.image} />
-    </View>
-    <View style={{ flex: 2 }}>
-      <Text style={styles.productName}>{item.name}</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          marginRight: 20,
-          paddingTop: 10,
-        }}
-      >
+const ProductCard = ({ item }) => {
+  const navigation = useNavigation();
+  const { addToCart } = useContext(CartContext);
+
+  return (
+    <View style={styles.card}>
+      <Image source={{ uri: item.image }} style={styles.image} />
+      <View style={{ flex: 2 }}>
+        <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productPrice}>{item.price}</Text>
-        {/* <Text style={styles.productQuantity}>{item.quantity}</Text> */}
+        <Text style={styles.productQuantity}>{item.quantity} left</Text>
+
+        <Button title="Add to Cart" onPress={() => addToCart(item)} />
+        <TouchableOpacity
+          style={styles.viewButton}
+          onPress={() =>
+            navigation.navigate("ProductDetail", { product: item })
+          }
+        >
+          <Text style={styles.viewButtonText}>View Product</Text>
+        </TouchableOpacity>
       </View>
     </View>
-  </TouchableOpacity>
-);
+  );
+};
 
 const Shop = () => {
-  const renderProduct = ({ item }) => (
-    <View style={styles.productRow}>
-      <ProductCard item={item} />
-    </View>
-  );
+  const navigation = useNavigation();
+
+  const renderProduct = ({ item }) => <ProductCard item={item} />;
 
   return (
     <View style={styles.container}>
@@ -94,6 +70,12 @@ const Shop = () => {
         numColumns={2}
         columnWrapperStyle={styles.columnWrapper}
       />
+      <TouchableOpacity
+        style={styles.cartButton}
+        onPress={() => navigation.navigate("Cart")}
+      >
+        <Text style={styles.cartButtonText}>Go to Cart</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -102,55 +84,63 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingTop: 40,
-    paddingHorizontal: 20,
+    padding: 20,
   },
   header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  productRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    fontSize: 22,
     alignItems: "center",
-    marginBottom: 20,
-    width: "90%",
-    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  productQuantity: {
+    fontSize: 12,
+    color: "red",
   },
   card: {
     flex: 1,
-    height: 100,
-    borderRadius: 12,
-    justifyContent: "space-around",
-    alignItems: "center",
-    marginHorizontal: 5,
-    padding: 10,
     backgroundColor: "#f9f9f9",
-    flexDirection: "row",
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    alignItems: "center",
   },
   image: {
     width: 80,
     height: 80,
+    marginBottom: 10,
   },
   productName: {
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 5,
-    textAlign: "center",
   },
   productPrice: {
     fontSize: 14,
     color: "green",
-    marginBottom: 5,
+    marginBottom: 10,
   },
-  productQuantity: {
-    fontSize: 13,
-    color: "gray",
+  viewButton: {
+    backgroundColor: "#007BFF",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  viewButtonText: {
+    color: "#fff",
   },
   columnWrapper: {
     justifyContent: "space-between",
+  },
+  cartButton: {
+    backgroundColor: "#FF6347",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  cartButtonText: {
+    color: "#fff",
+    fontSize: 18,
   },
 });
 
