@@ -127,7 +127,7 @@ const Shop = () => {
       />
       <TouchableOpacity
         style={styles.cartButton}
-        onPress={() => navigation.navigate("Cart")}
+        onPress={() => navigation.navigate("cart")}
       >
         <Text style={styles.cartButtonText}>Go to Cart</Text>
       </TouchableOpacity>

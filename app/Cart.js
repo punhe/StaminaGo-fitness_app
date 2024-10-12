@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { View, Text, StyleSheet, FlatList, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { CartContext } from "../context/cartContexts";
+import { CartContext } from "../context/cartContext";
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -39,7 +39,7 @@ const Cart = () => {
           </View>
           <Button
             title="Tiến hành thanh toán"
-            onPress={() => navigation.navigate("Order")}
+            onPress={() => navigation.navigate("order")}
             disabled={cartItems.length === 0}
           />
         </>

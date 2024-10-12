@@ -3,12 +3,13 @@ import React, { useEffect } from "react";
 import { Slot, useRouter, useSegments } from "expo-router";
 import "../global.css";
 import { AuthContextProvider, useAuth } from "../context/authContext";
+import { MenuProvider } from "react-native-popup-menu";
 import { createStackNavigator } from "@react-navigation/stack";
 import { CartProvider } from "../context/cartContext";
-import StartPage from "./StartPage";
-import Home from "./Home";
-import Shop from "./Shop";
-import ProductDetail from "./ProductDetail";
+import StartPage from "./index";
+import Home from "../app/(app)/home";
+import Shop from "./shop";
+import ProductDetail from "./productDetail";
 import Cart from "./cart";
 import Order from "./order";
 
@@ -34,11 +35,13 @@ const MainLayout = () => {
 
 export default function RootLayout() {
   return (
-    <AuthContextProvider>
+    <MenuProvider>
+      <AuthContextProvider>
       <CartProvider>
         <MainLayout />
-      </CartProvider>
-    </AuthContextProvider>
+        </CartProvider>
+      </AuthContextProvider>
+    </MenuProvider>
   );
 }
 
