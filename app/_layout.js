@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Slot, useRouter, useSegments } from "expo-router";
 import "../global.css";
 import { AuthContextProvider, useAuth } from "../context/authContext";
-import { MenuProvider } from "react-native-popup-menu";
+import { Stack } from "expo-router";
 
 const MainLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -25,10 +25,17 @@ const MainLayout = () => {
 
 export default function RootLayout() {
   return (
-    <MenuProvider>
-      <AuthContextProvider>
-        <MainLayout />
-      </AuthContextProvider>
-    </MenuProvider>
+    <AuthContextProvider>
+      <MainLayout />
+    </AuthContextProvider>
   );
 }
+
+const Layout = () => (
+  <Stack>
+    <Stack.Screen name="index" options={{ title: "Home" }} />
+    <Stack.Screen name="map" options={{ title: "Map View" }} />
+  </Stack>
+);
+
+export { Layout };

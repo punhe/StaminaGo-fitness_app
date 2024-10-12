@@ -5,14 +5,18 @@ import { Button } from "react-native";
 import { useNavigation } from "expo-router";
 
 export default function Home() {
-
+  const {logout, user} = useAuth();
   const navigation = useNavigation();
-  
+  const handleLogout = async () =>{
+    await logout();
+  }
   return (
-    <View className='flex-1 bg-white'>
+    <View>
       <Text>Home</Text>
+      <Pressable onPress={handleLogout}>
+        <Text>Đăng xuất</Text>
+      </Pressable>
       <Button title="Xem địa chỉ" onPress={() => navigation.navigate("map")} />
-      <Button title="Chat" onPress={() => navigation.navigate("chat")} />
     </View>
   )
 }
