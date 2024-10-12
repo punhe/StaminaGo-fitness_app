@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { View, Text, StyleSheet, FlatList, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { CartContext } from "./cartContext";
+import { CartContext } from "../context/cartContexts";
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -34,17 +34,17 @@ const Cart = () => {
           />
           <View style={styles.subtotalContainer}>
             <Text style={styles.subtotalText}>
-              Subtotal: ${subtotal.toFixed(2)}
+              Subtotal: {subtotal.toFixed(2)}đ
             </Text>
           </View>
           <Button
-            title="Proceed to Checkout"
+            title="Tiến hành thanh toán"
             onPress={() => navigation.navigate("Order")}
             disabled={cartItems.length === 0}
           />
         </>
       )}
-      <Button title="Continue Shopping" onPress={() => navigation.goBack()} />
+      <Button title="tiếp tục mua" onPress={() => navigation.goBack()} />
     </View>
   );
 };

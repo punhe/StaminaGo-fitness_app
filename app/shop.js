@@ -7,26 +7,84 @@ import {
   Image,
   TouchableOpacity,
   Button,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { CartContext } from "./cartContext";
+import { CartContext } from "../context/cartContext";
 
 const products = [
   {
     id: "1",
     name: "Product 1",
-    price: "$10",
+    price: "100000 đ",
+    description:
+      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
     quantity: 5,
     image: "https://via.placeholder.com/100",
   },
   {
     id: "2",
     name: "Product 2",
-    price: "$15",
+    price: "100000 đ",
+    description:
+      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
     quantity: 3,
     image: "https://via.placeholder.com/100",
   },
-  // Add more products here
+  {
+    id: "3",
+    name: "Product 3",
+    price: "100000 đ",
+    description:
+      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
+    quantity: 7,
+    image: "https://via.placeholder.com/100",
+  },
+  {
+    id: "4",
+    name: "Product 4",
+    price: "100000 đ",
+    description:
+      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
+    quantity: 10,
+    image: "https://via.placeholder.com/100",
+  },
+  {
+    id: "5",
+    name: "Product 5",
+    price: "100000 đ",
+    description:
+      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
+    quantity: 2,
+    image: "https://via.placeholder.com/100",
+  },
+  {
+    id: "6",
+    name: "Product 6",
+    price: "100000 đ",
+    description:
+      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
+    quantity: 4,
+    image: "https://via.placeholder.com/100",
+  },
+  {
+    id: "7",
+    name: "Product 7",
+    price: "100000 đ",
+    description:
+      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
+    quantity: 7,
+    image: "https://via.placeholder.com/100",
+  },
+  {
+    id: "8",
+    name: "Product 8",
+    price: "100000 đ",
+    description:
+      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
+    quantity: 6,
+    image: "https://via.placeholder.com/100",
+  },
 ];
 
 const ProductCard = ({ item }) => {
@@ -34,24 +92,21 @@ const ProductCard = ({ item }) => {
   const { addToCart } = useContext(CartContext);
 
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={{ flex: 2 }}>
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productPrice}>{item.price}</Text>
-        <Text style={styles.productQuantity}>{item.quantity} left</Text>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate("ProductDetail", { product: item })}
+    >
+      <ScrollView>
+        <Image source={{ uri: item.image }} style={styles.image} />
+        <View style={{ flex: 2, alignItems: "flex-end" }}>
+          <Text style={styles.productName}>{item.name}</Text>
+          <Text style={styles.productPrice}>{item.price}</Text>
+          <Text style={styles.productQuantity}>còn {item.quantity} cái</Text>
 
-        <Button title="Add to Cart" onPress={() => addToCart(item)} />
-        <TouchableOpacity
-          style={styles.viewButton}
-          onPress={() =>
-            navigation.navigate("ProductDetail", { product: item })
-          }
-        >
-          <Text style={styles.viewButtonText}>View Product</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          <Button title="Add to Cart" onPress={() => addToCart(item)} />
+        </View>
+      </ScrollView>
+    </TouchableOpacity>
   );
 };
 
@@ -62,7 +117,7 @@ const Shop = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Shop</Text>
+      <Text style={styles.header}>Thực phẩm bổ sung</Text>
       <FlatList
         data={products}
         keyExtractor={(item) => item.id}
@@ -88,8 +143,9 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 22,
-    alignItems: "center",
-    justifyContent: "center",
+    margin: "auto",
+    color: "black",
+    fontWeight: "500",
   },
   productQuantity: {
     fontSize: 12,
@@ -104,9 +160,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 90,
     marginBottom: 10,
+    borderRadius: 5,
   },
   productName: {
     fontSize: 16,
@@ -117,16 +174,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "green",
     marginBottom: 10,
-  },
-  viewButton: {
-    backgroundColor: "#007BFF",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  viewButtonText: {
-    color: "#fff",
   },
   columnWrapper: {
     justifyContent: "space-between",
