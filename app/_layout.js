@@ -3,16 +3,16 @@ import React, { useEffect } from "react";
 import { Slot, useRouter, useSegments } from "expo-router";
 import "../global.css";
 import { AuthContextProvider, useAuth } from "../context/authContext";
-import { createStackNavigator } from "@react-navigation/stack"; // Nhập createStackNavigator
+import { createStackNavigator } from "@react-navigation/stack";
 import { CartProvider } from "../context/cartContext";
 import StartPage from "./StartPage";
 import Home from "./Home";
 import Shop from "./Shop";
 import ProductDetail from "./ProductDetail";
-import Cart from "./Cart";
-import Order from "./Order";
+import Cart from "./cart";
+import Order from "./order";
 
-const Stack = createStackNavigator(); // Định nghĩa Stack bên ngoài MainLayout
+const Stack = createStackNavigator();
 
 const MainLayout = () => {
   const { isAuthenticated } = useAuth();
