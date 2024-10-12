@@ -40,6 +40,6 @@ StaminaGo is a user-friendly fitness application designed to help individuals ma
 To get started with StaminaGo, clone the repository and install the dependencies:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/punhe/MMA301.git
 cd stamina-go
 npm install
