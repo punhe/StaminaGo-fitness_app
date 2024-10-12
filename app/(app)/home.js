@@ -13,6 +13,7 @@ export default function Home() {
       <Text>Home</Text>
       <Button title="Xem địa chỉ" onPress={() => navigation.navigate("map")} />
       <Button title="Chat" onPress={() => navigation.navigate("chat")} />
+      <Button title="Shop" onPress={() => navigation.navigate("shop")} />
     </View>
   )
 }
