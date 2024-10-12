@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { View, Text, StyleSheet, FlatList, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { CartContext } from "../context/cartContext";
+import { CartContext } from "../context/cartContexts";
 
 const Cart = () => {
   const navigation = useNavigation();
