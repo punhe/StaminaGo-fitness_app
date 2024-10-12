@@ -1,50 +1,45 @@
-# Welcome to your Expo app 👋
+# StaminaGo - Fitness App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 📖 Overview
+StaminaGo is a user-friendly fitness application designed to help individuals maintain a healthy lifestyle through personalized workout plans, progress tracking, and product sales. With the rise of age-related health issues among younger populations, StaminaGo aims to empower users with the tools they need to stay fit and healthy.
 
-## Get started
+## 🚀 Features
+- **User Profile Management**: Create and manage profiles with health data and fitness goals.
+- **Personalized Workout Recommendations**: Tailored workout plans based on user input.
+- **Exercise Library**: Access to a searchable database with video demonstrations.
+- **Workout Scheduling**: Set reminders and create workout schedules.
+- **Progress Tracking**: Log workouts and visualize progress through analytics.
+- **Product Store**: Browse and purchase fitness products like whey protein and supplements.
+- **Chat Support**: In-app chat functionality for immediate support.
+- **Map Integration**: Find nearby stores selling fitness products.
 
-1. Install dependencies
+## ⚙️ Technology Stack
+- **Framework**: React Native
+- **Languages**: JavaScript/TypeScript
+- **State Management**: Redux, useState
+- **Navigation**: React Navigation
+- **Networking**: Axios, Fetch
+- **Styling**: StyleSheet, Styled Components
+- **Backend**: Firebase, MongoDB, SQLite
+- **Tools**: Expo, React Native Debugger, Flipper
 
-   ```bash
-   npm install
-   ```
+## 📱 Screens
+- **Login/Registration**: Sign up or log in to the app.
+- **Home/Dashboard**: View stats, goals, and personalized recommendations.
+- **Workout Plan**: Access detailed workout instructions and videos.
+- **Product Store**: Browse and purchase fitness-related products.
+- **Shopping Cart**: Manage selected products and proceed to checkout.
+- **Map**: View store locations and get directions.
 
-2. Start the app
+## 🔑 Use Cases
+- **Authentication**: Log in, log out, and register new accounts.
+- **Fitness Tracking**: Log workouts, track progress, and generate reports.
+- **Shopping Experience**: View products, add to cart, and complete purchases.
 
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 🌟 Get Started
+To get started with StaminaGo, clone the repository and install the dependencies:
 
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+git clone <repository-url>
+cd stamina-go
+npm install
