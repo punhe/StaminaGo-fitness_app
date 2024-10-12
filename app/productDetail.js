@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { CartContext } from "./cartContext";
+import { CartContext } from "../context/cartContext";
 
 const ProductDetail = () => {
   const route = useRoute();

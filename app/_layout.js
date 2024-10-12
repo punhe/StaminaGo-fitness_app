@@ -9,8 +9,8 @@ import StartPage from "./StartPage";
 import Home from "./Home";
 import Shop from "./Shop";
 import ProductDetail from "./ProductDetail";
-import Cart from "./Cart";
-import Order from "./Order";
+import Cart from "./cart";
+import Order from "./order";
 
 const Stack = createStackNavigator();
 

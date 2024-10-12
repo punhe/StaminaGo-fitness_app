@@ -9,7 +9,7 @@ import {
   Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { CartContext } from "./cartContext";
+import { CartContext } from "../context/cartContext";
 import axios from "axios";
 
 const SHIPPING_FEE = 20000;
