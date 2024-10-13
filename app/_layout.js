@@ -14,6 +14,7 @@ import Cart from "./cart";
 import Order from "./order";
 import { OrderProvider } from "../context/orderContext";
 import OrdersScreen from "./orderScreen";
+import Profile from "./profile";
 
 const Stack = createStackNavigator();
 
@@ -60,6 +61,7 @@ const Layout = () => (
       <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="Order" component={Order} />
       <Stack.Screen name="Orders" component={OrdersScreen} />
+      <Stack.Screen name="profile" component={Profile} />
     </Stack.Navigator>
   </CartProvider>
 );

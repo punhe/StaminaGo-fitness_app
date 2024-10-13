@@ -15,14 +15,18 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import { MenuItem } from "./CustomMenuItems";
+import { useNavigation } from "expo-router";
 import { AntDesign, Feather } from "@expo/vector-icons";
 
 const android = Platform.OS == "android";
 export default function HomeHeader() {
   const { user, logout } = useAuth();
+  const navigation = useNavigation();
 
   const { top } = useSafeAreaInsets();
-  const handleProfile = () => {};
+  const handleProfile = () => {
+    navigation.navigate('profile');
+  };
 
   const handleLogout = async () => {
     await logout();
