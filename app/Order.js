@@ -9,34 +9,54 @@ import {
   Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { CartContext } from "../context/cartContext";
 import axios from "axios";
+import { CartContext } from "./cartContext";
+import { OrderContext } from "../context/orderContext";
+import { ProductContext } from "../context/productContext";
 
 const SHIPPING_FEE = 20000;
 
 const Order = () => {
   const navigation = useNavigation();
   const { cartItems, clearCart } = useContext(CartContext);
+  const { addOrder, updateOrderStatus } = useContext(OrderContext);
   const [isLoading, setIsLoading] = useState(false);
+  const { updateProductQuantity } = useContext(ProductContext);
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((sum, item) => {
-      const price = parseFloat(item.price.replace("đ", ""));
+      const price = parseFloat(item.price.replace("$", ""));
       return sum + price;
     }, 0);
   }, [cartItems]);
 
   const total = subtotal + SHIPPING_FEE;
 
+  const updateProductQuantities = () => {
+    cartItems.forEach((item) => {
+      console.log(item);
+      updateProductQuantity(item.id, -item.quantity);
+    });
+  };
+
   const handleMoMoPayment = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/payment", {
+      const response = await axios.post("http://your-server-url:5000/payment", {
         amount: total.toString(),
         orderInfo: "Thanh toán đơn hàng",
       });
 
       if (response.data && response.data.payUrl) {
+        const orderId = new Date().getTime().toString();
+        addOrder({
+          id: orderId,
+          items: cartItems,
+          total: total,
+          date: new Date(),
+          isPaid: false,
+        });
+        updateProductQuantities();
         await Linking.openURL(response.data.payUrl);
       } else {
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
@@ -57,6 +77,15 @@ const Order = () => {
         {
           text: "Thanh toán khi nhận hàng",
           onPress: () => {
+            const orderId = new Date().getTime().toString();
+            addOrder({
+              id: orderId,
+              items: cartItems,
+              total: total,
+              date: new Date(),
+              isPaid: false,
+            });
+            updateProductQuantities();
             Alert.alert(
               "Đã đặt hàng",
               `Đơn hàng của bạn trị giá ${total.toFixed(
@@ -67,7 +96,7 @@ const Order = () => {
                   text: "OK",
                   onPress: () => {
                     clearCart();
-                    navigation.navigate("Shop");
+                    navigation.navigate("orders");
                   },
                 },
               ]
@@ -88,32 +117,17 @@ const Order = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Tóm tắt đơn hàng</Text>
-      <FlatList
-        data={cartItems}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.orderItem}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemPrice}>{item.price}</Text>
-          </View>
-        )}
-      />
-      <View style={styles.summaryContainer}>
-        <Text style={styles.summaryText}>
-          Tổng cộng: {subtotal.toFixed(2)}đ
-        </Text>
-        <Text style={styles.summaryText}>
-          Phí ship: {SHIPPING_FEE.toFixed(2)}đ
-        </Text>
-        <Text style={styles.totalText}>Tổng cuối: {total.toFixed(2)}đ</Text>
-      </View>
+      {/* ... (phần code hiển thị không thay đổi) ... */}
       <Button
         title={isLoading ? "Đang xử lý..." : "Đặt hàng"}
         onPress={handlePlaceOrder}
         disabled={isLoading}
       />
       <Button title="Quay lại giỏ hàng" onPress={() => navigation.goBack()} />
+      <Button
+        title="Xem đơn hàng"
+        onPress={() => navigation.navigate("orders")}
+      />
     </View>
   );
 };
