@@ -15,7 +15,7 @@ export default function Home() {
 
       {/* Start Button */}
       <Pressable
-        className='h-14 w-12/12 bg-blue-600 mx-auto rounded-lg flex items-center justify-center mt-10 shadow-lg'
+        className='h-14 w-12/12 bg-indigo-500 mx-auto rounded-lg flex items-center justify-center mt-10 shadow-lg'
         onPress={() => navigation.navigate('exercise')}
       >
         <Text className='text-white text-lg font-semibold'>Bắt đầu thôi</Text>
@@ -25,19 +25,19 @@ export default function Home() {
       <View className='absolute bottom-0 w-full border-t border-gray-300 py-4 bg-white'>
         <View className='flex-row justify-around'>
           <Pressable onPress={() => navigation.navigate('map')}>
-            <Text className='text-blue-600 font-bold text-base'>Map</Text>
+            <Text className='text-indigo-500 font-bold text-base'>Map</Text>
           </Pressable>
 
           <Pressable onPress={() => navigation.navigate('shop')}>
-            <Text className='text-blue-600 font-bold text-base'>Cửa hàng</Text>
+            <Text className='text-indigo-500 font-bold text-base'>Cửa hàng</Text>
           </Pressable>
 
           <Pressable onPress={() => navigation.navigate('chat')}>
-            <Text className='text-blue-600 font-bold text-base'>Tin nhắn</Text>
+            <Text className='text-indigo-500 font-bold text-base'>Tin nhắn</Text>
           </Pressable>
 
           <Pressable onPress={() => navigation.navigate('settings')}>
-            <Text className='text-blue-600 font-bold text-base'>Cài đặt</Text>
+            <Text className='text-indigo-500 font-bold text-base'>Cài đặt</Text>
           </Pressable>
         </View>
       </View>
