@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { CartContext } from "./cartContext";
+import { CartContext } from "../context/cartContext";
 import { OrderContext } from "../context/orderContext";
 import { ProductContext } from "../context/productContext";
 
