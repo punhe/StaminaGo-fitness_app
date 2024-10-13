@@ -12,6 +12,8 @@ import Shop from "./shop";
 import ProductDetail from "./productDetail";
 import Cart from "./cart";
 import Order from "./order";
+import { OrderProvider } from "../context/orderContext";
+import OrdersScreen from "./orderScreen";
 
 const Stack = createStackNavigator();
 
@@ -37,8 +39,10 @@ export default function RootLayout() {
   return (
     <MenuProvider>
       <AuthContextProvider>
-      <CartProvider>
-        <MainLayout />
+        <CartProvider>
+          <OrderProvider>
+            <MainLayout />
+          </OrderProvider>
         </CartProvider>
       </AuthContextProvider>
     </MenuProvider>
@@ -55,6 +59,7 @@ const Layout = () => (
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="Order" component={Order} />
+      <Stack.Screen name="Orders" component={OrdersScreen} />
     </Stack.Navigator>
   </CartProvider>
 );
