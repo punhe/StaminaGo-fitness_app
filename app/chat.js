@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useLayoutEffect, useCallback } from "react";
-import { TouchableOpacity, Text, View, Pressable, SafeAreaView, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+} from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 import { addDoc, orderBy, query, onSnapshot } from "firebase/firestore";
 import { signOut } from "firebase/auth";
@@ -55,7 +62,7 @@ export default function Chat() {
     if (navigation.canGoBack()) {
       navigation.goBack();
     } else {
-      navigation.navigate('index');
+      navigation.navigate("index");
     }
   };
 
@@ -75,7 +82,7 @@ export default function Chat() {
   return (
     <SafeAreaView style={styles.container}>
       <Pressable onPress={handleGoBack} style={styles.backButton}>
-        <Text style={styles.backButtonText}>{"<"} Back</Text>
+        <Text style={styles.backButtonText}>{"<"} Trở lại</Text>
       </Pressable>
       <GiftedChat
         messages={messages}
@@ -89,6 +96,22 @@ export default function Chat() {
           avatar: "https://i.pravatar.cc/300",
         }}
       />
+      <View style={styles.bottomNav}>
+        <View style={styles.bottomNavContent}>
+          <TouchableOpacity onPress={handleGoBack}>
+            <Text style={styles.navText}>Trang chủ</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("todaysGoal")}>
+            <Text style={styles.navText}>Mục tiêu</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("mealPlanner")}>
+            <Text style={styles.navText}>Bữa ăn</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={[styles.navText, styles.activeNavText]}>Chat</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -96,17 +119,17 @@ export default function Chat() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white, // Use your primary color here
+    backgroundColor: colors.white,
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     left: 10,
     zIndex: 1,
   },
   backButtonText: {
     fontSize: 18,
-    color: colors.white,
+    color: colors.gray,
   },
   messagesContainer: {
     backgroundColor: colors.white,
@@ -118,5 +141,23 @@ const styles = StyleSheet.create({
     borderColor: colors.lightGray,
     marginHorizontal: 10,
     marginBottom: 5,
+  },
+  bottomNav: {
+    borderTopWidth: 1,
+    borderTopColor: colors.lightGray,
+    paddingVertical: 10,
+    backgroundColor: colors.white,
+  },
+  bottomNavContent: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  navText: {
+    color: "#6366F1", // Indigo-500
+    fontWeight: "bold",
+    fontSize: 14,
+  },
+  activeNavText: {
+    color: "#4F46E5", // Một tông màu đậm hơn của Indigo cho mục đang active
   },
 });

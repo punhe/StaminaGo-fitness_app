@@ -122,7 +122,7 @@ export default function MapPage() {
       </View>
 
       <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
-        <Text style={styles.backButtonText}>Back</Text>
+        <Text style={styles.backButtonText}>Trở về</Text>
       </TouchableOpacity>
     </View>
   );

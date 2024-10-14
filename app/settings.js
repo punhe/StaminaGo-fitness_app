@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, Switch, Pressable } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 export default function Settings() {
   const [isEnabledNotifications, setIsEnabledNotifications] = useState(false);
   const [isEnabledDarkMode, setIsEnabledDarkMode] = useState(false);
+  const navigation = useNavigation();
 
   const toggleNotifications = () => setIsEnabledNotifications(previousState => !previousState);
   const toggleDarkMode = () => setIsEnabledDarkMode(previousState => !previousState);
@@ -45,14 +47,14 @@ export default function Settings() {
       {/* Account Settings Button */}
       <Pressable
         className=' bg-blue-600 mx-auto mt-8 p-4 rounded-lg flex items-center justify-center shadow-md'
-        onPress={() => console.log('Account Settings')}>
+        onPress={() => navigation.navigate("profile")}>
         <Text className='text-white text-lg font-semibold'>Cài đặt tài khoản</Text>
       </Pressable>
       
       {/* Privacy Policy Button */}
       <Pressable
         className=' bg-blue-600 mx-auto mt-4 p-4 rounded-lg flex items-center justify-center shadow-md'
-        onPress={() => console.log('Privacy Policy')}>
+        onPress={() => navigation.navigate("privacyPolicy")}>
         <Text className='text-white text-lg font-semibold'>Chính sách bảo mật</Text>
       </Pressable>
 
