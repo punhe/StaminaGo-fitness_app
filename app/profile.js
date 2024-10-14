@@ -60,8 +60,7 @@ export default function Profile() {
       setIsEditing(false);
       Alert.alert("Success", "Username updated successfully!");
     } catch (error) {
-      console.log('Error updating username:', error);
-      Alert.alert("Error", "Failed to update username.");
+      Alert.alert("Error", "Lỗi khi cập nhật tên");
     }
   };
 
@@ -80,7 +79,7 @@ export default function Profile() {
         onPress={handleGoBack}
         className="absolute top-10 left-5"
       >
-        <Text style={{ fontSize: 18, color: 'white' }}>{'<'} Back</Text>
+        <Text style={{ fontSize: 18, color: 'white' }}>{'<'} Trở về</Text>
       </Pressable>
       
       {/* Profile Section */}
@@ -121,7 +120,7 @@ export default function Profile() {
                 borderRadius: 5,
               }}
             >
-              <Text style={{ color: 'white', fontWeight: 'bold' }}>Save</Text>
+              <Text style={{ color: 'white', fontWeight: 'bold' }}>Lưu</Text>
             </Pressable>
           </View>
         ) : (

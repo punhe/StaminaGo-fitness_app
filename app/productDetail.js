@@ -28,8 +28,7 @@ const ProductDetail = () => {
     <View style={styles.container}>
       <Image source={{ uri: product.image }} style={styles.image} />
       <Text style={styles.productName}>{product.name}</Text>
-      <View style={{ display: "flex", flexDirection: "row", width: "60%" }}>
-        <Text style={styles.productQuantity}>Đang có: {product.quantity}</Text>
+      <View style={{ display: "flex", flexDirection: "row", width: "60%" ,justifyContent:"flex-end"}}>
         <Text style={styles.productPrice}>{product.price}</Text>
       </View>
 

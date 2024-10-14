@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { CartContext } from "../context/cartContext";
 import { OrderContext } from "../context/orderContext";
-import { ProductContext } from "../context/productContext";
+// import { ProductContext } from "../context/productContext";
 
 const SHIPPING_FEE = 20000;
 
@@ -21,7 +21,7 @@ const Order = () => {
   const { cartItems, clearCart } = useContext(CartContext);
   const { addOrder, updateOrderStatus } = useContext(OrderContext);
   const [isLoading, setIsLoading] = useState(false);
-  const { updateProductQuantity } = useContext(ProductContext);
+  //const { updateProductQuantity } = useContext(ProductContext);
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((sum, item) => {
@@ -32,12 +32,12 @@ const Order = () => {
 
   const total = subtotal + SHIPPING_FEE;
 
-  const updateProductQuantities = () => {
-    cartItems.forEach((item) => {
-      console.log(item);
-      updateProductQuantity(item.id, -item.quantity);
-    });
-  };
+  // const updateProductQuantities = () => {
+  //   cartItems.forEach((item) => {
+  //     console.log(item);
+  //     updateProductQuantity(item.id, -item.quantity);
+  //   });
+  // };
 
   const handleMoMoPayment = async () => {
     setIsLoading(true);
@@ -56,7 +56,7 @@ const Order = () => {
           date: new Date(),
           isPaid: false,
         });
-        updateProductQuantities();
+       // updateProductQuantities();
         await Linking.openURL(response.data.payUrl);
       } else {
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
@@ -85,7 +85,7 @@ const Order = () => {
               date: new Date(),
               isPaid: false,
             });
-            updateProductQuantities();
+           // updateProductQuantities();
             Alert.alert(
               "Đã đặt hàng",
               `Đơn hàng của bạn trị giá ${total.toFixed(
@@ -96,7 +96,7 @@ const Order = () => {
                   text: "OK",
                   onPress: () => {
                     clearCart();
-                    navigation.navigate("orders");
+                    navigation.navigate("orderScreen");
                   },
                 },
               ]
@@ -126,7 +126,7 @@ const Order = () => {
       <Button title="Quay lại giỏ hàng" onPress={() => navigation.goBack()} />
       <Button
         title="Xem đơn hàng"
-        onPress={() => navigation.navigate("orders")}
+        onPress={() => navigation.navigate("orderScreen")}
       />
     </View>
   );
