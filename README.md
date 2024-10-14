@@ -3,7 +3,7 @@
 ## 📖 Overview
 StaminaGo is a user-friendly fitness application designed to help individuals maintain a healthy lifestyle through personalized workout plans, progress tracking, and product sales. With the rise of age-related health issues among younger populations, StaminaGo aims to empower users with the tools they need to stay fit and healthy.
 
-## 🚀 Features
+## 🚀 Features and Function
 - **User Profile Management**: Create and manage profiles with health data and fitness goals.
 - **Personalized Workout Recommendations**: Tailored workout plans based on user input.
 - **Exercise Library**: Access to a searchable database with video demonstrations.
