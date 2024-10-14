@@ -17,7 +17,7 @@ const ProductDetail = () => {
   const { addToCart } = useContext(CartContext); // Use CartContext
 
   const handleAddToCart = () => {
-    addToCart(product); // Add product to cart via CartContext
+    addToCart(product); // Add product to cart through CartContext
     Alert.alert(
       "Added to Cart",
       `${product.name} has been added to your cart.`
@@ -28,7 +28,14 @@ const ProductDetail = () => {
     <View style={styles.container}>
       <Image source={{ uri: product.image }} style={styles.image} />
       <Text style={styles.productName}>{product.name}</Text>
-      <View style={{ display: "flex", flexDirection: "row", width: "60%" ,justifyContent:"flex-end"}}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "60%",
+          justifyContent: "flex-end",
+        }}
+      >
         <Text style={styles.productPrice}>{product.price}</Text>
       </View>
 
@@ -75,7 +82,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
-    backgroundColor: "#ffff", // Fixed color code
+    backgroundColor: "#fff", // Fixed background color value
   },
   productQuantity: {
     fontSize: 16,

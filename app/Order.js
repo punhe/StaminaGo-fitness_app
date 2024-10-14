@@ -7,12 +7,13 @@ import {
   Button,
   Alert,
   Linking,
+  TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { CartContext } from "../context/cartContext";
 import { OrderContext } from "../context/orderContext";
-// import { ProductContext } from "../context/productContext";
+import { ProductContext } from "../context/productContext";
 
 const SHIPPING_FEE = 20000;
 
@@ -21,7 +22,7 @@ const Order = () => {
   const { cartItems, clearCart } = useContext(CartContext);
   const { addOrder, updateOrderStatus } = useContext(OrderContext);
   const [isLoading, setIsLoading] = useState(false);
-  //const { updateProductQuantity } = useContext(ProductContext);
+  const { updateProductQuantity } = useContext(ProductContext);
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((sum, item) => {
@@ -32,20 +33,23 @@ const Order = () => {
 
   const total = subtotal + SHIPPING_FEE;
 
-  // const updateProductQuantities = () => {
-  //   cartItems.forEach((item) => {
-  //     console.log(item);
-  //     updateProductQuantity(item.id, -item.quantity);
-  //   });
-  // };
+  const updateProductQuantities = () => {
+    cartItems.forEach((item) => {
+      console.log(item);
+      updateProductQuantity(item.id, -item.quantity);
+    });
+  };
 
   const handleMoMoPayment = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post("http://your-server-url:5000/payment", {
-        amount: total.toString(),
-        orderInfo: "Thanh toán đơn hàng",
-      });
+      const response = await axios.post(
+        "https://apply-momo-to-order.onrender.com/payment",
+        {
+          amount: total.toString(),
+          orderInfo: "Thanh toán đơn hàng",
+        }
+      );
 
       if (response.data && response.data.payUrl) {
         const orderId = new Date().getTime().toString();
@@ -56,7 +60,7 @@ const Order = () => {
           date: new Date(),
           isPaid: false,
         });
-       // updateProductQuantities();
+        updateProductQuantities();
         await Linking.openURL(response.data.payUrl);
       } else {
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
@@ -85,11 +89,11 @@ const Order = () => {
               date: new Date(),
               isPaid: false,
             });
-           // updateProductQuantities();
+            updateProductQuantities();
             Alert.alert(
               "Đã đặt hàng",
               `Đơn hàng của bạn trị giá ${total.toFixed(
-                2
+                3
               )}đ đã được đặt thành công!`,
               [
                 {
@@ -117,17 +121,28 @@ const Order = () => {
 
   return (
     <View style={styles.container}>
-      {/* ... (phần code hiển thị không thay đổi) ... */}
-      <Button
-        title={isLoading ? "Đang xử lý..." : "Đặt hàng"}
+      <TouchableOpacity
+        style={styles.button}
         onPress={handlePlaceOrder}
         disabled={isLoading}
-      />
-      <Button title="Quay lại giỏ hàng" onPress={() => navigation.goBack()} />
-      <Button
-        title="Xem đơn hàng"
-        onPress={() => navigation.navigate("orderScreen")}
-      />
+      >
+        <Text style={styles.text}>
+          {isLoading ? "Đang xử lý..." : "Đặt hàng"}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.goBack()}
+      >
+        <Text style={styles.text}>Quay lại giỏ hàng</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("Orders")}
+      >
+        <Text style={styles.text}>Xem đơn hàng</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -136,6 +151,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+  },
+  button: {
+    backgroundColor: "#3F51B5", // Màu nền
+    padding: 15, // Padding bên trong
+    borderRadius: 8, // Bo góc
+    alignItems: "center", // Căn giữa nội dung
+    marginTop: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 18,
   },
   header: {
     fontSize: 24,
