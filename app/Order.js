@@ -8,13 +8,17 @@ import {
   Alert,
   Linking,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { CartContext } from "../context/cartContext";
 import { OrderContext } from "../context/orderContext";
-import { ProductContext } from "../context/productContext";
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const SHIPPING_FEE = 20000;
 
 const Order = () => {
@@ -22,23 +26,23 @@ const Order = () => {
   const { cartItems, clearCart } = useContext(CartContext);
   const { addOrder, updateOrderStatus } = useContext(OrderContext);
   const [isLoading, setIsLoading] = useState(false);
-  const { updateProductQuantity } = useContext(ProductContext);
+  // const { updateProductQuantity } = useContext(ProductContext);
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((sum, item) => {
-      const price = parseFloat(item.price.replace("$", ""));
+      const price = parseFloat(item.price.replace(" đ", ""));
       return sum + price;
     }, 0);
   }, [cartItems]);
 
   const total = subtotal + SHIPPING_FEE;
 
-  const updateProductQuantities = () => {
-    cartItems.forEach((item) => {
-      console.log(item);
-      updateProductQuantity(item.id, -item.quantity);
-    });
-  };
+  // const updateProductQuantities = () => {
+  //   cartItems.forEach((item) => {
+  //     console.log(item);
+  //     updateProductQuantity(item.id, -item.quantity);
+  //   });
+  // };
 
   const handleMoMoPayment = async () => {
     setIsLoading(true);
@@ -60,7 +64,7 @@ const Order = () => {
           date: new Date(),
           isPaid: false,
         });
-        updateProductQuantities();
+        //updateProductQuantities();
         await Linking.openURL(response.data.payUrl);
       } else {
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
@@ -120,6 +124,14 @@ const Order = () => {
   };
 
   return (
+    <View style={{justifyContent:"center", alignItems:"center"}}>
+    <View className="items-center">
+          <Image
+            style={{ height: hp(40), margin:"auto" }}
+            resizeMode="contain"
+            source={require("../assets/images/login.png")}
+          />
+        </View>
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
@@ -139,18 +151,20 @@ const Order = () => {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Orders")}
+        onPress={() => navigation.navigate("orderScreen")}
       >
         <Text style={styles.text}>Xem đơn hàng</Text>
       </TouchableOpacity>
+    </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+  width:"80%",
     padding: 10,
+    justifyContent:"flex-end"
   },
   button: {
     backgroundColor: "#3F51B5", // Màu nền

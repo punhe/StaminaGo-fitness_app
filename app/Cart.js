@@ -43,7 +43,7 @@ const Cart = () => {
                 </Text>
                 <Text style={styles.itemPrice}>{item.price}</Text>
                 <TouchableOpacity
-                  style={styles.button}
+                  style={styles.buttonn}
                   onPress={() => removeFromCart(item)}
                 >
                   <Text style={styles.text}>Xóa</Text>
@@ -53,12 +53,12 @@ const Cart = () => {
           />
           <View style={styles.subtotalContainer}>
             <Text style={styles.subtotalText}>
-              Subtotal: {subtotal.toFixed(3)}đ
+              tổng tiền: {subtotal.toFixed(3)}đ
             </Text>
           </View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("Order")}
+            onPress={() => navigation.navigate("order")}
             disabled={cartItems.length === 0}
           >
             <Text style={styles.text}>Tiến hành thanh toán</Text>
@@ -69,7 +69,7 @@ const Cart = () => {
         style={styles.button}
         onPress={() => navigation.goBack()}
       >
-        <Text style={{ color: "white" }}>Tiếp tục mua</Text>
+        <Text style={styles.text}>Tiếp tục mua</Text>
       </TouchableOpacity>
     </View>
   );
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   buttonn: {
     backgroundColor: "#3F51B5",
     width: "17%",
+    padding:9,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8, // Bo góc // Căn giữa nội dung // Khoả

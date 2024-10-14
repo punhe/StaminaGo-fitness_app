@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { CartContext } from "../context/cartContext";
+import { TouchableOpacity } from "react-native";
 
 const ProductDetail = () => {
   const route = useRoute();
@@ -42,7 +43,13 @@ const ProductDetail = () => {
       <ScrollView>
         <Text style={styles.productDescription}>{product.description}</Text>
       </ScrollView>
-      <Button title="Add to Cart" onPress={handleAddToCart} />
+
+      <TouchableOpacity
+            style={styles.button}
+            onPress={handleAddToCart}
+          >
+            <Text style={styles.text}>Thêm vào giỏ hàng</Text>
+          </TouchableOpacity>
     </View>
   );
 };
@@ -52,6 +59,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 20,
+  },
+  button: {
+    backgroundColor: "#3F51B5", // Màu nền
+    padding: 15, // Padding bên trong
+    borderRadius: 8, // Bo góc
+    alignItems: "center", // Căn giữa nội dung
+    marginTop: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 18,
   },
   image: {
     width: 300,
@@ -71,18 +89,20 @@ const styles = StyleSheet.create({
   },
   productPrice: {
     fontSize: 18,
-    color: "green",
+    color: "red",
+    fontWeight:"700",
     marginBottom: 10,
     marginLeft: 10,
-    alignItems: "center",
+    alignItems: "flex-end",
     textAlign: "center",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     padding: "auto",
     flex: 1,
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
-    backgroundColor: "#fff", // Fixed background color value
+    pointerEvents:"box-only",
+    backgroundColor: "#E5E7EB", // Fixed background color value
   },
   productQuantity: {
     fontSize: 16,

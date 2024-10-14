@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { CartContext } from "../context/cartContext";
+import { useContext } from "react";
 
 const products = [
   {
@@ -33,7 +34,7 @@ const products = [
     price: "100.000 đ",
     description:
       "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://via.placeholder.com/100",
+    image: "https://i.pinimg.com/736x/1f/6e/bb/1f6ebbe78a8d3f5b8fd78fe0fa8976c6.jpg",
   },
   {
     id: "4",
@@ -84,7 +85,7 @@ const ProductCard = ({ item }) => {
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate("ProductDetail", { product: item })}
+      onPress={() => navigation.navigate("productDetail", { product: item })}
     >
       <ScrollView>
         <Image source={{ uri: item.image }} style={styles.image} />
@@ -98,7 +99,7 @@ const ProductCard = ({ item }) => {
             style={styles.button}
             onPress={() => addToCart(item)}
           >
-            <Text style={{ color: "white" }}>Thêm vào dỏ hàng</Text>
+            <Text style={{ color: "white", fontSize:12 }}>Thêm vào giỏ hàng</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -123,9 +124,9 @@ const Shop = () => {
       />
       <TouchableOpacity
         style={styles.cartButton}
-        onPress={() => navigation.navigate("Cart")}
+        onPress={() => navigation.navigate("cart")}
       >
-        <Text style={styles.cartButtonText}>Đến dỏ hàng</Text>
+        <Text style={styles.cartButtonText}>Đến giỏ hàng</Text>
       </TouchableOpacity>
     </View>
   );
