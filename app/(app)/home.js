@@ -57,9 +57,9 @@ export default function Home() {
             <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
             <Text className='text-indigo-600 text-xs mt-1'>Cửa hàng</Text>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate('exercise')} className='items-center'>
-            <FontAwesome5 name="dumbbell" size={24} color="#4F46E5" />
-            <Text className='text-indigo-600 text-xs mt-1'>Tập luyện</Text>
+          <Pressable onPress={() => navigation.navigate('profile')} className='items-center'>
+            <FontAwesome5 name="user" size={24} color="#4F46E5" />
+            <Text className='text-indigo-600 text-xs mt-1'>Hồ sơ</Text>
           </Pressable>
           <Pressable onPress={() => navigation.navigate('chat')} className='items-center'>
             <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
