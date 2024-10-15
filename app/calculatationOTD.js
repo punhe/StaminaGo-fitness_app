@@ -50,10 +50,12 @@ const CalculatationOTD = () => {
   };
 
   return (
-    <View style={{ flex: 1, paddingTop: 60, backgroundColor: "#F3F4F6" }}>
+    <View style={{ flex: 1, paddingTop: 60, backgroundColor: "#F3F4F6",justifyContent:"space-between" }}>
+    
       <Pressable onPress={handleGoBack} style={styles.backButton}>
         <Text style={styles.backButtonText}>{"<"} Back</Text>
       </Pressable>
+      <View>
       <Text className="text-2xl font-bold text-indigo-500 mb-4">
         Tính toán BMI
       </Text>
@@ -106,7 +108,7 @@ const CalculatationOTD = () => {
           <Text className="text-lg mt-2">Phân loại: {category}</Text>
         </View>
       )}
-
+</View>
       <View style={styles.bottomNav}>
         <View style={styles.bottomNavContent}>
           <Pressable
@@ -164,6 +166,7 @@ const styles = StyleSheet.create({
     borderTopColor: colors.lightGray,
     paddingVertical: 10,
     backgroundColor: colors.white,
+  
   },
   bottomNavContent: {
     flexDirection: "row",
