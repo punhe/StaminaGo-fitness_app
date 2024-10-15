@@ -15,7 +15,7 @@ export default function Settings() {
   return (
     <View className="flex-1 bg-gray-100">
       {/* Header */}
-      <View className="bg-blue-500 py-4">
+      <View className="bg-indigo-500 py-4">
         <Text className="text-center text-2xl font-bold text-white">
           Cài đặt
         </Text>

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../colors";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const TimerOTD = () => {
   const [secondsRemaining, setSecondsRemaining] = useState(0);

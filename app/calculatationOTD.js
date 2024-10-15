@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import colors from "../colors";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const CalculatationOTD = () => {
   const [weight, setWeight] = useState("");
@@ -106,14 +107,14 @@ const CalculatationOTD = () => {
         </View>
       )}
 
-      <View style={styles.footer}>
-        <View style={styles.footerContent}>
+      <View style={styles.bottomNav}>
+        <View style={styles.bottomNavContent}>
           <Pressable
             onPress={() => navigation.navigate("map")}
             style={styles.footerItem}
           >
             <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
-            <Text style={styles.footerText}>Map</Text>
+            <Text style={styles.navText}>Map</Text>
           </Pressable>
 
           <Pressable
@@ -121,7 +122,7 @@ const CalculatationOTD = () => {
             style={styles.footerItem}
           >
             <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
-            <Text style={styles.footerText}>Cửa hàng</Text>
+            <Text style={styles.navText}>Cửa hàng</Text>
           </Pressable>
 
           <Pressable
@@ -129,7 +130,7 @@ const CalculatationOTD = () => {
             style={styles.footerItem}
           >
             <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
-            <Text style={styles.footerText}>Tin nhắn</Text>
+            <Text style={styles.navText}>Tin nhắn</Text>
           </Pressable>
 
           <Pressable
@@ -137,7 +138,7 @@ const CalculatationOTD = () => {
             style={styles.footerItem}
           >
             <FontAwesome5 name="cog" size={24} color="#4F46E5" />
-            <Text style={styles.footerText}>Cài đặt</Text>
+            <Text style={styles.navText}>Cài đặt</Text>
           </Pressable>
         </View>
       </View>
@@ -157,5 +158,23 @@ const styles = StyleSheet.create({
   backButtonText: {
     fontSize: 18,
     color: colors.white,
+  },
+  bottomNav: {
+    borderTopWidth: 1,
+    borderTopColor: colors.lightGray,
+    paddingVertical: 10,
+    backgroundColor: colors.white,
+  },
+  bottomNavContent: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  navText: {
+    color: "#6366F1", // Indigo-500
+    fontWeight: "bold",
+    fontSize: 14,
+  },
+  activeNavText: {
+    color: "#4F46E5", // Một tông màu đậm hơn của Indigo cho mục đang active
   },
 });

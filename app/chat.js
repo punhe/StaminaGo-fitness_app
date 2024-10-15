@@ -19,6 +19,7 @@ import { auth, db, chatsRef } from "../firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import colors from "../colors";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
