@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  Alert,
+  StyleSheet,
+} from "react-native";
 import colors from "../colors";
 import { useNavigation } from "@react-navigation/native";
 
@@ -99,26 +106,38 @@ const CalculatationOTD = () => {
         </View>
       )}
 
-      <View className="absolute bottom-0 w-full border-t border-gray-300 py-4 bg-white">
-        <View className="flex-row justify-around">
-          <Pressable onPress={() => navigation.navigate("map")}>
-            <Text className="text-indigo-500 font-bold text-base">Map</Text>
+      <View style={styles.footer}>
+        <View style={styles.footerContent}>
+          <Pressable
+            onPress={() => navigation.navigate("map")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
+            <Text style={styles.footerText}>Map</Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("shop")}>
-            <Text className="text-indigo-500 font-bold text-base">
-              Cửa hàng
-            </Text>
+          <Pressable
+            onPress={() => navigation.navigate("shop")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
+            <Text style={styles.footerText}>Cửa hàng</Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("chat")}>
-            <Text className="text-indigo-500 font-bold text-base">
-              Tin nhắn
-            </Text>
+          <Pressable
+            onPress={() => navigation.navigate("chat")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
+            <Text style={styles.footerText}>Tin nhắn</Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("settings")}>
-            <Text className="text-indigo-500 font-bold text-base">Cài đặt</Text>
+          <Pressable
+            onPress={() => navigation.navigate("settings")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="cog" size={24} color="#4F46E5" />
+            <Text style={styles.footerText}>Cài đặt</Text>
           </Pressable>
         </View>
       </View>
@@ -128,10 +147,9 @@ const CalculatationOTD = () => {
 
 export default CalculatationOTD;
 
-
 const styles = StyleSheet.create({
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 30,
     left: 10,
     zIndex: 1,

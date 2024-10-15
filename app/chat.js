@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useLayoutEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+} from "react";
 import {
   TouchableOpacity,
   Text,
@@ -98,18 +103,31 @@ export default function Chat() {
       />
       <View style={styles.bottomNav}>
         <View style={styles.bottomNavContent}>
-          <TouchableOpacity onPress={handleGoBack}>
+          <Pressable onPress={handleGoBack} style={styles.footerItem}>
+            <FontAwesome5 name="home" size={24} color="#4F46E5" />
             <Text style={styles.navText}>Trang chủ</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("todaysGoal")}>
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("todaysGoal")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="bullseye" size={24} color="#4F46E5" />
             <Text style={styles.navText}>Mục tiêu</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("mealPlanner")}>
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("mealPlanner")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="utensils" size={24} color="#4F46E5" />
             <Text style={styles.navText}>Bữa ăn</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
+          </Pressable>
+
+          <Pressable style={styles.footerItem}>
+            <FontAwesome5 name="comments" size={24} color="#4F46E5" />
             <Text style={[styles.navText, styles.activeNavText]}>Chat</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>

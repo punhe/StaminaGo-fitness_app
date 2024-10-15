@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Pressable, TextInput, Modal } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  TextInput,
+  Modal,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const TodaysGoals = () => {
@@ -14,14 +23,19 @@ const TodaysGoals = () => {
   const [newGoal, setNewGoal] = useState("");
 
   const toggleGoal = (id) => {
-    setGoals(goals.map(goal => 
-      goal.id === id ? { ...goal, completed: !goal.completed } : goal
-    ));
+    setGoals(
+      goals.map((goal) =>
+        goal.id === id ? { ...goal, completed: !goal.completed } : goal
+      )
+    );
   };
 
   const addGoal = () => {
     if (newGoal.trim() !== "") {
-      setGoals([...goals, { id: goals.length + 1, title: newGoal, completed: false }]);
+      setGoals([
+        ...goals,
+        { id: goals.length + 1, title: newGoal, completed: false },
+      ]);
       setNewGoal("");
       setModalVisible(false);
     }
@@ -30,7 +44,7 @@ const TodaysGoals = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Mục tiêu hôm nay</Text>
-      
+
       <ScrollView style={styles.scrollView}>
         {goals.map((goal) => (
           <TouchableOpacity
@@ -38,7 +52,12 @@ const TodaysGoals = () => {
             style={[styles.goalItem, goal.completed && styles.completedGoal]}
             onPress={() => toggleGoal(goal.id)}
           >
-            <Text style={[styles.goalText, goal.completed && styles.completedGoalText]}>
+            <Text
+              style={[
+                styles.goalText,
+                goal.completed && styles.completedGoalText,
+              ]}
+            >
               {goal.title}
             </Text>
             <Text style={styles.checkmark}>{goal.completed ? "✓" : ""}</Text>
@@ -82,23 +101,39 @@ const TodaysGoals = () => {
 
       <View style={styles.bottomNav}>
         <View style={styles.bottomNavContent}>
-        <Pressable onPress={() => navigation.navigate("mealPlanner")}>
+          <Pressable
+            onPress={() => navigation.navigate("mealPlanner")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="utensils" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">Bữa ăn</Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("shop")}>
+          <Pressable
+            onPress={() => navigation.navigate("shop")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">
               Cửa hàng
             </Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("chat")}>
+          <Pressable
+            onPress={() => navigation.navigate("chat")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">
               Tin nhắn
             </Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("settings")}>
+          <Pressable
+            onPress={() => navigation.navigate("settings")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="cog" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">Cài đặt</Text>
           </Pressable>
         </View>
@@ -187,7 +222,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     backgroundColor: "white",
@@ -197,11 +232,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   input: {
     height: 40,
@@ -225,7 +260,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
 });
 

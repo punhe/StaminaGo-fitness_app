@@ -1,13 +1,36 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput, Modal } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  Modal,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const MealPlanner = () => {
   const navigation = useNavigation();
   const [meals, setMeals] = useState([
-    { id: 1, name: "Bữa sáng", foods: [{ name: "Bánh mì", calories: 200 }], totalCalories: 200 },
-    { id: 2, name: "Bữa trưa", foods: [{ name: "Cơm gà", calories: 500 }], totalCalories: 500 },
-    { id: 3, name: "Bữa tối", foods: [{ name: "Salad", calories: 300 }], totalCalories: 300 },
+    {
+      id: 1,
+      name: "Bữa sáng",
+      foods: [{ name: "Bánh mì", calories: 200 }],
+      totalCalories: 200,
+    },
+    {
+      id: 2,
+      name: "Bữa trưa",
+      foods: [{ name: "Cơm gà", calories: 500 }],
+      totalCalories: 500,
+    },
+    {
+      id: 3,
+      name: "Bữa tối",
+      foods: [{ name: "Salad", calories: 300 }],
+      totalCalories: 300,
+    },
   ]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMealId, setSelectedMealId] = useState(null);
@@ -16,14 +39,22 @@ const MealPlanner = () => {
   const addFood = () => {
     if (newFood.name && newFood.calories && selectedMealId) {
       const calories = parseInt(newFood.calories);
-      setMeals(meals.map(meal => {
-        if (meal.id === selectedMealId) {
-          const updatedFoods = [...meal.foods, { name: newFood.name, calories }];
-          const totalCalories = updatedFoods.reduce((sum, food) => sum + food.calories, 0);
-          return { ...meal, foods: updatedFoods, totalCalories };
-        }
-        return meal;
-      }));
+      setMeals(
+        meals.map((meal) => {
+          if (meal.id === selectedMealId) {
+            const updatedFoods = [
+              ...meal.foods,
+              { name: newFood.name, calories },
+            ];
+            const totalCalories = updatedFoods.reduce(
+              (sum, food) => sum + food.calories,
+              0
+            );
+            return { ...meal, foods: updatedFoods, totalCalories };
+          }
+          return meal;
+        })
+      );
       setNewFood({ name: "", calories: "" });
       setModalVisible(false);
     }
@@ -36,11 +67,13 @@ const MealPlanner = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Kế hoạch ăn uống</Text>
-      
+
       <ScrollView style={styles.scrollView}>
         {meals.map((meal) => (
           <View key={meal.id} style={styles.mealContainer}>
-            <Text style={styles.mealTitle}>{meal.name} - {meal.totalCalories} calo</Text>
+            <Text style={styles.mealTitle}>
+              {meal.name} - {meal.totalCalories} calo
+            </Text>
             {meal.foods.map((food, index) => (
               <Text key={index} style={styles.foodItem}>
                 {food.name} - {food.calories} calo
@@ -81,7 +114,9 @@ const MealPlanner = () => {
             />
             <TextInput
               style={styles.input}
-              onChangeText={(text) => setNewFood({ ...newFood, calories: text })}
+              onChangeText={(text) =>
+                setNewFood({ ...newFood, calories: text })
+              }
               value={newFood.calories}
               placeholder="Số calo"
               keyboardType="numeric"
@@ -101,19 +136,39 @@ const MealPlanner = () => {
 
       <View style={styles.bottomNav}>
         <View style={styles.bottomNavContent}>
-       
-          <TouchableOpacity onPress={() => navigation.navigate("todaysGoal")}>
-            <Text style={styles.navText}>Mục tiêu</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={[styles.navText, styles.activeNavText]}>Bữa ăn</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("profile")}>
-            <Text style={styles.navText}>Hồ sơ</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("settings")}>
-            <Text style={styles.navText}>Cài đặt</Text>
-          </TouchableOpacity>
+          <Pressable
+            onPress={() => navigation.navigate("todaysGoal")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="bullseye" size={24} color="#4F46E5" />
+            <Text style={styles.footerText}>Mục tiêu</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("meals")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="utensils" size={24} color="#4F46E5" />
+            <Text style={[styles.footerText, styles.activeFooterText]}>
+              Bữa ăn
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("profile")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="user" size={24} color="#4F46E5" />
+            <Text style={styles.footerText}>Hồ sơ</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("settings")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="cog" size={24} color="#4F46E5" />
+            <Text style={styles.footerText}>Cài đặt</Text>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -187,7 +242,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     backgroundColor: "white",
