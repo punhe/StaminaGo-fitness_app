@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Pressable, Alert, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Alert,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../colors";
 
@@ -132,23 +139,39 @@ const TimerOTD = () => {
 
       <View className="w-full border-t border-gray-300 py-4 bg-white">
         <View className="flex-row justify-around">
-          <Pressable onPress={() => navigation.navigate("map")}>
+          <Pressable
+            onPress={() => navigation.navigate("map")}
+            className="items-center"
+          >
+            <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">Map</Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("shop")}>
+          <Pressable
+            onPress={() => navigation.navigate("shop")}
+            className="items-center"
+          >
+            <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">
               Cửa hàng
             </Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("chat")}>
+          <Pressable
+            onPress={() => navigation.navigate("chat")}
+            className="items-center"
+          >
+            <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">
               Tin nhắn
             </Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("settings")}>
+          <Pressable
+            onPress={() => navigation.navigate("settings")}
+            className="items-center"
+          >
+            <FontAwesome5 name="cog" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">Cài đặt</Text>
           </Pressable>
         </View>
@@ -161,7 +184,7 @@ export default TimerOTD;
 
 const styles = StyleSheet.create({
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 30,
     left: 10,
     zIndex: 1,

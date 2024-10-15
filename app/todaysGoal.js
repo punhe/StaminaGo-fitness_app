@@ -101,7 +101,19 @@ const TodaysGoals = () => {
 
       <View style={styles.bottomNav}>
         <View style={styles.bottomNavContent}>
-          <Pressable onPress={() => navigation.navigate("shop")}>
+          <Pressable
+            onPress={() => navigation.navigate("mealPlanner")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="utensils" size={24} color="#4F46E5" />
+            <Text className="text-indigo-500 font-bold text-base">Bữa ăn</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("shop")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">
               Cửa hàng
             </Text>
@@ -110,13 +122,21 @@ const TodaysGoals = () => {
             <Text className="text-indigo-500 font-bold text-base">Bữa ăn</Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("chat")}>
+          <Pressable
+            onPress={() => navigation.navigate("chat")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">
               Tin nhắn
             </Text>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("settings")}>
+          <Pressable
+            onPress={() => navigation.navigate("settings")}
+            style={styles.footerItem}
+          >
+            <FontAwesome5 name="cog" size={24} color="#4F46E5" />
             <Text className="text-indigo-500 font-bold text-base">Cài đặt</Text>
           </Pressable>
         </View>
