@@ -15,6 +15,8 @@ import Order from "./order";
 import { OrderProvider } from "../context/orderContext";
 import OrdersScreen from "./orderScreen";
 import Profile from "./profile";
+import WorkoutOTD from "./workoutOTD";
+import WorkoutDetail from "./workoutOTDDetails";
 
 const Stack = createStackNavigator();
 
@@ -62,6 +64,8 @@ const Layout = () => (
       <Stack.Screen name="Order" component={Order} />
       <Stack.Screen name="Orders" component={OrdersScreen} />
       <Stack.Screen name="profile" component={Profile} />
+      <Stack.Screen name="WorkoutOTD" component={WorkoutOTD} />
+      <Stack.Screen name="WorkoutOTDDetails" component={WorkoutDetail} />
     </Stack.Navigator>
   </CartProvider>
 );

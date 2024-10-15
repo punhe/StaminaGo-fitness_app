@@ -1,57 +1,44 @@
-import { View, Text, TouchableOpacity, ImageBackground, FlatList, Pressable } from 'react-native';
 import React from 'react';
+import { View, Text, TouchableOpacity, ImageBackground, FlatList, Pressable, SafeAreaView, StyleSheet } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { workouts } from '../utils/workoutData';
 
-const workoutImages = {
-    pushup: require("../assets/images/chongday.jpg"),
-    squat: require("../assets/images/squat.jpg"),
-    plank: require("../assets/images/plank.jpg"),
-    lunges: require("../assets/images/lunges.jpg"),
-    jumpingJacks: require("../assets/images/jumpingjacks.jpg"),
-    burpees: require("../assets/images/burpees.jpg"),
-    yoga: require("../assets/images/yoga.jpg"),
-    running: require("../assets/images/running.jpg"),
-};
-
-const WorkoutOTD = ({ navigation }) => {
-    const workouts = [
-        { id: '1', title: 'Chống đẩy', description: 'Tăng cường cơ tay và ngực', image: workoutImages.pushup },
-        { id: '2', title: 'Squat', description: 'Tăng cường cơ chân và mông', image: workoutImages.squat },
-        { id: '3', title: 'Plank', description: 'Tăng cường cơ bụng và lưng', image: workoutImages.plank },
-        { id: '4', title: 'Lunges', description: 'Tăng cường cơ chân và mông', image: workoutImages.lunges },
-        { id: '5', title: 'Jumping Jacks', description: 'Đốt cháy calo và tăng cường sức bền', image: workoutImages.jumpingJacks },
-        { id: '6', title: 'Burpees', description: 'Bài tập toàn thân giảm mỡ', image: workoutImages.burpees },
-        { id: '7', title: 'Yoga', description: 'Cải thiện sự linh hoạt và thăng bằng', image: workoutImages.yoga },
-        { id: '8', title: 'Chạy bộ', description: 'Tăng cường sức khỏe tim mạch', image: workoutImages.running },
-    ];
+const WorkoutOTD = () => {
+    const navigation = useNavigation();
 
     const renderWorkoutCard = ({ item }) => (
-        <TouchableOpacity className="mb-6">
-            <View className="rounded-3xl overflow-hidden bg-white shadow-lg mx-auto" style={{ width: '90%', marginBottom: 16, marginLeft: 20 }}>
-                <ImageBackground
-                    source={item.image}
-                    className="h-40 w-full"
-                    resizeMode="cover"
-                />
-                <View className="p-4">
-                    <Text className="text-black text-lg font-bold text-center">{item.title}</Text>
-                    <Text className="text-black/70 text-sm text-center">{item.description}</Text>
+        <TouchableOpacity 
+            style={styles.workoutCard}
+            onPress={() => navigation.navigate('workoutOTDDetails', { workout: item })}
+        >
+            <ImageBackground
+                source={item.image}
+                style={styles.workoutCardImage}
+                imageStyle={styles.workoutCardImageStyle}
+            >
+                <View style={styles.workoutCardOverlay}>
+                    <Text style={styles.workoutCardTitle}>{item.title}</Text>
                 </View>
-            </View>
+            </ImageBackground>
         </TouchableOpacity>
     );
 
     return (
-        <View style={{ paddingTop: 20, flex: 1, backgroundColor: '#F3F4F6' }}>
-            {/* Header - Workout of the Day */}
-            <View className="items-center justify-center mb-6 mt-4">
-                <View className="rounded-3xl overflow-hidden h-48 w-[90%] shadow-lg">
-                    <ImageBackground
-                        source={require("../assets/images/anh1.jpg")}
-                        className="flex-1 justify-center items-center"
-                        resizeMode="cover"
-                    >
-                    </ImageBackground>
-                </View>
+        <SafeAreaView style={styles.container}>
+            {/* Header */}
+            <View style={styles.header}>
+                <Text style={styles.headerText}>Bài tập hôm nay</Text>
+            </View>
+
+            {/* Workout of the Day Banner */}
+            <View style={styles.bannerContainer}>
+                <ImageBackground
+                    source={require("../assets/images/anh1.jpg")}
+                    style={styles.bannerImage}
+                    imageStyle={styles.bannerImageStyle}
+                >
+                </ImageBackground>
             </View>
 
             {/* Danh sách các bài tập */}
@@ -59,31 +46,132 @@ const WorkoutOTD = ({ navigation }) => {
                 data={workouts}
                 renderItem={renderWorkoutCard}
                 keyExtractor={item => item.id}
-                contentContainerStyle={{ paddingBottom: 120 }}
+                contentContainerStyle={styles.workoutList}
             />
 
             {/* Footer Navigation */}
-            <View className="absolute bottom-0 w-full border-t border-gray-300 py-4 bg-white shadow-lg">
-                <View className="flex-row justify-around">
-                    <Pressable onPress={() => navigation.navigate("map")} className="items-center">
-                        <Text className="text-indigo-500 font-bold text-base">Bản đồ</Text>
+            <View style={styles.footer}>
+                <View style={styles.footerContent}>
+                    <Pressable onPress={() => navigation.navigate("map")} style={styles.footerItem}>
+                        <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
+                        <Text style={styles.footerText}>Bản đồ</Text>
                     </Pressable>
 
-                    <Pressable onPress={() => navigation.navigate("shop")} className="items-center">
-                        <Text className="text-indigo-500 font-bold text-base">Cửa hàng</Text>
+                    <Pressable onPress={() => navigation.navigate("shop")} style={styles.footerItem}>
+                        <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
+                        <Text style={styles.footerText}>Cửa hàng</Text>
                     </Pressable>
 
-                    <Pressable onPress={() => navigation.navigate("chat")} className="items-center">
-                        <Text className="text-indigo-500 font-bold text-base">Tin nhắn</Text>
+                    <Pressable onPress={() => navigation.navigate("chat")} style={styles.footerItem}>
+                        <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
+                        <Text style={styles.footerText}>Tin nhắn</Text>
                     </Pressable>
 
-                    <Pressable onPress={() => navigation.navigate("settings")} className="items-center">
-                        <Text className="text-indigo-500 font-bold text-base">Cài đặt</Text>
+                    <Pressable onPress={() => navigation.navigate("settings")} style={styles.footerItem}>
+                        <FontAwesome5 name="cog" size={24} color="#4F46E5" />
+                        <Text style={styles.footerText}>Cài đặt</Text>
                     </Pressable>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F3F4F6',
+    },
+    header: {
+        backgroundColor: '#4F46E5',
+        padding: 20,
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+    },
+    headerText: {
+        color: 'white',
+        fontSize: 26,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    bannerContainer: {
+        marginTop: 20,
+        marginBottom: 10,
+        paddingHorizontal: 15,
+    },
+    bannerImage: {
+        height: 200,
+        justifyContent: 'flex-end',
+    },
+    bannerImageStyle: {
+        borderRadius: 15,
+    },
+    bannerOverlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        padding: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+    },
+    bannerText: {
+        color: 'white',
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    workoutList: {
+        paddingHorizontal: 15,
+        paddingBottom: 100,
+    },
+    workoutCard: {
+        marginBottom: 15,
+        borderRadius: 12,
+        overflow: 'hidden',
+        elevation: 3,
+        backgroundColor: 'white',
+    },
+    workoutCardImage: {
+        height: 150,
+        justifyContent: 'flex-end',
+    },
+    workoutCardImageStyle: {
+        borderRadius: 12,
+    },
+    workoutCardOverlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        padding: 12,
+    },
+    workoutCardTitle: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        backgroundColor: 'white',
+        borderTopWidth: 1,
+        borderTopColor: '#E5E7EB',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: -3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 5,
+    },
+    footerContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    footerItem: {
+        alignItems: 'center',
+    },
+    footerText: {
+        color: '#4F46E5',
+        fontWeight: 'bold',
+        fontSize: 12,
+        marginTop: 5,
+    },
+});
 
 export default WorkoutOTD;

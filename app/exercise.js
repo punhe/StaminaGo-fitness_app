@@ -1,87 +1,119 @@
 import React from "react";
-import { View, Text, Button, TouchableOpacity, StyleSheet, Pressable } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Pressable, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const ExerciseHome = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Chào mừng tới app của tôi</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.header}>Tập luyện thôi</Text>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("workoutOTD")}
-      >
-        <Text style={styles.buttonText}>Các bài tập</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("workoutOTD")}
+        >
+          <FontAwesome5 name="dumbbell" size={24} color="#4F46E5" />
+          <Text style={styles.cardText}>Các bài tập</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("timerOTD")}
-      >
-        <Text style={styles.buttonText}>Bộ đếm thời gian</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("timerOTD")}
+        >
+          <FontAwesome5 name="stopwatch" size={24} color="#4F46E5" />
+          <Text style={styles.cardText}>Bộ đếm thời gian</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("calculatationOTD")}
-      >
-        <Text style={styles.buttonText}>Tính BMI</Text>
-      </TouchableOpacity>
-      <View className="absolute bottom-0 w-full border-t border-gray-300 py-4 bg-white">
-        <View className="flex-row justify-around">
-          <Pressable onPress={() => navigation.navigate("map")}>
-            <Text className="text-indigo-500 font-bold text-base">Map</Text>
-          </Pressable>
-
-          <Pressable onPress={() => navigation.navigate("shop")}>
-            <Text className="text-indigo-500 font-bold text-base">
-              Cửa hàng
-            </Text>
-          </Pressable>
-
-          <Pressable onPress={() => navigation.navigate("chat")}>
-            <Text className="text-indigo-500 font-bold text-base">
-              Tin nhắn
-            </Text>
-          </Pressable>
-
-          <Pressable onPress={() => navigation.navigate("settings")}>
-            <Text className="text-indigo-500 font-bold text-base">Cài đặt</Text>
-          </Pressable>
-        </View>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("calculatationOTD")}
+        >
+          <FontAwesome5 name="calculator" size={24} color="#4F46E5" />
+          <Text style={styles.cardText}>Tính BMI</Text>
+        </TouchableOpacity>
       </View>
-    </View>
+
+      <View style={styles.footer}>
+        <Pressable style={styles.footerItem} onPress={() => navigation.navigate("map")}>
+          <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
+          <Text style={styles.footerText}>Bản đồ</Text>
+        </Pressable>
+        <Pressable style={styles.footerItem} onPress={() => navigation.navigate("shop")}>
+          <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
+          <Text style={styles.footerText}>Cửa hàng</Text>
+        </Pressable>
+        <Pressable style={styles.footerItem} onPress={() => navigation.navigate("chat")}>
+          <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
+          <Text style={styles.footerText}>Tin nhắn</Text>
+        </Pressable>
+        <Pressable style={styles.footerItem} onPress={() => navigation.navigate("settings")}>
+          <FontAwesome5 name="cog" size={24} color="#4F46E5" />
+          <Text style={styles.footerText}>Cài đặt</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#f3f4f6",
+  },
+  content: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    paddingHorizontal: 20,
   },
   header: {
-    fontSize: 33,
+    fontSize: 28,
     fontWeight: "bold",
-    marginBottom: 20,
-    color: "#333",
+    marginBottom: 30,
+    color: "#1f2937",
   },
-  button: {
-    backgroundColor: "#6366F1",
-    paddingVertical: 15,
+  card: {
+    backgroundColor: "#ffffff",
+    paddingVertical: 20,
     paddingHorizontal: 25,
-    borderRadius: 10,
+    borderRadius: 15,
     marginVertical: 10,
-    width: "80%",
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  cardText: {
+    fontSize: 18,
+    color: "#4b5563",
+    fontWeight: "600",
+    marginLeft: 15,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    borderTopWidth: 1,
+    borderTopColor: "#e5e7eb",
+    paddingVertical: 10,
+    backgroundColor: "#ffffff",
+  },
+  footerItem: {
     alignItems: "center",
   },
-  buttonText: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
+  footerText: {
+    color: "#4F46E5",
+    fontSize: 12,
+    marginTop: 5,
   },
 });
 

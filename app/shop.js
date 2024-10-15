@@ -18,7 +18,7 @@ const products = [
     price: "100.000 đ",
     description:
       "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://via.placeholder.com/100",
+    image: "https://i.pinimg.com/736x/16/e2/cc/16e2ccfb32b560dd34d6589b38144e07.jpg",
   },
   {
     id: "2",
@@ -26,7 +26,7 @@ const products = [
     price: "100.000 đ",
     description:
       "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://via.placeholder.com/100",
+    image: "https://i.pinimg.com/564x/5f/f1/82/5ff182aeab48acfc961324b2f58819ad.jpg",
   },
   {
     id: "3",
@@ -42,7 +42,7 @@ const products = [
     price: "100.000 đ",
     description:
       "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://via.placeholder.com/100",
+    image: "https://i.pinimg.com/564x/ae/a9/70/aea97094a2d8c8d5c4481cdc0e5ef378.jpg",
   },
   {
     id: "5",
@@ -50,7 +50,7 @@ const products = [
     price: "100.000 đ",
     description:
       "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://via.placeholder.com/100",
+    image: "https://i.pinimg.com/564x/96/e3/f0/96e3f00385d73aa3d83b993e0dc2b790.jpg",
   },
   {
     id: "6",
@@ -58,7 +58,7 @@ const products = [
     price: "100.000 đ",
     description:
       "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://via.placeholder.com/100",
+    image: "https://i.pinimg.com/564x/42/52/da/4252dad5dc8fccae80de23b92521e84c.jpg",
   },
   {
     id: "7",
@@ -66,7 +66,7 @@ const products = [
     price: "100.000 đ",
     description:
       "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://via.placeholder.com/100",
+    image: "https://i.pinimg.com/564x/5b/ba/74/5bba74d7469911a4f702ffd41a7e7113.jpg",
   },
   {
     id: "8",
@@ -74,7 +74,7 @@ const products = [
     price: "100.000 đ",
     description:
       "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://via.placeholder.com/100",
+    image: "https://i.pinimg.com/564x/22/af/8d/22af8de94234518f2b2c31adcfeda183.jpg",
   },
 ];
 
