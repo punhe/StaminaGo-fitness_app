@@ -7,6 +7,7 @@ import {
   ScrollView,
   TextInput,
   Modal,
+  Pressable,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome5 } from '@expo/vector-icons';

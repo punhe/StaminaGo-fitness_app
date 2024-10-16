@@ -91,12 +91,7 @@ export default function SignIn() {
                   placeholderTextColor={"gray"}
                 />
               </View>
-              <Text
-                style={{ fontSize: hp(1.8) }}
-                className="font-semibold text-right text-neutral-800"
-              >
-                Quên mật khẩu?
-              </Text>
+              
             </View>
 
             <View>

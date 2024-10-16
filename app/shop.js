@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Alert
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { CartContext } from "../context/cartContext";
@@ -81,7 +82,13 @@ const products = [
 const ProductCard = ({ item }) => {
   const navigation = useNavigation();
   const { addToCart } = useContext(CartContext);
-
+  const handleAddToCart = () => {
+    addToCart(item); // Add product to cart through CartContext
+    Alert.alert(
+      "Added to Cart",
+      `${item.name} has been added to your cart.`
+    );
+  };
   return (
     <TouchableOpacity
       style={styles.card}
@@ -97,7 +104,8 @@ const ProductCard = ({ item }) => {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => addToCart(item)}
+            onPress= {handleAddToCart}
+            
           >
             <Text style={{ color: "white", fontSize:12 }}>Thêm vào giỏ hàng</Text>
           </TouchableOpacity>

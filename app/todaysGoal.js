@@ -119,10 +119,7 @@ const TodaysGoals = () => {
               Cửa hàng
             </Text>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("mealPlanner")}>
-            <Text className="text-indigo-500 font-bold text-base">Bữa ăn</Text>
-          </Pressable>
-
+          
           <Pressable
             onPress={() => navigation.navigate("chat")}
             style={styles.footerItem}
