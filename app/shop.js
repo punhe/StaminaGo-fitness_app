@@ -6,89 +6,21 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Alert
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { CartContext } from "../context/cartContext";
 import { useContext } from "react";
 
-const products = [
-  {
-    id: "1",
-    name: "Sữa tăng cơ ON Whey Gold Standard (2Lbs, 5Lbs)",
-    price: "100.000 đ",
-    description:
-      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://i.pinimg.com/736x/16/e2/cc/16e2ccfb32b560dd34d6589b38144e07.jpg",
-  },
-  {
-    id: "2",
-    name: "Rule 1 Protein | R1 Protein 5lbs Sữa Whey Tăng Cơ Giảm Mỡ",
-    price: "100.000 đ",
-    description:
-      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://i.pinimg.com/564x/5f/f1/82/5ff182aeab48acfc961324b2f58819ad.jpg",
-  },
-  {
-    id: "3",
-    name: "Whey protein tốt nhất 2024 Ascent Native Whey 'Informed-Choice'",
-    price: "100.000 đ",
-    description:
-      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://i.pinimg.com/736x/1f/6e/bb/1f6ebbe78a8d3f5b8fd78fe0fa8976c6.jpg",
-  },
-  {
-    id: "4",
-    name: "Whey Protein có hương vị ngon nhất 100% Grass-Fed Isolate",
-    price: "100.000 đ",
-    description:
-      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://i.pinimg.com/564x/ae/a9/70/aea97094a2d8c8d5c4481cdc0e5ef378.jpg",
-  },
-  {
-    id: "5",
-    name: "On Whey Gold 2lbs - Thực phẩm bổ sung hỗ trợ tăng cơ Whey",
-    price: "100.000 đ",
-    description:
-      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://i.pinimg.com/564x/96/e3/f0/96e3f00385d73aa3d83b993e0dc2b790.jpg",
-  },
-  {
-    id: "6",
-    name: "Hydrolyzed Whey Protein EHPlabs ISOPEPT : Thuỷ phân",
-    price: "100.000 đ",
-    description:
-      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://i.pinimg.com/564x/42/52/da/4252dad5dc8fccae80de23b92521e84c.jpg",
-  },
-  {
-    id: "7",
-    name: "Prohydrolase Whey Protein Isolate bổ sung đạm KAGED 3lbs",
-    price: "100.000 đ",
-    description:
-      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://i.pinimg.com/564x/5b/ba/74/5bba74d7469911a4f702ffd41a7e7113.jpg",
-  },
-  {
-    id: "8",
-    name: "Whey Protein 'Body Fortress' số 1 USA 810g : chứa Vitamin",
-    price: "100.000 đ",
-    description:
-      "Loại dinh dưỡng: amino axit, BCAA, Chất đạm\nHạn sử dụng: 24 tháng\nXuất xứ: Mỹ\nKiểu đóng gói: Hộp\nGiới tính: Unisex\nMẫu sản phẩm: bột\nChức năng hỗ trợ thể hình: Tăng cơ, Sau tập luyện và phục hồi, Chất đạm\nNgày hết hạn: 01-09-2026\nTên tổ chức chịu trách nhiệm sản xuất: Gymstore\nGửi từ: TP. Hồ Chí Minh",
-    image: "https://i.pinimg.com/564x/22/af/8d/22af8de94234518f2b2c31adcfeda183.jpg",
-  },
-];
-
 const ProductCard = ({ item }) => {
   const navigation = useNavigation();
   const { addToCart } = useContext(CartContext);
+
   const handleAddToCart = () => {
     addToCart(item); // Add product to cart through CartContext
-    Alert.alert(
-      "Added to Cart",
-      `${item.name} has been added to your cart.`
-    );
+    Alert.alert("Added to Cart", `${item.name} has been added to your cart.`);
   };
+
   return (
     <TouchableOpacity
       style={styles.card}
@@ -98,23 +30,60 @@ const ProductCard = ({ item }) => {
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={{ flex: 2, alignItems: "flex-end" }}>
           <Text style={styles.productName}>{item.name}</Text>
-          <Text style={styles.productPrice}>
-            {item.price.toLocaleString("vi-VN")}
-          </Text>
-
+          <view>
+            <Text style={styles.productPrice}>
+              {item.price.toLocaleString("vi-VN")}
+            </Text>
+            <Text style={styles.productPrice}>còn {item.quality}</Text>
+          </view>
           <TouchableOpacity
-            style={styles.button}
-            onPress= {handleAddToCart}
-            
+            style={
+              product.quantity <= 0
+                ? [styles.button, { backgroundColor: "gray" }]
+                : styles.button
+            }
+            onPress={handleAddToCart}
+            disabled={product.quantity <= 0}
           >
-            <Text style={{ color: "white", fontSize:12 }}>Thêm vào giỏ hàng</Text>
+            <Text style={{ color: "white", fontSize: 12 }}>
+              Thêm vào giỏ hàng
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </TouchableOpacity>
   );
 };
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          "https://mma-be-0n61.onrender.com/api/product"
+        ); // Fetch from your backend API
+        const data = await response.json();
+        setProducts(data); // Set the fetched data to the state
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts(); // Fetch products when the component mounts
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+};
 const Shop = () => {
   const navigation = useNavigation();
 
