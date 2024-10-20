@@ -47,33 +47,39 @@ const Order = () => {
   const handleMoMoPayment = async () => {
     setIsLoading(true);
     try {
+      // Send the payment request to your backend
       const response = await axios.post(
         "https://apply-momo-to-order.onrender.com/payment",
         {
-          amount: total.toString(),
-          orderInfo: "Thanh toán đơn hàng",
+          amount: total.toString(), // Ensure 'total' is being passed as a string
+          orderInfo: "Thanh toán đơn hàng", // Order info for MoMo
         }
       );
 
+      // Check if the response contains the payUrl
       if (response.data && response.data.payUrl) {
-        const orderId = new Date().getTime().toString();
+        const orderId = new Date().getTime().toString(); // Generate a unique orderId
+
+        // Save the order in your state or database
         addOrder({
           id: orderId,
           items: cartItems,
           total: total,
           date: new Date(),
-          isPaid: false,
+          isPaid: false, // Order is not yet paid
         });
-        //updateProductQuantities();
+
+        // Redirect the user to the payment URL
         await Linking.openURL(response.data.payUrl);
       } else {
+        // If payUrl is missing in the response, show an alert
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
       }
     } catch (error) {
       console.error("Payment error:", error);
       Alert.alert("Lỗi", "Có lỗi xảy ra khi xử lý thanh toán");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Stop the loading spinner
     }
   };
 
