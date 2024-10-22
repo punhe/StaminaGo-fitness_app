@@ -37,6 +37,7 @@ const ProductDetail = () => {
           justifyContent: "flex-end",
         }}
       >
+        <Text style={styles.productPrice}>Còn {product.quality}</Text>
         <Text style={styles.productPrice}>{product.price}</Text>
       </View>
 
@@ -45,11 +46,16 @@ const ProductDetail = () => {
       </ScrollView>
 
       <TouchableOpacity
-            style={styles.button}
-            onPress={handleAddToCart}
-          >
-            <Text style={styles.text}>Thêm vào giỏ hàng</Text>
-          </TouchableOpacity>
+        style={
+          product.quantity <= 0
+            ? [styles.button, { backgroundColor: "gray" }]
+            : styles.button
+        }
+        onPress={handleAddToCart}
+        disabled={product.quantity <= 0} // Disable the button if quantity <= 0
+      >
+        <Text style={styles.text}>Thêm vào giỏ hàng</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 18,
     color: "red",
-    fontWeight:"700",
+    fontWeight: "700",
     marginBottom: 10,
     marginLeft: 10,
     alignItems: "flex-end",
@@ -101,7 +107,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
-    pointerEvents:"box-only",
+    pointerEvents: "box-only",
     backgroundColor: "#E5E7EB", // Fixed background color value
   },
   productQuantity: {

@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { CartContext } from "../context/cartContext";
 import { OrderContext } from "../context/orderContext";
-
+import { ProductContext } from "../context/productContext";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -23,10 +23,10 @@ const SHIPPING_FEE = 20000;
 
 const Order = () => {
   const navigation = useNavigation();
-  const { cartItems, clearCart } = useContext(CartContext);
+  const { cartItems, clearCart, removeFromCartt } = useContext(CartContext);
   const { addOrder, updateOrderStatus } = useContext(OrderContext);
   const [isLoading, setIsLoading] = useState(false);
-  // const { updateProductQuantity } = useContext(ProductContext);
+  const { updateProductQuantity } = useContext(ProductContext);
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((sum, item) => {
@@ -37,43 +37,49 @@ const Order = () => {
 
   const total = subtotal + SHIPPING_FEE;
 
-  // const updateProductQuantities = () => {
-  //   cartItems.forEach((item) => {
-  //     console.log(item);
-  //     updateProductQuantity(item.id, -item.quantity);
-  //   });
-  // };
+  const updateProductQuantities = () => {
+    cartItems.forEach((item) => {
+      console.log(item);
+      removeFromCartt(item.id, item.quantity);
+    });
+  };
 
   const handleMoMoPayment = async () => {
     setIsLoading(true);
     try {
+      // Send the payment request to your backend
       const response = await axios.post(
         "https://apply-momo-to-order.onrender.com/payment",
         {
-          amount: total.toString(),
-          orderInfo: "Thanh toán đơn hàng",
+          amount: total.toString(), // Ensure 'total' is being passed as a string
+          orderInfo: "Thanh toán đơn hàng", // Order info for MoMo
         }
       );
 
+      // Check if the response contains the payUrl
       if (response.data && response.data.payUrl) {
-        const orderId = new Date().getTime().toString();
+        const orderId = new Date().getTime().toString(); // Generate a unique orderId
+
+        // Save the order in your state or database
         addOrder({
           id: orderId,
           items: cartItems,
           total: total,
           date: new Date(),
-          isPaid: false,
+          isPaid: false, // Order is not yet paid
         });
-        //updateProductQuantities();
+
+        // Redirect the user to the payment URL
         await Linking.openURL(response.data.payUrl);
       } else {
+        // If payUrl is missing in the response, show an alert
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
       }
     } catch (error) {
       console.error("Payment error:", error);
       Alert.alert("Lỗi", "Có lỗi xảy ra khi xử lý thanh toán");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Stop the loading spinner
     }
   };
 
@@ -103,7 +109,7 @@ const Order = () => {
                 {
                   text: "OK",
                   onPress: () => {
-                    clearCart();
+                    removeFromCart();
                     navigation.navigate("orderScreen");
                   },
                 },
@@ -124,47 +130,47 @@ const Order = () => {
   };
 
   return (
-    <View style={{justifyContent:"center", alignItems:"center"}}>
-    <View className="items-center">
-          <Image
-            style={{ height: hp(40), margin:"auto" }}
-            resizeMode="contain"
-            source={require("../assets/images/login.png")}
-          />
-        </View>
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handlePlaceOrder}
-        disabled={isLoading}
-      >
-        <Text style={styles.text}>
-          {isLoading ? "Đang xử lý..." : "Đặt hàng"}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={styles.text}>Quay lại giỏ hàng</Text>
-      </TouchableOpacity>
+    <View style={{ justifyContent: "center", alignItems: "center" }}>
+      <View className="items-center">
+        <Image
+          style={{ height: hp(40), margin: "auto" }}
+          resizeMode="contain"
+          source={require("../assets/images/login.png")}
+        />
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handlePlaceOrder}
+          disabled={isLoading}
+        >
+          <Text style={styles.text}>
+            {isLoading ? "Đang xử lý..." : "Đặt hàng"}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.text}>Quay lại giỏ hàng</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("orderScreen")}
-      >
-        <Text style={styles.text}>Xem đơn hàng</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("orderScreen")}
+        >
+          <Text style={styles.text}>Xem đơn hàng</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-  width:"80%",
+    width: "80%",
     padding: 10,
-    justifyContent:"flex-end"
+    justifyContent: "flex-end",
   },
   button: {
     backgroundColor: "#3F51B5", // Màu nền
