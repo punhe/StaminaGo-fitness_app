@@ -34,7 +34,9 @@ const ProductCard = ({ item }) => {
             <Text style={styles.productPrice}>
               {item.price.toLocaleString("vi-VN")}
             </Text>
-            <Text style={styles.productPrice}>còn {item.quality}</Text>
+            <Text style={styles.productPrice}>
+              {item.quality > 0 ? `còn ${item.quality}` : "hết hàng"}
+            </Text>
           </view>
           <TouchableOpacity
             style={

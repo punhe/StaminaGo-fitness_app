@@ -37,7 +37,10 @@ const ProductDetail = () => {
           justifyContent: "flex-end",
         }}
       >
-        <Text style={styles.productPrice}>Còn {product.quality}</Text>
+        <Text style={styles.productPrice}>
+          {item.quality > 0 ? `còn ${item.quality}` : "hết hàng"}
+        </Text>
+
         <Text style={styles.productPrice}>{product.price}</Text>
       </View>
 

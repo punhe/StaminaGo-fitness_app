@@ -3,12 +3,10 @@ import {
   View,
   Text,
   StyleSheet,
-  FlatList,
-  Button,
-  Alert,
-  Linking,
   TouchableOpacity,
   Image,
+  Alert,
+  Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
@@ -19,12 +17,14 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
 const SHIPPING_FEE = 20000;
+const ORDER_API_URL = "https://mma-be-0n61.onrender.com/api/orders"; // Replace with your actual API URL
 
 const Order = () => {
   const navigation = useNavigation();
   const { cartItems, clearCart, removeFromCartt } = useContext(CartContext);
-  const { addOrder, updateOrderStatus } = useContext(OrderContext);
+  const { addOrder } = useContext(OrderContext);
   const [isLoading, setIsLoading] = useState(false);
   const { updateProductQuantity } = useContext(ProductContext);
 
@@ -39,87 +39,73 @@ const Order = () => {
 
   const updateProductQuantities = () => {
     cartItems.forEach((item) => {
-      console.log(item);
+      updateProductQuantity(item.id, item.quantity); // Adjust with your method to update quantity in the database
       removeFromCartt(item.id, item.quantity);
     });
   };
 
-  const handleMoMoPayment = async () => {
+  const handleCreateOrder = async (orderId) => {
+    try {
+      const response = await axios.post(ORDER_API_URL, {
+        id: orderId,
+        items: cartItems,
+        total: total,
+        date: new Date(),
+        isPaid: false,
+      });
+
+      if (response.status === 201) {
+        updateProductQuantities();
+        Alert.alert("Order Created", "Your order was placed successfully!");
+        clearCart();
+        navigation.navigate("orderScreen");
+      } else {
+        Alert.alert("Error", "Failed to create order.");
+      }
+    } catch (error) {
+      console.error("Order creation error:", error);
+      Alert.alert("Error", "An error occurred while creating the order.");
+    }
+  };
+
+  const handleMoMoPayment = async (orderId) => {
     setIsLoading(true);
     try {
-      // Send the payment request to your backend
       const response = await axios.post(
-        "https://apply-momo-to-order.onrender.com/payment",
+        "https://mma-be-0n61.onrender.com/api/payment",
         {
-          amount: total.toString(), // Ensure 'total' is being passed as a string
-          orderInfo: "Thanh toán đơn hàng", // Order info for MoMo
+          amount: total.toString(),
+          orderInfo: `Thanh toán đơn hàng${orderId}`,
         }
       );
 
-      // Check if the response contains the payUrl
       if (response.data && response.data.payUrl) {
-        const orderId = new Date().getTime().toString(); // Generate a unique orderId
-
-        // Save the order in your state or database
-        addOrder({
-          id: orderId,
-          items: cartItems,
-          total: total,
-          date: new Date(),
-          isPaid: false, // Order is not yet paid
-        });
-
-        // Redirect the user to the payment URL
+        await handleCreateOrder(orderId); // Ensure order is created in the backend
         await Linking.openURL(response.data.payUrl);
       } else {
-        // If payUrl is missing in the response, show an alert
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
       }
     } catch (error) {
       console.error("Payment error:", error);
       Alert.alert("Lỗi", "Có lỗi xảy ra khi xử lý thanh toán");
     } finally {
-      setIsLoading(false); // Stop the loading spinner
+      setIsLoading(false);
     }
   };
 
   const handlePlaceOrder = () => {
+    const orderId = new Date().getTime().toString();
     Alert.alert(
       "Xác nhận đặt hàng",
       "Bạn muốn thanh toán bằng phương thức nào?",
       [
         {
           text: "Thanh toán khi nhận hàng",
-          onPress: () => {
-            const orderId = new Date().getTime().toString();
-            addOrder({
-              id: orderId,
-              items: cartItems,
-              total: total,
-              date: new Date(),
-              isPaid: false,
-            });
-            updateProductQuantities();
-            Alert.alert(
-              "Đã đặt hàng",
-              `Đơn hàng của bạn trị giá ${total.toFixed(
-                3
-              )}đ đã được đặt thành công!`,
-              [
-                {
-                  text: "OK",
-                  onPress: () => {
-                    removeFromCart();
-                    navigation.navigate("orderScreen");
-                  },
-                },
-              ]
-            );
-          },
+          onPress: () => handleCreateOrder(orderId),
         },
         {
           text: "Thanh toán MoMo",
-          onPress: handleMoMoPayment,
+          onPress: () => handleMoMoPayment(orderId),
         },
         {
           text: "Hủy",
@@ -173,10 +159,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   button: {
-    backgroundColor: "#3F51B5", // Màu nền
-    padding: 15, // Padding bên trong
-    borderRadius: 8, // Bo góc
-    alignItems: "center", // Căn giữa nội dung
+    backgroundColor: "#3F51B5",
+    padding: 15,
+    borderRadius: 8,
+    alignItems: "center",
     marginTop: 10,
   },
   text: {
