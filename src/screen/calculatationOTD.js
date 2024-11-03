@@ -7,9 +7,9 @@ import {
   Alert,
   StyleSheet,
 } from "react-native";
-import colors from "../colors";
+import colors from "../../colors";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const CalculatationOTD = () => {
   const [weight, setWeight] = useState("");
@@ -50,65 +50,71 @@ const CalculatationOTD = () => {
   };
 
   return (
-    <View style={{ flex: 1, paddingTop: 60, backgroundColor: "#F3F4F6",justifyContent:"space-between" }}>
-    
+    <View
+      style={{
+        flex: 1,
+        paddingTop: 60,
+        backgroundColor: "#F3F4F6",
+        justifyContent: "space-between",
+      }}
+    >
       <Pressable onPress={handleGoBack} style={styles.backButton}>
         <Text style={styles.backButtonText}>{"<"} Back</Text>
       </Pressable>
       <View>
-      <Text className="text-2xl font-bold text-indigo-500 mb-4">
-        Tính toán BMI
-      </Text>
+        <Text className="text-2xl font-bold text-indigo-500 mb-4">
+          Tính toán BMI
+        </Text>
 
-      <Text className="text-lg mb-2">Nhập chiều cao (cm):</Text>
-      <TextInput
-        style={{
-          borderWidth: 1,
-          borderColor: "#E5E7EB",
-          borderRadius: 8,
-          padding: 10,
-          backgroundColor: "#FFFFFF",
-        }}
-        keyboardType="numeric"
-        placeholder="Chiều cao (cm)"
-        value={height}
-        onChangeText={setHeight}
-      />
+        <Text className="text-lg mb-2">Nhập chiều cao (cm):</Text>
+        <TextInput
+          style={{
+            borderWidth: 1,
+            borderColor: "#E5E7EB",
+            borderRadius: 8,
+            padding: 10,
+            backgroundColor: "#FFFFFF",
+          }}
+          keyboardType="numeric"
+          placeholder="Chiều cao (cm)"
+          value={height}
+          onChangeText={setHeight}
+        />
 
-      <Text className="text-lg mt-4 mb-2">Nhập cân nặng (kg):</Text>
-      <TextInput
-        style={{
-          borderWidth: 1,
-          borderColor: "#E5E7EB",
-          borderRadius: 8,
-          padding: 10,
-          backgroundColor: "#FFFFFF",
-        }}
-        keyboardType="numeric"
-        placeholder="Cân nặng (kg)"
-        value={weight}
-        onChangeText={setWeight}
-      />
+        <Text className="text-lg mt-4 mb-2">Nhập cân nặng (kg):</Text>
+        <TextInput
+          style={{
+            borderWidth: 1,
+            borderColor: "#E5E7EB",
+            borderRadius: 8,
+            padding: 10,
+            backgroundColor: "#FFFFFF",
+          }}
+          keyboardType="numeric"
+          placeholder="Cân nặng (kg)"
+          value={weight}
+          onChangeText={setWeight}
+        />
 
-      <Pressable
-        onPress={calculateBMI}
-        className="mt-6 bg-indigo-500 py-3 rounded-lg"
-        style={{
-          alignItems: "center",
-        }}
-      >
-        <Text className="text-white text-lg font-semibold">Tính BMI</Text>
-      </Pressable>
+        <Pressable
+          onPress={calculateBMI}
+          className="mt-6 bg-indigo-500 py-3 rounded-lg"
+          style={{
+            alignItems: "center",
+          }}
+        >
+          <Text className="text-white text-lg font-semibold">Tính BMI</Text>
+        </Pressable>
 
-      {bmi && (
-        <View style={{ marginTop: 20 }}>
-          <Text className="text-xl font-semibold text-indigo-600">
-            Chỉ số BMI của bạn: {bmi}
-          </Text>
-          <Text className="text-lg mt-2">Phân loại: {category}</Text>
-        </View>
-      )}
-</View>
+        {bmi && (
+          <View style={{ marginTop: 20 }}>
+            <Text className="text-xl font-semibold text-indigo-600">
+              Chỉ số BMI của bạn: {bmi}
+            </Text>
+            <Text className="text-lg mt-2">Phân loại: {category}</Text>
+          </View>
+        )}
+      </View>
       <View style={styles.bottomNav}>
         <View style={styles.bottomNavContent}>
           <Pressable
@@ -166,7 +172,6 @@ const styles = StyleSheet.create({
     borderTopColor: colors.lightGray,
     paddingVertical: 10,
     backgroundColor: colors.white,
-  
   },
   bottomNavContent: {
     flexDirection: "row",

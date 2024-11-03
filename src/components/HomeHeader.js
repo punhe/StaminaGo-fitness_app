@@ -6,7 +6,7 @@ import {
 } from "react-native-responsive-screen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
-import { blurhash } from "../utils/common";
+import { blurhash } from "../../utils/common";
 import { useAuth } from "../context/authContext";
 import {
   Menu,
@@ -15,22 +15,24 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import { MenuItem } from "./CustomMenuItems";
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native"; // Use this import for navigation
 import { AntDesign, Feather } from "@expo/vector-icons";
 
-const android = Platform.OS == "android";
+const android = Platform.OS === "android";
+
 export default function HomeHeader() {
   const { user, logout } = useAuth();
   const navigation = useNavigation();
-
   const { top } = useSafeAreaInsets();
+
   const handleProfile = () => {
-    navigation.navigate('profile');
+    navigation.navigate("Profile"); // Ensure the screen name matches your navigator
   };
 
   const handleLogout = async () => {
     await logout();
   };
+
   return (
     <View
       style={{ paddingTop: android ? top : top + 10 }}
@@ -65,7 +67,7 @@ export default function HomeHeader() {
                 borderCurve: "continuous",
                 marginTop: 40,
                 marginLeft: -30,
-                backgroundColor: "white"
+                backgroundColor: "white",
               },
             }}
           >
