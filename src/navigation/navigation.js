@@ -20,12 +20,13 @@ import calculatationOTD from "../screen/calculatationOTD";
 import MapPage from "../screen/map";
 import Chat from "../screen/chat";
 import Settings from "../screen/settings";
+import signUp from "../screen/signUp";
 const Stack = createStackNavigator();
 
 const AuthStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="startPage" component={StartPage} />
     <Stack.Screen name="signIn" component={SignIn} />
+    <Stack.Screen name="signUp" component={signUp} />
   </Stack.Navigator>
 );
 
