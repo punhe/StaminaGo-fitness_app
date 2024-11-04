@@ -1,9 +1,8 @@
-// App.js
+// src/navigation/navigation.js
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuth } from "../context/authContext";
-
 import StartPage from "../screen/startPage";
 import SignIn from "../screen/signIn";
 import Home from "../screen/home";
@@ -18,15 +17,13 @@ import WorkoutDetail from "../screen/workoutOTDDetails";
 
 const Stack = createStackNavigator();
 
-// Navigation cho người dùng chưa đăng nhập
 const AuthStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="StartPage" component={StartPage} />
-    <Stack.Screen name="SignIn" component={SignIn} />
+    <Stack.Screen name="startPage" component={StartPage} />
+    <Stack.Screen name="signIn" component={SignIn} />
   </Stack.Navigator>
 );
 
-// Navigation cho người dùng đã đăng nhập
 const AppStack = () => (
   <Stack.Navigator>
     <Stack.Screen name="Home" component={Home} options={{ title: "Home" }} />
@@ -65,7 +62,6 @@ const AppStack = () => (
   </Stack.Navigator>
 );
 
-// Navigation Wrapper để kiểm tra authentication
 const RootNavigation = () => {
   const { isAuthenticated } = useAuth();
 
@@ -76,4 +72,4 @@ const RootNavigation = () => {
   );
 };
 
-// App Component chính
+export default RootNavigation;

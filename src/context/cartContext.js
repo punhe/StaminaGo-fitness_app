@@ -1,9 +1,11 @@
 import React, { createContext, useState } from "react";
+import axios from "axios"; // Add this import
 
-export const CartContext = createContext(undefined);
+export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [products, setProducts] = useState([]); // Add this if needed
 
   const addToCart = (product) => {
     setCartItems((prevItems) => [...prevItems, product]);
@@ -37,16 +39,13 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCartt = async (product) => {
     try {
-      // Gọi API để đặt hàng
       const result = await placeOrder(product, product.quantity);
 
-      // Nếu đặt hàng thành công, xóa sản phẩm khỏi giỏ hàng
       if (result.message === "Đặt hàng thành công") {
         setCartItems((prevItems) =>
           prevItems.filter((item) => item.id !== product.id)
         );
 
-        // Cập nhật số lượng sản phẩm trong danh sách sản phẩm (nếu có)
         setProducts((prevProducts) =>
           prevProducts.map((item) =>
             item.id === product.id
@@ -63,6 +62,7 @@ export const CartProvider = ({ children }) => {
       }
     }
   };
+
   return (
     <CartContext.Provider
       value={{

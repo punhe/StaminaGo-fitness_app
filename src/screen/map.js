@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "expo-router";
+import { createStackNavigator } from "@react-navigation/stack";
 import { markers } from "../components/markers";
+import { useNavigation } from "@react-navigation/native";
 
+const Stack = createStackNavigator();
 const INITIAL_REGION = {
   latitude: 13.804023,
   longitude: 109.219143,
   latitudeDelta: 0.01,
-  longitudeDelta: 0.01
+  longitudeDelta: 0.01,
 };
 
 export default function MapPage() {
@@ -33,7 +35,7 @@ export default function MapPage() {
       latitude: 13.804023,
       longitude: 109.219143,
       latitudeDelta: 0.01,
-      longitudeDelta: 0.01
+      longitudeDelta: 0.01,
     };
 
     mapRef.current?.animateToRegion(newRegion);
@@ -68,7 +70,7 @@ export default function MapPage() {
       navigation.goBack();
     } else {
       // If we can't go back, try to navigate to the initial route
-      navigation.navigate('index');
+      navigation.navigate("index");
     }
   };
 
@@ -130,36 +132,36 @@ export default function MapPage() {
 
 const styles = StyleSheet.create({
   zoomControls: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 100,
     right: 10,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   zoomButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     borderRadius: 5,
     width: 40,
     height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginVertical: 5,
   },
   zoomText: {
-    color: 'white',
+    color: "white",
     fontSize: 24,
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 50,
     left: 10,
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
   },
   backButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
 });

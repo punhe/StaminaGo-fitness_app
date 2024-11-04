@@ -1,23 +1,26 @@
 import React, { createContext, useState } from "react";
+import { Text } from "react-native";
 
-export const ProductContext = createContext(undefined);
+export const ProductContext = createContext();
 
-export const ProductProvider = function ({ children }) {
+export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 
-  // const updateProductQuantity = function (productId, quantity) {
-  //   setProducts((prevProducts) =>
-  //     prevProducts.map((product) =>
-  //       product.id === productId
-  //         ? { ...product, quantity: Math.max(0, product.quantity + quantity) } // Ensure we don't set negative quantity
-  //         : product
-  //     )
-  //   );
-  // };
+  const updateProductQuantity = (productId, quantity) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId
+          ? { ...product, quantity: Math.max(0, product.quantity + quantity) }
+          : product
+      )
+    );
+  };
 
-  return React.createElement(
-    ProductContext.Provider,
-    { value: { products } },
-    children
+  return (
+    <ProductContext.Provider
+      value={{ products, setProducts, updateProductQuantity }}
+    >
+      {children}
+    </ProductContext.Provider>
   );
 };

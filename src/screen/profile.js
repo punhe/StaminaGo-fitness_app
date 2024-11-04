@@ -11,9 +11,9 @@ import {
   SafeAreaView,
 } from "react-native";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
-import { useNavigation } from "expo-router";
-import { Ionicons } from '@expo/vector-icons';
+import { db } from "../../firebaseConfig";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Profile() {
   const [profileData, setProfileData] = useState(null);
@@ -109,7 +109,10 @@ export default function Profile() {
             <Text style={styles.username}>
               {profileData?.username || "Unknown User"}
             </Text>
-            <Pressable onPress={() => setIsEditing(true)} style={styles.editButton}>
+            <Pressable
+              onPress={() => setIsEditing(true)}
+              style={styles.editButton}
+            >
               <Text style={styles.editButtonText}>Sửa tên</Text>
             </Pressable>
           </View>
@@ -120,7 +123,11 @@ export default function Profile() {
         {["Mục tiêu hôm nay", "Bữa ăn", "Hoạt động"].map((item, index) => (
           <Pressable
             key={index}
-            onPress={() => navigation.navigate(["todaysGoal", "mealPlanner", "workoutOTD"][index])}
+            onPress={() =>
+              navigation.navigate(
+                ["todaysGoal", "mealPlanner", "workoutOTD"][index]
+              )
+            }
             style={styles.menuItem}
           >
             <Text style={styles.menuItemText}>{item}</Text>
@@ -143,21 +150,21 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#6366f1',
+    backgroundColor: "#6366f1",
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 50,
     left: 20,
     zIndex: 1,
   },
   profileSection: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 80,
   },
   imageContainer: {
@@ -165,61 +172,61 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 60,
     borderWidth: 4,
-    borderColor: 'white',
-    overflow: 'hidden',
+    borderColor: "white",
+    overflow: "hidden",
     marginBottom: 20,
   },
   profileImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   usernameContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   username: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     marginBottom: 10,
   },
   editButton: {
-    backgroundColor: '#fbbf24',
+    backgroundColor: "#fbbf24",
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 20,
   },
   editButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
   editContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   editInput: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 10,
     borderRadius: 20,
     fontSize: 18,
     width: 200,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 10,
   },
   saveButton: {
-    backgroundColor: '#34d399',
+    backgroundColor: "#34d399",
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 20,
   },
   saveButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
   menuSection: {
     marginTop: 40,
     paddingHorizontal: 20,
   },
   menuItem: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 25,
     paddingVertical: 15,
     paddingHorizontal: 20,
@@ -227,29 +234,29 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   menuItemText: {
-    textAlign: 'center',
-    color: '#6366f1',
-    fontWeight: 'bold',
+    textAlign: "center",
+    color: "#6366f1",
+    fontWeight: "bold",
     fontSize: 16,
   },
   settingsSection: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 30,
     left: 0,
     right: 0,
     paddingHorizontal: 20,
   },
   settingsButton: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 25,
     paddingVertical: 15,
     paddingHorizontal: 20,
     elevation: 3,
   },
   settingsButtonText: {
-    textAlign: 'center',
-    color: '#6366f1',
-    fontWeight: 'bold',
+    textAlign: "center",
+    color: "#6366f1",
+    fontWeight: "bold",
     fontSize: 16,
   },
 });

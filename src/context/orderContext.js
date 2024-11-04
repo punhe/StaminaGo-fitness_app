@@ -1,16 +1,17 @@
 import React, { createContext, useState, useEffect } from "react";
+import { Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const OrderContext = createContext();
 
-export const OrderProvider = function ({ children }) {
+export const OrderProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
 
-  useEffect(function () {
+  useEffect(() => {
     loadOrders();
   }, []);
 
-  const loadOrders = async function () {
+  const loadOrders = async () => {
     try {
       const savedOrders = await AsyncStorage.getItem("orders");
       if (savedOrders !== null) {
@@ -21,7 +22,7 @@ export const OrderProvider = function ({ children }) {
     }
   };
 
-  const saveOrders = async function (newOrders) {
+  const saveOrders = async (newOrders) => {
     try {
       await AsyncStorage.setItem("orders", JSON.stringify(newOrders));
     } catch (error) {
@@ -29,23 +30,23 @@ export const OrderProvider = function ({ children }) {
     }
   };
 
-  const addOrder = function (newOrder) {
+  const addOrder = (newOrder) => {
     const updatedOrders = [...orders, newOrder];
     setOrders(updatedOrders);
     saveOrders(updatedOrders);
   };
 
-  const updateOrderStatus = function (orderId, isPaid) {
-    const updatedOrders = orders.map(function (order) {
-      return order.id === orderId ? { ...order, isPaid } : order;
-    });
+  const updateOrderStatus = (orderId, isPaid) => {
+    const updatedOrders = orders.map((order) =>
+      order.id === orderId ? { ...order, isPaid } : order
+    );
     setOrders(updatedOrders);
     saveOrders(updatedOrders);
   };
 
-  return React.createElement(
-    OrderContext.Provider,
-    { value: { orders, addOrder, updateOrderStatus } },
-    children
+  return (
+    <OrderContext.Provider value={{ orders, addOrder, updateOrderStatus }}>
+      {children}
+    </OrderContext.Provider>
   );
 };

@@ -14,14 +14,14 @@ import {
 } from "react-native-responsive-screen";
 import { StatusBar } from "expo-status-bar";
 import { Octicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import Loading from "../components/Loading";
 import { useAuth } from "../context/authContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SignIn() {
-  const router = useRouter();
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const {login} = useAuth();
+  const { login } = useAuth();
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
@@ -33,70 +33,112 @@ export default function SignIn() {
     }
 
     setLoading(true);
-    const respone = await login(emailRef.current, passwordRef.current);
+    const response = await login(emailRef.current, passwordRef.current);
     setLoading(false);
-    if(!respone.success){
-      Alert.alert('Đăng nhập', respone.msg)
+    if (!response.success) {
+      Alert.alert("Đăng nhập", response.msg);
     }
   };
+
   return (
-    <View className="flex-1">
+    <View style={{ flex: 1 }}>
       <StatusBar style="dark" />
       <View
-        style={{ paddingTop: hp(8), paddingHorizontal: wp(5) }}
-        className="flex-1 gap-12"
+        style={{
+          paddingTop: hp(8),
+          paddingHorizontal: wp(5),
+          flex: 1,
+          gap: 12,
+        }}
       >
         {/* signIn image */}
-        <View className="items-center">
+        <View style={{ alignItems: "center" }}>
           <Image
             style={{ height: hp(25) }}
             resizeMode="contain"
-            source={require("../assets/images/login.png")}
+            source={require("../../assets/images/login.png")}
           />
         </View>
-        <View className="gap-10">
+        <View style={{ gap: 10 }}>
           <Text
-            style={{ fontSize: hp(4) }}
-            className="font-bold tracking-wider text-center text-neutral-800"
+            style={{
+              fontSize: hp(4),
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "#4B5563",
+            }}
           >
             Đăng Nhập
           </Text>
           {/* inputs */}
-          <View className="gap-4">
+          <View style={{ gap: 4 }}>
             <View
-              style={{ height: hp(7) }}
-              className="flex-row gap-4 px-4 bg-neutral-100 items-center rounded-xl"
+              style={{
+                height: hp(7),
+                flexDirection: "row",
+                gap: 4,
+                paddingHorizontal: 16,
+                backgroundColor: "#F3F4F6",
+                alignItems: "center",
+                borderRadius: 20,
+              }}
             >
               <Octicons name="mail" size={hp(2.7)} color="gray" />
               <TextInput
                 onChangeText={(value) => (emailRef.current = value)}
-                style={{ fontSize: hp(2) }}
-                className="flex-1 font-semibold text-neutral-700"
+                style={{
+                  fontSize: hp(2),
+                  flex: 1,
+                  fontWeight: "600",
+                  color: "#374151",
+                }}
                 placeholder="Địa chỉ email"
                 placeholderTextColor={"gray"}
               />
             </View>
-            <View className="gap-3">
+            <View style={{ gap: 3 }}>
               <View
-                style={{ height: hp(7) }}
-                className="flex-row gap-4 px-4 bg-neutral-100 items-center rounded-xl"
+                style={{
+                  height: hp(7),
+                  flexDirection: "row",
+                  gap: 4,
+                  paddingHorizontal: 16,
+                  backgroundColor: "#F3F4F6",
+                  alignItems: "center",
+                  borderRadius: 20,
+                }}
               >
                 <Octicons name="lock" size={hp(2.7)} color="gray" />
                 <TextInput
                   onChangeText={(value) => (passwordRef.current = value)}
-                  style={{ fontSize: hp(2) }}
-                  className="flex-1 font-semibold text-neutral-700"
+                  style={{
+                    fontSize: hp(2),
+                    flex: 1,
+                    fontWeight: "600",
+                    color: "#374151",
+                  }}
                   placeholder="Mật khẩu"
                   secureTextEntry
                   placeholderTextColor={"gray"}
                 />
               </View>
-              
+              <Text
+                style={{
+                  fontSize: hp(1.8),
+                  fontWeight: "600",
+                  textAlign: "right",
+                  color: "#4B5563",
+                }}
+              >
+                Quên mật khẩu?
+              </Text>
             </View>
 
             <View>
               {loading ? (
-                <View className='flex-row justify-center'>
+                <View
+                  style={{ flexDirection: "row", justifyContent: "center" }}
+                >
                   <Loading size={hp(8)} />
                 </View>
               ) : (
@@ -111,8 +153,11 @@ export default function SignIn() {
                   }}
                 >
                   <Text
-                    style={{ fontSize: hp(2.7) }}
-                    className="text-white font-bold tracking-wider"
+                    style={{
+                      fontSize: hp(2.7),
+                      color: "white",
+                      fontWeight: "bold",
+                    }}
                   >
                     Đăng nhập
                   </Text>
@@ -121,18 +166,23 @@ export default function SignIn() {
             </View>
 
             {/*sign up text */}
-
-            <View className="flex-row justify-center">
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
               <Text
-                style={{ fontSize: hp(1.8) }}
-                className="font-semibold text-neutral-500"
+                style={{
+                  fontSize: hp(1.8),
+                  fontWeight: "600",
+                  color: "#6B7280",
+                }}
               >
                 Chưa có tài khoản?{" "}
               </Text>
-              <Pressable onPress={() => router.push("signUp")}>
+              <Pressable onPress={() => navigation.navigate("SignUp")}>
                 <Text
-                  style={{ fontSize: hp(1.8) }}
-                  className="font-bold text-indigo-500"
+                  style={{
+                    fontSize: hp(1.8),
+                    fontWeight: "bold",
+                    color: "#6366F1",
+                  }}
                 >
                   Đăng ký
                 </Text>

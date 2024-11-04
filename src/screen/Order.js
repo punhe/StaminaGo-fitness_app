@@ -19,7 +19,7 @@ import {
 } from "react-native-responsive-screen";
 
 const SHIPPING_FEE = 20000;
-const ORDER_API_URL = "https://mma-be-0n61.onrender.com/api/orders"; // Replace with your actual API URL
+const ORDER_API_URL = "https://mma-be-0n61.onrender.com/api/orders";
 
 const Order = () => {
   const navigation = useNavigation();
@@ -39,22 +39,27 @@ const Order = () => {
 
   const updateProductQuantities = () => {
     cartItems.forEach((item) => {
-      updateProductQuantity(item.id, item.quantity); // Adjust with your method to update quantity in the database
+      updateProductQuantity(item.id, item.quantity);
       removeFromCartt(item.id, item.quantity);
     });
   };
 
   const handleCreateOrder = async (orderId) => {
     try {
-      const response = await axios.post(ORDER_API_URL, {
+      const newOrder = {
         id: orderId,
         items: cartItems,
         total: total,
         date: new Date(),
         isPaid: false,
-      });
+      };
+
+      // First create order in backend
+      const response = await axios.post(ORDER_API_URL, newOrder);
 
       if (response.status === 201) {
+        // Then add to local storage via context
+        addOrder(newOrder);
         updateProductQuantities();
         Alert.alert("Order Created", "Your order was placed successfully!");
         clearCart();
@@ -80,7 +85,7 @@ const Order = () => {
       );
 
       if (response.data && response.data.payUrl) {
-        await handleCreateOrder(orderId); // Ensure order is created in the backend
+        await handleCreateOrder(orderId);
         await Linking.openURL(response.data.payUrl);
       } else {
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
@@ -115,13 +120,14 @@ const Order = () => {
     );
   };
 
+  // Return statement remains the same
   return (
     <View style={{ justifyContent: "center", alignItems: "center" }}>
       <View className="items-center">
         <Image
           style={{ height: hp(40), margin: "auto" }}
           resizeMode="contain"
-          source={require("../assets/images/login.png")}
+          source={require("../../assets/images/login.png")}
         />
       </View>
       <View style={styles.container}>

@@ -1,30 +1,28 @@
+// App.js
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import home from "./src/screen/home";
+import { StyleSheet, View } from "react-native";
 import { AuthContextProvider } from "./src/context/authContext";
 import { MenuProvider } from "react-native-popup-menu";
 import { CartProvider } from "./src/context/cartContext";
 import { OrderProvider } from "./src/context/orderContext";
-
-const Stack = createStackNavigator();
+import RootNavigation from "./src/navigation/navigation"; // Ensure this path is correct
+import { ProductProvider } from "./src/context/productContext";
 
 export default function App() {
   return (
-    <MenuProvider>
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <ProductProvider>
         <CartProvider>
           <OrderProvider>
-            <NavigationContainer>
-              <Stack.Navigator>
-                <Stack.Screen name="home" component={home} />
-              </Stack.Navigator>
-            </NavigationContainer>
+            <MenuProvider>
+              <View style={{ flex: 1 }}>
+                <RootNavigation />
+              </View>
+            </MenuProvider>
           </OrderProvider>
         </CartProvider>
-      </AuthContextProvider>
-    </MenuProvider>
+      </ProductProvider>
+    </AuthContextProvider>
   );
 }
 
