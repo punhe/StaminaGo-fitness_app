@@ -8,8 +8,8 @@ import {
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import colors from "../colors";
-import { FontAwesome5 } from '@expo/vector-icons';
+import colors from "../../colors";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const TimerOTD = () => {
   const [secondsRemaining, setSecondsRemaining] = useState(0);
@@ -141,7 +141,7 @@ const TimerOTD = () => {
       <View className="w-full border-t border-gray-300 py-4 bg-white">
         <View className="flex-row justify-around">
           <Pressable
-            onPress={() => navigation.navigate("map")}
+            onPress={() => navigation.navigate("Map")}
             className="items-center"
           >
             <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
@@ -149,7 +149,7 @@ const TimerOTD = () => {
           </Pressable>
 
           <Pressable
-            onPress={() => navigation.navigate("shop")}
+            onPress={() => navigation.navigate("Shop")}
             className="items-center"
           >
             <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />

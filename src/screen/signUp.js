@@ -71,7 +71,7 @@ export default function SignUp() {
           <Image
             style={{ height: hp(20) }}
             resizeMode="contain"
-            source={require("../assets/images/login.png")}
+            source={require("../../assets/images/login.png")}
           />
         </View>
         <View style={{ gap: 10 }}>

@@ -58,7 +58,7 @@ const Cart = () => {
           </View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("order")}
+            onPress={() => navigation.navigate("Order")}
             disabled={cartItems.length === 0}
           >
             <Text style={styles.text}>Tiến hành thanh toán</Text>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   buttonn: {
     backgroundColor: "#3F51B5",
     width: "17%",
-    padding:9,
+    padding: 9,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8, // Bo góc // Căn giữa nội dung // Khoả

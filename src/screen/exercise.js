@@ -1,7 +1,14 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Pressable, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+  SafeAreaView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const ExerciseHome = () => {
   const navigation = useNavigation();
@@ -13,7 +20,7 @@ const ExerciseHome = () => {
 
         <TouchableOpacity
           style={styles.card}
-          onPress={() => navigation.navigate("workoutOTD")}
+          onPress={() => navigation.navigate("WorkoutOTD")}
         >
           <FontAwesome5 name="dumbbell" size={24} color="#4F46E5" />
           <Text style={styles.cardText}>Các bài tập</Text>
@@ -21,7 +28,7 @@ const ExerciseHome = () => {
 
         <TouchableOpacity
           style={styles.card}
-          onPress={() => navigation.navigate("timerOTD")}
+          onPress={() => navigation.navigate("TimerOTD")}
         >
           <FontAwesome5 name="stopwatch" size={24} color="#4F46E5" />
           <Text style={styles.cardText}>Bộ đếm thời gian</Text>
@@ -37,19 +44,31 @@ const ExerciseHome = () => {
       </View>
 
       <View style={styles.footer}>
-        <Pressable style={styles.footerItem} onPress={() => navigation.navigate("map")}>
+        <Pressable
+          style={styles.footerItem}
+          onPress={() => navigation.navigate("Map")}
+        >
           <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
           <Text style={styles.footerText}>Bản đồ</Text>
         </Pressable>
-        <Pressable style={styles.footerItem} onPress={() => navigation.navigate("shop")}>
+        <Pressable
+          style={styles.footerItem}
+          onPress={() => navigation.navigate("Shop")}
+        >
           <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
           <Text style={styles.footerText}>Cửa hàng</Text>
         </Pressable>
-        <Pressable style={styles.footerItem} onPress={() => navigation.navigate("chat")}>
+        <Pressable
+          style={styles.footerItem}
+          onPress={() => navigation.navigate("chat")}
+        >
           <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
           <Text style={styles.footerText}>Tin nhắn</Text>
         </Pressable>
-        <Pressable style={styles.footerItem} onPress={() => navigation.navigate("settings")}>
+        <Pressable
+          style={styles.footerItem}
+          onPress={() => navigation.navigate("settings")}
+        >
           <FontAwesome5 name="cog" size={24} color="#4F46E5" />
           <Text style={styles.footerText}>Cài đặt</Text>
         </Pressable>

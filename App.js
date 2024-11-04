@@ -1,12 +1,14 @@
-// App.js
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 import { AuthContextProvider } from "./src/context/authContext";
-import { MenuProvider } from "react-native-popup-menu";
+import { ProductProvider } from "./src/context/productContext";
 import { CartProvider } from "./src/context/cartContext";
 import { OrderProvider } from "./src/context/orderContext";
-import RootNavigation from "./src/navigation/navigation"; // Ensure this path is correct
-import { ProductProvider } from "./src/context/productContext";
+import { MenuProvider } from "react-native-popup-menu";
+import RootNavigation from "./src/navigation/navigation";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
@@ -15,9 +17,7 @@ export default function App() {
         <CartProvider>
           <OrderProvider>
             <MenuProvider>
-              <View style={{ flex: 1 }}>
-                <RootNavigation />
-              </View>
+              <RootNavigation />
             </MenuProvider>
           </OrderProvider>
         </CartProvider>
@@ -25,12 +25,3 @@ export default function App() {
     </AuthContextProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

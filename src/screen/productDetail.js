@@ -3,22 +3,21 @@ import {
   View,
   Text,
   Image,
-  Button,
   Alert,
   StyleSheet,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { CartContext } from "../context/cartContext";
-import { TouchableOpacity } from "react-native";
 
 const ProductDetail = () => {
   const route = useRoute();
   const { product } = route.params;
-  const { addToCart } = useContext(CartContext); // Use CartContext
+  const { addToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
-    addToCart(product); // Add product to cart through CartContext
+    addToCart(product);
     Alert.alert(
       "Added to Cart",
       `${product.name} has been added to your cart.`
@@ -31,16 +30,14 @@ const ProductDetail = () => {
       <Text style={styles.productName}>{product.name}</Text>
       <View
         style={{
-          display: "flex",
           flexDirection: "row",
           width: "60%",
           justifyContent: "flex-end",
         }}
       >
         <Text style={styles.productPrice}>
-          {item.quality > 0 ? `còn ${item.quality}` : "hết hàng"}
+          {product.quality > 0 ? `còn ${product.quality}` : "hết hàng"}
         </Text>
-
         <Text style={styles.productPrice}>{product.price}</Text>
       </View>
 
@@ -55,7 +52,7 @@ const ProductDetail = () => {
             : styles.button
         }
         onPress={handleAddToCart}
-        disabled={product.quantity <= 0} // Disable the button if quantity <= 0
+        disabled={product.quantity <= 0}
       >
         <Text style={styles.text}>Thêm vào giỏ hàng</Text>
       </TouchableOpacity>

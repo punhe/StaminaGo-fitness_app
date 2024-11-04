@@ -19,9 +19,7 @@ const WorkoutOTD = () => {
   const renderWorkoutCard = ({ item }) => (
     <TouchableOpacity
       style={styles.workoutCard}
-      onPress={() =>
-        navigation.navigate("workoutOTDDetails", { workout: item })
-      }
+      onPress={() => navigation.navigate("WorkoutDetail", { workout: item })}
     >
       <ImageBackground
         source={item.image}
@@ -63,7 +61,7 @@ const WorkoutOTD = () => {
       <View style={styles.footer}>
         <View style={styles.footerContent}>
           <Pressable
-            onPress={() => navigation.navigate("map")}
+            onPress={() => navigation.navigate("Map")}
             style={styles.footerItem}
           >
             <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />

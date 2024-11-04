@@ -10,7 +10,7 @@ import {
   Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const TodaysGoals = () => {
   const navigation = useNavigation();
@@ -111,7 +111,7 @@ const TodaysGoals = () => {
           </Pressable>
 
           <Pressable
-            onPress={() => navigation.navigate("shop")}
+            onPress={() => navigation.navigate("Shop")}
             style={styles.footerItem}
           >
             <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
@@ -119,7 +119,7 @@ const TodaysGoals = () => {
               Cửa hàng
             </Text>
           </Pressable>
-          
+
           <Pressable
             onPress={() => navigation.navigate("chat")}
             style={styles.footerItem}

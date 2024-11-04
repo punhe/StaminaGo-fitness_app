@@ -35,7 +35,9 @@ export default function SignIn() {
     setLoading(true);
     const response = await login(emailRef.current, passwordRef.current);
     setLoading(false);
-    if (!response.success) {
+    if (response.success) {
+      navigation.navigate("Home"); // Điều hướng đến trang "Home" sau khi đăng nhập thành công
+    } else {
       Alert.alert("Đăng nhập", response.msg);
     }
   };

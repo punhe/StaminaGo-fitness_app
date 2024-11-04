@@ -118,7 +118,7 @@ const CalculatationOTD = () => {
       <View style={styles.bottomNav}>
         <View style={styles.bottomNavContent}>
           <Pressable
-            onPress={() => navigation.navigate("map")}
+            onPress={() => navigation.navigate("Map")}
             style={styles.footerItem}
           >
             <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
@@ -126,7 +126,7 @@ const CalculatationOTD = () => {
           </Pressable>
 
           <Pressable
-            onPress={() => navigation.navigate("shop")}
+            onPress={() => navigation.navigate("Shop")}
             style={styles.footerItem}
           >
             <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />

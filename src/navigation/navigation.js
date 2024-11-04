@@ -14,7 +14,12 @@ import OrdersScreen from "../screen/orderScreen";
 import Profile from "../screen/profile";
 import WorkoutOTD from "../screen/workoutOTD";
 import WorkoutDetail from "../screen/workoutOTDDetails";
-
+import Exercise from "../screen/exercise";
+import timerOTD from "../screen/timerOTD";
+import calculatationOTD from "../screen/calculatationOTD";
+import MapPage from "../screen/map";
+import Chat from "../screen/chat";
+import Settings from "../screen/settings";
 const Stack = createStackNavigator();
 
 const AuthStack = () => (
@@ -31,29 +36,54 @@ const AppStack = () => (
     <Stack.Screen
       name="ProductDetail"
       component={ProductDetail}
-      options={{ title: "Product Details" }}
+      options={{ title: "ProductDetail" }}
     />
     <Stack.Screen
       name="Cart"
       component={Cart}
       options={{ title: "Shopping Cart" }}
     />
+
     <Stack.Screen name="Order" component={Order} options={{ title: "Order" }} />
     <Stack.Screen
       name="Orders"
       component={OrdersScreen}
-      options={{ title: "Order History" }}
+      options={{ title: "orderScreen" }}
     />
+    <Stack.Screen name="Chat" component={Chat} options={{ title: "chat" }} />
     <Stack.Screen
       name="Profile"
       component={Profile}
       options={{ title: "Profile" }}
+    />
+
+    <Stack.Screen
+      name="Settings"
+      component={Settings}
+      options={{ title: "settings" }}
+    />
+
+    <Stack.Screen
+      name="Exercise"
+      component={Exercise}
+      options={{ title: "Exercise" }}
+    />
+    <Stack.Screen
+      name="TimerOTD"
+      component={timerOTD}
+      options={{ title: "Timer of the Day" }}
+    />
+    <Stack.Screen
+      name="calculatationOTD"
+      component={calculatationOTD}
+      options={{ title: "Calculatation of the Day" }}
     />
     <Stack.Screen
       name="WorkoutOTD"
       component={WorkoutOTD}
       options={{ title: "Workout of the Day" }}
     />
+    <Stack.Screen name="Map" component={MapPage} options={{ title: "Map" }} />
     <Stack.Screen
       name="WorkoutDetail"
       component={WorkoutDetail}
