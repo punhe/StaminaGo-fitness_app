@@ -178,7 +178,7 @@ export default function SignIn() {
               >
                 Chưa có tài khoản?{" "}
               </Text>
-              <Pressable onPress={() => navigation.navigate("SignUp")}>
+              <Pressable onPress={() => navigation.navigate("signUp")}>
                 <Text
                   style={{
                     fontSize: hp(1.8),

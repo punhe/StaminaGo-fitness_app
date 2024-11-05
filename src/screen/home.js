@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Pressable, SafeAreaView, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
+
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
