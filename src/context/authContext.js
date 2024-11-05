@@ -1,12 +1,24 @@
 import {
   createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+  getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  getUserByEmail,
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "../../firebaseConfig";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 
 export const AuthContext = createContext();
 
@@ -92,9 +104,21 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const forgetPassword = async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      return {
+        success: true,
+        msg: "Vui lòng kiểm tra email để đặt lại mật khẩu!",
+      };
+    } catch (e) {
+      return { success: false, msg };
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, login, register, logout }}
+      value={{ user, isAuthenticated, login, register, logout, forgetPassword }}
     >
       {children}
     </AuthContext.Provider>
