@@ -35,7 +35,6 @@ const OrdersScreen = () => {
     }
   };
 
-  // Mark order as completed
   const markOrderAsCompleted = async (orderId) => {
     try {
       const response = await axios.patch(`${ORDER_API_URL}/${orderId}`, {
@@ -87,7 +86,7 @@ const OrdersScreen = () => {
         <Text style={styles.orderDate}>
           {new Date(item.date).toLocaleDateString()}
         </Text>
-        <Text style={styles.orderTotal}>Tổng: {item.total.toFixed(2)}đ</Text>
+        <Text style={styles.orderTotal}>Tổng: {item.total.toFixed(2)} đ</Text>
         <Text
           style={[styles.orderStatus, { color: item.isPaid ? "green" : "red" }]}
         >
@@ -98,6 +97,7 @@ const OrdersScreen = () => {
             Đã nhận hàng
           </Text>
         )}
+        <Text style={styles.orderAddress}>Địa chỉ: {item.address}</Text>
       </TouchableOpacity>
 
       {!item.isCompleted && item.isPaid && (
@@ -175,6 +175,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 5,
     fontWeight: "bold",
+  },
+  orderAddress: {
+    fontSize: 14,
+    marginTop: 5,
+    fontStyle: "italic",
   },
   emptyMessage: {
     fontSize: 16,

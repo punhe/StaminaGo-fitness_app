@@ -31,44 +31,32 @@ const Cart = () => {
         <>
           <FlatList
             data={cartItems}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <View style={styles.cartItem}>
-                <Text
-                  style={styles.itemName}
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
-                >
-                  {item.name}
-                </Text>
+                <Text style={styles.itemName}>{item.name}</Text>
                 <Text style={styles.itemPrice}>{item.price}</Text>
-                <TouchableOpacity
-                  style={styles.buttonn}
-                  onPress={() => removeFromCart(item)}
-                >
-                  <Text style={styles.text}>Xóa</Text>
+                <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                  <Text style={styles.buttonText}>Xóa</Text>
                 </TouchableOpacity>
               </View>
             )}
           />
           <View style={styles.subtotalContainer}>
             <Text style={styles.subtotalText}>
-              tổng tiền: {subtotal.toFixed(3)}đ
+              Tổng tiền: {subtotal.toFixed(3)} đ
             </Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("Order")}
+              disabled={cartItems.length === 0}
+            >
+              <Text style={styles.text}>Tiến hành thanh toán</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Order")}
-            disabled={cartItems.length === 0}
-          >
-            <Text style={styles.text}>Tiến hành thanh toán</Text>
-          </TouchableOpacity>
         </>
       )}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.goBack()}
-      >
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text style={styles.text}>Tiếp tục mua</Text>
       </TouchableOpacity>
     </View>

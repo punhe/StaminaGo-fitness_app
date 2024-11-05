@@ -24,7 +24,6 @@ const Stack = createStackNavigator();
 
 const AuthStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="startPage" component={StartPage} />
     <Stack.Screen name="signIn" component={SignIn} />
   </Stack.Navigator>
 );

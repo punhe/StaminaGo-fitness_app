@@ -69,10 +69,10 @@ const ProductCard = ({ item }) => {
           <Text
             style={[
               styles.stockStatus,
-              { color: item.quality > 0 ? "#4CAF50" : "#FF5252" },
+              { color: item.quantity > 0 ? "#4CAF50" : "#FF5252" },
             ]}
           >
-            {item.quality > 0 ? `Còn ${item.quality} sản phẩm` : "Hết hàng"}
+            {item.quantity > 0 ? `Còn ${item.quantity} sản phẩm` : "Hết hàng"}
           </Text>
           <TouchableOpacity
             style={[

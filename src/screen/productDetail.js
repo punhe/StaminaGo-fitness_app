@@ -36,7 +36,7 @@ const ProductDetail = () => {
         }}
       >
         <Text style={styles.productPrice}>
-          {product.quality > 0 ? `còn ${product.quality}` : "hết hàng"}
+          {product.quantity > 0 ? `còn ${product.quantity}` : "hết hàng"}
         </Text>
         <Text style={styles.productPrice}>{product.price}</Text>
       </View>
