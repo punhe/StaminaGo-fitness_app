@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import colors from "../../colors";
+import colors from "../../colors"; // Ensure you have defined colors
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const TimerOTD = () => {
@@ -31,7 +31,7 @@ const TimerOTD = () => {
       { name: "Bài tập về hít thở (tập nín thở trong 30s)", reps: 2 },
       { name: "Chống đẩy", reps: 10 },
       { name: "Squat", reps: 15 },
-      { name: "Plank ( 2 lần plank, mỗi lần 30s )", reps: 2 },
+      { name: "Plank (2 lần plank, mỗi lần 30s)", reps: 2 },
     ],
     5: [
       { name: "Gập bụng", reps: 30 },
@@ -41,7 +41,7 @@ const TimerOTD = () => {
     10: [
       { name: "Chạy tại chỗ (5p), chạy nâng cao đùi (5p)", reps: 1 },
       { name: "Squat", reps: 40 },
-      { name: "Burpees ( 1 chuỗi bài tập liên tiếp về giảm calo )", reps: 2 },
+      { name: "Burpees (1 chuỗi bài tập liên tiếp về giảm calo)", reps: 2 },
     ],
     20: [
       { name: "Các động tác Cardio", reps: 10 },
@@ -79,111 +79,76 @@ const TimerOTD = () => {
   const seconds = secondsRemaining % 60;
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ padding: 20, flexGrow: 1 }}>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Pressable onPress={handleGoBack} style={styles.backButton}>
-            <Text style={styles.backButtonText}>{"<"} Back</Text>
-          </Pressable>
-          <Text className="text-2xl font-bold text-indigo-600 mb-4 text-center">
-            Thời gian còn lại: {minutes}:
-            {seconds < 10 ? `0${seconds}` : seconds}
-          </Text>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {/* <Pressable onPress={handleGoBack} style={styles.backButton}>
+          <Text style={styles.backButtonText}>{"<"} Back</Text>
+        </Pressable> */}
+        <Text style={styles.timerText}>
+          Thời gian còn lại: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        </Text>
 
-          <View className="flex-row justify-between mb-6">
+        <View style={styles.buttonContainer}>
+          {[1, 5, 10, 20, 30].map((minute) => (
             <Pressable
-              onPress={() => startTimer(1)}
-              className="bg-indigo-500 px-4 py-2 rounded-md"
+              key={minute}
+              onPress={() => startTimer(minute)}
+              style={styles.startButton}
             >
-              <Text className="text-white font-semibold">1 phút</Text>
+              <Text style={styles.buttonText}>{minute} phút</Text>
             </Pressable>
-            <Pressable
-              onPress={() => startTimer(5)}
-              className="bg-indigo-500 px-4 py-2 rounded-md"
-            >
-              <Text className="text-white font-semibold">5 phút</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => startTimer(10)}
-              className="bg-indigo-500 px-4 py-2 rounded-md"
-            >
-              <Text className="text-white font-semibold">10 phút</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => startTimer(20)}
-              className="bg-indigo-500 px-4 py-2 rounded-md"
-            >
-              <Text className="text-white font-semibold">20 phút</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => startTimer(30)}
-              className="bg-indigo-500 px-4 py-2 rounded-md"
-            >
-              <Text className="text-white font-semibold">30 phút</Text>
-            </Pressable>
-          </View>
-
-          <Text className="text-xl font-semibold text-indigo-500 mb-4 text-center">
-            Gợi ý bài tập và số lần thực hiện:
-          </Text>
-          {exerciseList.length > 0 ? (
-            exerciseList.map((exercise, index) => (
-              <Text key={index} className="text-lg mb-2 text-center">
-                - {exercise.name}: {exercise.reps} lần
-              </Text>
-            ))
-          ) : (
-            <Text className="text-lg text-center">Chưa có bài tập nào</Text>
-          )}
+          ))}
         </View>
+
+        <Text style={styles.exerciseHeader}>
+          Gợi ý bài tập và số lần thực hiện:
+        </Text>
+        {exerciseList.length > 0 ? (
+          exerciseList.map((exercise, index) => (
+            <Text key={index} style={styles.exerciseText}>
+              - {exercise.name}: {exercise.reps} lần
+            </Text>
+          ))
+        ) : (
+          <Text style={styles.noExerciseText}>Chưa có bài tập nào</Text>
+        )}
       </ScrollView>
 
-      <View className="w-full border-t border-gray-300 py-4 bg-white">
-        <View className="flex-row justify-around">
-          <Pressable
-            onPress={() => navigation.navigate("Map")}
-            className="items-center"
-          >
-            <FontAwesome5 name="map-marker-alt" size={24} color="#4F46E5" />
-            <Text className="text-indigo-500 font-bold text-base">Map</Text>
-          </Pressable>
-
-          <Pressable
-            onPress={() => navigation.navigate("Shop")}
-            className="items-center"
-          >
-            <FontAwesome5 name="shopping-bag" size={24} color="#4F46E5" />
-            <Text className="text-indigo-500 font-bold text-base">
-              Cửa hàng
-            </Text>
-          </Pressable>
-
-          <Pressable
-            onPress={() => navigation.navigate("chat")}
-            className="items-center"
-          >
-            <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
-            <Text className="text-indigo-500 font-bold text-base">
-              Tin nhắn
-            </Text>
-          </Pressable>
-
-          <Pressable
-            onPress={() => navigation.navigate("settings")}
-            className="items-center"
-          >
-            <FontAwesome5 name="cog" size={24} color="#4F46E5" />
-            <Text className="text-indigo-500 font-bold text-base">Cài đặt</Text>
-          </Pressable>
+      <View style={styles.footer}>
+        <View style={styles.footerContainer}>
+          <FooterButton icon="map-marker-alt" text="Map" navigateTo="Map" />
+          <FooterButton icon="shopping-bag" text="Cửa hàng" navigateTo="Shop" />
+          <FooterButton icon="comment-alt" text="Tin nhắn" navigateTo="chat" />
+          <FooterButton icon="cog" text="Cài đặt" navigateTo="settings" />
         </View>
       </View>
     </View>
   );
 };
 
-export default TimerOTD;
+const FooterButton = ({ icon, text, navigateTo }) => {
+  const navigation = useNavigation();
+  return (
+    <Pressable
+      onPress={() => navigation.navigate(navigateTo)}
+      style={styles.footerItem}
+    >
+      <FontAwesome5 name={icon} size={24} color="#4F46E5" />
+      <Text style={styles.footerText}>{text}</Text>
+    </Pressable>
+  );
+};
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    padding: 20,
+    flexGrow: 1,
+    justifyContent: "center", // Center the content vertically
+    alignItems: "center", // Center the content horizontally
+  },
   backButton: {
     position: "absolute",
     top: 30,
@@ -194,4 +159,65 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: colors.white,
   },
+  timerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#4F46E5",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  startButton: {
+    backgroundColor: "#4F46E5",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    marginHorizontal: 5, // Add horizontal margin for spacing
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  exerciseHeader: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#4F46E5",
+    marginBottom: 10,
+    textAlign: "left", // Align header to the left
+  },
+  exerciseText: {
+    fontSize: 16,
+    marginBottom: 5,
+    textAlign: "left", // Align exercise text to the left
+    width: "100%", // Ensure it takes full width
+  },
+  noExerciseText: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "#999",
+  },
+  footer: {
+    borderTopWidth: 1,
+    borderTopColor: "#e5e7eb",
+    paddingVertical: 10,
+    backgroundColor: "#ffffff",
+  },
+  footerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  footerItem: {
+    alignItems: "center",
+  },
+  footerText: {
+    color: "#4F46E5",
+    fontSize: 12,
+    marginTop: 5,
+  },
 });
+
+export default TimerOTD;
