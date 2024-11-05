@@ -9,12 +9,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../colors"; // Ensure you have defined colors
+import colors from "../../colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const TimerOTD = () => {
   const [secondsRemaining, setSecondsRemaining] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [exerciseList, setExerciseList] = useState([]);
+  const [selectedMinutes, setSelectedMinutes] = useState(null);
 
   const navigation = useNavigation();
 
@@ -69,10 +71,37 @@ const TimerOTD = () => {
     return () => clearInterval(interval);
   }, [isRunning, secondsRemaining]);
 
-  const startTimer = (minutes) => {
+  const selectTimer = (minutes) => {
+    setSelectedMinutes(minutes);
     setSecondsRemaining(minutes * 60);
-    setIsRunning(true);
     setExerciseList(exercises[minutes] || []);
+    
+    // Dừng nếu đang chạy
+    if (isRunning) {
+      setIsRunning(false); 
+    }
+  };
+
+  const startTimer = () => {
+    if (selectedMinutes) {
+      setIsRunning(true);
+    } else {
+      Alert.alert("Chưa chọn thời gian", "Vui lòng chọn một mốc thời gian trước khi bắt đầu.");
+    }
+  };
+
+  const resetTimer = () => {
+    if (selectedMinutes) {
+      setSecondsRemaining(selectedMinutes * 60);
+    } else {
+      setSecondsRemaining(0);
+    }
+    setIsRunning(false);
+    setExerciseList([]);
+  };
+
+  const pauseTimer = () => {
+    setIsRunning((prev) => !prev);
   };
 
   const minutes = Math.floor(secondsRemaining / 60);
@@ -81,9 +110,6 @@ const TimerOTD = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {/* <Pressable onPress={handleGoBack} style={styles.backButton}>
-          <Text style={styles.backButtonText}>{"<"} Back</Text>
-        </Pressable> */}
         <Text style={styles.timerText}>
           Thời gian còn lại: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </Text>
@@ -92,12 +118,24 @@ const TimerOTD = () => {
           {[1, 5, 10, 20, 30].map((minute) => (
             <Pressable
               key={minute}
-              onPress={() => startTimer(minute)}
-              style={styles.startButton}
+              onPress={() => selectTimer(minute)}
+              style={styles.timeButton}
             >
               <Text style={styles.buttonText}>{minute} phút</Text>
             </Pressable>
           ))}
+        </View>
+
+        <View style={styles.controlContainer}>
+          <Pressable onPress={startTimer} style={styles.startButton}>
+            <Text style={styles.controlButtonText}>Start</Text>
+          </Pressable>
+          <Pressable onPress={pauseTimer} style={styles.pauseButton}>
+            <Text style={styles.pauseButtonText}>{isRunning ? 'Pause' : 'Resume'}</Text>
+          </Pressable>
+          <Pressable onPress={resetTimer} style={styles.resetButton}>
+            <Text style={styles.resetButtonText}>Reset</Text>
+          </Pressable>
         </View>
 
         <Text style={styles.exerciseHeader}>
@@ -127,97 +165,159 @@ const TimerOTD = () => {
 };
 
 const FooterButton = ({ icon, text, navigateTo }) => {
-  const navigation = useNavigation();
-  return (
-    <Pressable
-      onPress={() => navigation.navigate(navigateTo)}
-      style={styles.footerItem}
-    >
-      <FontAwesome5 name={icon} size={24} color="#4F46E5" />
-      <Text style={styles.footerText}>{text}</Text>
-    </Pressable>
-  );
+const navigation = useNavigation();
+return (
+<Pressable
+onPress={() => navigation.navigate(navigateTo)}
+style={styles.footerItem}
+>
+<FontAwesome5 name={icon} size={24} color="#4F46E5" />
+<Text style={styles.footerText}>{text}</Text>
+</Pressable>
+);
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    padding: 20,
-    flexGrow: 1,
-    justifyContent: "center", // Center the content vertically
-    alignItems: "center", // Center the content horizontally
-  },
-  backButton: {
-    position: "absolute",
-    top: 30,
-    left: 10,
-    zIndex: 1,
-  },
-  backButtonText: {
-    fontSize: 18,
-    color: colors.white,
-  },
-  timerText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#4F46E5",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-  },
-  startButton: {
-    backgroundColor: "#4F46E5",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-    marginHorizontal: 5, // Add horizontal margin for spacing
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  exerciseHeader: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#4F46E5",
-    marginBottom: 10,
-    textAlign: "left", // Align header to the left
-  },
-  exerciseText: {
-    fontSize: 16,
-    marginBottom: 5,
-    textAlign: "left", // Align exercise text to the left
-    width: "100%", // Ensure it takes full width
-  },
-  noExerciseText: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#999",
-  },
-  footer: {
-    borderTopWidth: 1,
-    borderTopColor: "#e5e7eb",
-    paddingVertical: 10,
-    backgroundColor: "#ffffff",
-  },
-  footerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  footerItem: {
-    alignItems: "center",
-  },
-  footerText: {
-    color: "#4F46E5",
-    fontSize: 12,
-    marginTop: 5,
-  },
+container: {
+flex:1,
+},
+scrollViewContent:{
+padding :20,
+flexGrow :1,
+justifyContent :"center",
+alignItems :"center",
+},
+backButton:{
+position :"absolute",
+top :30,
+left :10,
+zIndex :1,
+},
+backButtonText:{
+fontSize :18,
+color :colors.white,
+},
+timerText:{
+fontSize :24,
+fontWeight :"bold",
+color :"#4F46E5",
+marginBottom :20,
+textAlign :"center",
+},
+buttonContainer:{
+flexDirection :"row",
+justifyContent :"space-between",
+marginBottom :20,
+},
+timeButton:{
+backgroundColor:"#4F46E5",
+paddingVertical :10,
+paddingHorizontal :15,
+borderRadius :5,
+marginHorizontal :5,
+},
+buttonText:{
+color :"white",
+fontWeight :"bold",
+},
+controlContainer:{
+flexDirection :"row",
+justifyContent :"space-around",
+marginBottom :20,
+},
+startButton:{
+backgroundColor:"#A9A9A9",
+paddingVertical :12,
+paddingHorizontal :20,
+borderRadius :8,
+marginHorizontal :5,
+shadowColor:"#000",
+shadowOffset:{
+width :0,
+height :2,
+},
+shadowOpacity :0.25,
+shadowRadius :3.84,
+elevation :5,
+},
+controlButtonText:{
+color :"white",
+fontWeight :"bold",
+},
+pauseButton:{
+backgroundColor:"#FFA500",
+paddingVertical :12,
+paddingHorizontal :20,
+borderRadius :8,
+marginHorizontal :5,
+shadowColor:"#000",
+shadowOffset:{
+width :0,
+height :2,
+},
+shadowOpacity :0.25,
+shadowRadius :3.84,
+elevation :5,
+},
+pauseButtonText:{
+color :"white",
+fontWeight :"bold",
+},
+resetButton:{
+backgroundColor:"#FF3B30",
+paddingVertical :12,
+paddingHorizontal :20,
+borderRadius :8,
+marginHorizontal :5,
+shadowColor:"#000",
+shadowOffset:{
+width :0,
+height :2,
+},
+shadowOpacity :0.25,
+shadowRadius :3.84,
+elevation :5,
+},
+resetButtonText:{
+color :"white",
+fontWeight :"bold",
+},
+exerciseHeader:{
+fontSize :18,
+fontWeight :"600",
+color:"#4F46E5",
+marginBottom :10,
+textAlign :"left",
+},
+exerciseText:{
+fontSize :16,
+marginBottom :5,
+textAlign :"left",
+width :"100%",
+},
+noExerciseText:{
+fontSize :16,
+textAlign :"center",
+color:"#999",
+},
+footer:{
+borderTopWidth :1,
+borderTopColor:"#e5e7eb",
+paddingVertical :10,
+backgroundColor:"#ffffff",
+},
+footerContainer:{
+flexDirection :"row",
+justifyContent :"space-around",
+},
+footerItem:{
+alignItems :"center",
+},
+footerText:{
+color:"#4F46E5",
+fontSize :12,
+marginTop :5,
+},
 });
 
 export default TimerOTD;
