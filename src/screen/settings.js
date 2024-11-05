@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, Switch, Pressable } from "react-native";
+import { View, Text, Switch, Pressable, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import HomeHeader from "../components/HomeHeader";
 
 export default function Settings() {
   const [isEnabledNotifications, setIsEnabledNotifications] = useState(false);
@@ -13,18 +14,16 @@ export default function Settings() {
     setIsEnabledDarkMode((previousState) => !previousState);
 
   return (
-    <View className="flex-1 bg-gray-100">
-      {/* Header */}
-      <View className="bg-indigo-500 py-4">
-        <Text className="text-center text-2xl font-bold text-white">
-          Cài đặt
-        </Text>
+    <View style={styles.container}>
+      
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Cài đặt</Text>
       </View>
 
       {/* Notification Setting */}
-      <View className=" bg-white mx-auto mt-8 p-4 rounded-lg shadow-md">
-        <View className="flex-row justify-between">
-          <Text className="text-lg font-semibold text-gray-700">Thông báo</Text>
+      {/* <View style={styles.settingContainer}>
+        <View style={styles.settingRow}>
+          <Text style={styles.settingText}>Thông báo</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
             thumbColor={isEnabledNotifications ? "#f5dd4b" : "#f4f3f4"}
@@ -32,14 +31,12 @@ export default function Settings() {
             value={isEnabledNotifications}
           />
         </View>
-      </View>
+      </View> */}
 
       {/* Dark Mode Setting */}
-      <View className=" bg-white mx-auto mt-4 p-4 rounded-lg shadow-md">
-        <View className="flex-row justify-between">
-          <Text className="text-lg font-semibold text-gray-700">
-            Chế độ tối
-          </Text>
+      {/* <View style={styles.settingContainer}>
+        <View style={styles.settingRow}>
+          <Text style={styles.settingText}>Chế độ tối</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
             thumbColor={isEnabledDarkMode ? "#f5dd4b" : "#f4f3f4"}
@@ -47,27 +44,78 @@ export default function Settings() {
             value={isEnabledDarkMode}
           />
         </View>
-      </View>
+      </View> */}
 
       {/* Account Settings Button */}
       <Pressable
-        className=" bg-indigo-500 mx-auto mt-8 p-4 rounded-lg flex items-center justify-center shadow-md"
-        onPress={() => navigation.navigate("profile")}
+        style={styles.button}
+        onPress={() => navigation.navigate("Profile")}
       >
-        <Text className="text-white text-lg font-semibold">
-          Cài đặt tài khoản
-        </Text>
+        <Text style={styles.buttonText}>Cài đặt tài khoản</Text>
       </Pressable>
 
       {/* Privacy Policy Button */}
       <Pressable
-        className=" bg-indigo-500 mx-auto mt-4 p-4 rounded-lg flex items-center justify-center shadow-md"
-        onPress={() => navigation.navigate("privacyPolicy")}
+        style={styles.button}
+        onPress={() => navigation.navigate("PrivacyPolicy")}
       >
-        <Text className="text-white text-lg font-semibold">
-          Chính sách bảo mật
-        </Text>
+        <Text style={styles.buttonText}>Chính sách bảo mật</Text>
       </Pressable>
+      <HomeHeader />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F3F4F6", // Light gray background
+  },
+  header: {
+    backgroundColor: "#4F46E5", // Indigo color
+    paddingVertical: 16,
+    alignItems: "center",
+    elevation: 4,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+  },
+  settingContainer: {
+    backgroundColor: "white",
+    marginHorizontal: 16,
+    marginTop: 20,
+    padding: 16,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3, // Elevation for Android
+  },
+  settingRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  settingText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#374151", // Dark gray color
+  },
+  button: {
+    backgroundColor: "#4F46E5",
+    marginHorizontal: 16,
+    marginTop: 16,
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: "center",
+    elevation: 3,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+});

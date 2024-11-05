@@ -24,6 +24,7 @@ import signUp from "../screen/signUp";
 import ForgetPassword from "../screen/forgetPassword";
 import MealPlanner from "../screen/mealPlanner";
 import TodaysGoals from "../screen/todaysGoal";
+import PrivacyPolicy from "../screen/privacyPolicy";
 
 const Stack = createStackNavigator();
 
@@ -60,7 +61,12 @@ const AppStack = () => (
     <Stack.Screen
       name='Profile'
       component={Profile}
-      options={{ title: "Profile" }}
+      options={{ title: "Hồ sơ" }}
+    />
+    <Stack.Screen
+      name='PrivacyPolicy'
+      component={PrivacyPolicy}
+      options={{ title: "Chính sách bảo mật" }}
     />
 
     <Stack.Screen
