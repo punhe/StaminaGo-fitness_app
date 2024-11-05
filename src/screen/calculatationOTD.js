@@ -50,71 +50,44 @@ const CalculatationOTD = () => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: 60,
-        backgroundColor: "#F3F4F6",
-        justifyContent: "space-between",
-      }}
-    >
-      <Pressable onPress={handleGoBack} style={styles.backButton}>
+    <View style={styles.container}>
+      {/* <Pressable onPress={handleGoBack} style={styles.backButton}>
         <Text style={styles.backButtonText}>{"<"} Back</Text>
-      </Pressable>
-      <View>
-        <Text className="text-2xl font-bold text-indigo-500 mb-4">
-          Tính toán BMI
-        </Text>
+      </Pressable> */}
 
-        <Text className="text-lg mb-2">Nhập chiều cao (cm):</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Tính toán BMI</Text>
+
+        <Text style={styles.label}>Nhập chiều cao (cm):</Text>
         <TextInput
-          style={{
-            borderWidth: 1,
-            borderColor: "#E5E7EB",
-            borderRadius: 8,
-            padding: 10,
-            backgroundColor: "#FFFFFF",
-          }}
+          style={styles.input}
           keyboardType="numeric"
           placeholder="Chiều cao (cm)"
           value={height}
           onChangeText={setHeight}
         />
 
-        <Text className="text-lg mt-4 mb-2">Nhập cân nặng (kg):</Text>
+        <Text style={styles.label}>Nhập cân nặng (kg):</Text>
         <TextInput
-          style={{
-            borderWidth: 1,
-            borderColor: "#E5E7EB",
-            borderRadius: 8,
-            padding: 10,
-            backgroundColor: "#FFFFFF",
-          }}
+          style={styles.input}
           keyboardType="numeric"
           placeholder="Cân nặng (kg)"
           value={weight}
           onChangeText={setWeight}
         />
 
-        <Pressable
-          onPress={calculateBMI}
-          className="mt-6 bg-indigo-500 py-3 rounded-lg"
-          style={{
-            alignItems: "center",
-          }}
-        >
-          <Text className="text-white text-lg font-semibold">Tính BMI</Text>
+        <Pressable onPress={calculateBMI} style={styles.calculateButton}>
+          <Text style={styles.calculateButtonText}>Tính BMI</Text>
         </Pressable>
 
         {bmi && (
-          <View style={{ marginTop: 20 }}>
-            <Text className="text-xl font-semibold text-indigo-600">
-              Chỉ số BMI của bạn: {bmi}
-            </Text>
-            <Text className="text-lg mt-2">Phân loại: {category}</Text>
+          <View style={styles.resultContainer}>
+            <Text style={styles.resultText}>Chỉ số BMI của bạn: {bmi}</Text>
+            <Text style={styles.categoryText}>Phân loại: {category}</Text>
           </View>
         )}
       </View>
+
       <View style={styles.bottomNav}>
         <View style={styles.bottomNavContent}>
           <Pressable
@@ -157,6 +130,12 @@ const CalculatationOTD = () => {
 export default CalculatationOTD;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 60,
+    backgroundColor: "#F3F4F6",
+    justifyContent: "space-between",
+  },
   backButton: {
     position: "absolute",
     top: 30,
@@ -166,6 +145,69 @@ const styles = StyleSheet.create({
   backButtonText: {
     fontSize: 18,
     color: colors.white,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#4F46E5",
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 8,
+    color: "#374151",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    borderRadius: 8,
+    padding: 10,
+    backgroundColor: "#FFFFFF",
+    width: "100%",
+    marginBottom: 16,
+  },
+  calculateButton: {
+    backgroundColor: "#4F46E5",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2.84,
+    alignItems: "center",
+    width: "100%",
+    marginTop: 10,
+  },
+  calculateButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18,
+    textAlign: "center",
+  },
+  resultContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  resultText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#4F46E5",
+  },
+  categoryText: {
+    fontSize: 18,
+    marginTop: 8,
+    color: "#374151",
   },
   bottomNav: {
     borderTopWidth: 1,
@@ -177,12 +219,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
   },
+  footerItem: {
+    alignItems: "center",
+  },
   navText: {
-    color: "#6366F1", // Indigo-500
+    color: "#6366F1",
     fontWeight: "bold",
     fontSize: 14,
   },
   activeNavText: {
-    color: "#4F46E5", // Một tông màu đậm hơn của Indigo cho mục đang active
+    color: "#4F46E5",
   },
 });

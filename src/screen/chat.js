@@ -87,9 +87,6 @@ export default function Chat() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Pressable onPress={handleGoBack} style={styles.backButton}>
-        <Text style={styles.backButtonText}>{"<"} Trở lại</Text>
-      </Pressable>
       <GiftedChat
         messages={messages}
         showAvatarForEveryMessage={false}
