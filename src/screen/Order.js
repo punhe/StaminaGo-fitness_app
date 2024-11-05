@@ -30,7 +30,6 @@ const Order = () => {
     return sum + price;
   }, 0);
   const total = subtotal + SHIPPING_FEE;
-
   const handleCreateOrder = async (orderId) => {
     if (!address) {
       Alert.alert("Error", "Please enter your address.");
@@ -43,18 +42,21 @@ const Order = () => {
         product: item._id,
         quantity: item.quantity,
       })),
-      total: total * 1000 + "",
+      // Add proper validation and conversion
+      total: Math.round(parseFloat(total) * 1000), // Using Math.round for integer values
       isPaid: false,
       address: address,
     };
-
     try {
+      if (isNaN(newOrder.total)) {
+        throw new Error("Invalid order total");
+      }
       const response = await axios.post(ORDER_API_URL, newOrder);
       if (response.status === 201) {
         addOrder(newOrder);
         cartItems.forEach((item) => {
           updateProductQuantity(item.id, item.quantity);
-          removeFromCartt(item.id);
+          removeFromCartt(item);
         });
         Alert.alert("Order Created", "Your order was placed successfully!");
         clearCart();

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Pressable, SafeAreaView, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import HomeHeader from "../../src/components/HomeHeader";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
@@ -10,9 +10,10 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
-        {/* App Title */}
-        <Text style={styles.title}>StaminaGo</Text>
-
+        <Text style={styles.title}>
+          StaminaGo
+          <HomeHeader />
+        </Text>
         {/* Workout of the Day */}
         <View style={styles.workoutContainer}>
           <Text style={styles.workoutTitle}>Bài tập hôm nay</Text>
@@ -20,7 +21,6 @@ function HomeScreen({ navigation }) {
             Cardio + Strength Training (45 phút)
           </Text>
         </View>
-
         {/* Quick Stats */}
         <View style={styles.statsContainer}>
           <View style={styles.statBox}>
@@ -32,7 +32,6 @@ function HomeScreen({ navigation }) {
             <Text style={styles.statValue}>45</Text>
           </View>
         </View>
-
         {/* Start Button */}
         <Pressable
           style={styles.startButton}
@@ -40,7 +39,6 @@ function HomeScreen({ navigation }) {
         >
           <Text style={styles.startButtonText}>Bắt đầu thôi</Text>
         </Pressable>
-
         {/* Recent Activities */}
         <View style={styles.recentActivitiesContainer}>
           <Text style={styles.recentActivitiesTitle}>Hoạt động gần đây</Text>

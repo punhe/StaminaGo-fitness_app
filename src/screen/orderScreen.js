@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,27 +9,28 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { OrderContext } from "../context/orderContext";
 import axios from "axios";
 
 const ORDER_API_URL = "https://mma-be-0n61.onrender.com/api/orders";
 
 const OrdersScreen = () => {
-  const { orders, setOrders } = useContext(OrderContext);
-  const navigation = useNavigation();
+  // Fix: Correct useState usage
+  const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   // Fetch orders from MongoDB
   const fetchOrders = async () => {
     setIsLoading(true);
     try {
       const response = await axios.get(ORDER_API_URL);
-      if (response.status === 200) {
-        setOrders(response.data);
-      }
+      setOrders(response.data);
     } catch (error) {
       console.error("Error fetching orders:", error);
-      Alert.alert("Error", "Failed to load orders");
+      Alert.alert(
+        "Error",
+        "Failed to load orders. Please check your connection and try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -39,25 +40,33 @@ const OrdersScreen = () => {
     try {
       const response = await axios.patch(`${ORDER_API_URL}/${orderId}`, {
         isCompleted: true,
-        completedAt: new Date(),
+        completedAt: new Date().toISOString(),
       });
 
       if (response.status === 200) {
-        const updatedOrders = orders.map((order) =>
-          order.id === orderId
-            ? { ...order, isCompleted: true, completedAt: new Date() }
-            : order
+        // Update local state
+        setOrders((prevOrders) =>
+          prevOrders.map((order) =>
+            order.id === orderId
+              ? { ...order, isCompleted: true, completedAt: new Date() }
+              : order
+          )
         );
-        setOrders(updatedOrders);
         Alert.alert("Success", "Order marked as completed!");
       }
     } catch (error) {
       console.error("Error updating order:", error);
-      Alert.alert("Error", "Failed to update order status");
+      if (error.response?.status === 404) {
+        Alert.alert("Error", "Order not found. Please refresh and try again.");
+      } else {
+        Alert.alert(
+          "Error",
+          "Failed to update order status. Please try again."
+        );
+      }
     }
   };
 
-  // Confirm order completion
   const confirmOrderCompletion = (orderId) => {
     Alert.alert("Xác nhận", "Bạn đã nhận được đơn hàng này?", [
       {
@@ -79,13 +88,15 @@ const OrdersScreen = () => {
     <View style={styles.orderItem}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("orderDetails", { orderId: item.id })
+          navigation.navigate("OrderDetails", { orderId: item.id })
         }
       >
         <Text style={styles.orderDate}>
           {new Date(item.date).toLocaleDateString()}
         </Text>
-        <Text style={styles.orderTotal}>Tổng: {item.total.toFixed(2)} đ</Text>
+        <Text style={styles.orderTotal}>
+          Tổng: {(item.total * 100).toLocaleString()} đ
+        </Text>
         <Text
           style={[styles.orderStatus, { color: item.isPaid ? "green" : "red" }]}
         >
@@ -111,7 +122,9 @@ const OrdersScreen = () => {
   );
 
   const renderEmptyList = () => (
-    <Text style={styles.emptyMessage}>Bạn chưa có đơn hàng nào.</Text>
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyMessage}>Bạn chưa có đơn hàng nào.</Text>
+    </View>
   );
 
   return (
@@ -125,6 +138,7 @@ const OrdersScreen = () => {
         ListEmptyComponent={renderEmptyList}
         refreshing={isLoading}
         onRefresh={fetchOrders}
+        contentContainerStyle={styles.listContainer}
       />
 
       <Pressable style={styles.button} onPress={() => navigation.goBack()}>
@@ -139,6 +153,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingTop: 30,
+    backgroundColor: "#fff",
+  },
+  listContainer: {
+    flexGrow: 1,
   },
   button: {
     backgroundColor: "#3F51B5",
@@ -161,6 +179,11 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 10,
     borderRadius: 5,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
   orderDate: {
     fontSize: 16,
@@ -180,10 +203,16 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontStyle: "italic",
   },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   emptyMessage: {
     fontSize: 16,
     textAlign: "center",
     marginTop: 20,
+    color: "#666",
   },
   completeButton: {
     backgroundColor: "#4CAF50",

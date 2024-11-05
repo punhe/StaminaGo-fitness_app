@@ -22,6 +22,7 @@ import Chat from "../screen/chat";
 import Settings from "../screen/settings";
 import signUp from "../screen/signUp";
 import ForgetPassword from "../screen/forgetPassword";
+import OrderDetailsScreen from "../screen/orderDtail";
 const Stack = createStackNavigator();
 
 const AuthStack = () => (
@@ -34,7 +35,11 @@ const AuthStack = () => (
 
 const AppStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="Home" component={Home} options={{ title: "Home" }} />
+    <Stack.Screen
+      name="Home"
+      component={Home}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen name="Shop" component={Shop} options={{ title: "Shop" }} />
     <Stack.Screen
       name="ProductDetail"
@@ -52,6 +57,11 @@ const AppStack = () => (
       name="Orders"
       component={OrdersScreen}
       options={{ title: "orderScreen" }}
+    />
+    <Stack.Screen
+      name="OrderDetail"
+      component={OrderDetailsScreen}
+      options={{ title: "OrderDetailsScreen" }}
     />
     <Stack.Screen name="Chat" component={Chat} options={{ title: "chat" }} />
     <Stack.Screen
