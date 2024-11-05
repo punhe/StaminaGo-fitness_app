@@ -37,7 +37,7 @@ const AuthStack = () => (
 
 const AppStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name='Home' component={Home} options={{ title: "Home" }} />
+    <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
     <Stack.Screen name='Shop' component={Shop} options={{ title: "Shop" }} />
     <Stack.Screen
       name='ProductDetail'
