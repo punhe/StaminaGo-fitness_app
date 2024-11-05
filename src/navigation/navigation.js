@@ -26,6 +26,7 @@ import OrderDetailsScreen from "../screen/orderDtail";
 import MealPlanner from "../screen/mealPlanner";
 import TodaysGoals from "../screen/todaysGoal";
 import PrivacyPolicy from "../screen/privacyPolicy";
+import Activities from "../screen/Activities";
 
 const Stack = createStackNavigator();
 
@@ -126,7 +127,7 @@ const AppStack = () => (
       options={{ title: "Today Goals" }}
     />
 
-<    Stack.Screen
+    <Stack.Screen
       name='Activities'
       component={Activities}
       options={{ title: "Activities" }}
