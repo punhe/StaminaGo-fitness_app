@@ -21,12 +21,14 @@ import MapPage from "../screen/map";
 import Chat from "../screen/chat";
 import Settings from "../screen/settings";
 import signUp from "../screen/signUp";
+import ForgetPassword from "../screen/forgetPassword";
 const Stack = createStackNavigator();
 
 const AuthStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="signIn" component={SignIn} />
     <Stack.Screen name="signUp" component={signUp} />
+    <Stack.Screen name="forgetPassword" component={ForgetPassword} />
   </Stack.Navigator>
 );
 
