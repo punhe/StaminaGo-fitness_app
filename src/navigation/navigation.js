@@ -24,6 +24,7 @@ import signUp from "../screen/signUp";
 import ForgetPassword from "../screen/forgetPassword";
 import MealPlanner from "../screen/mealPlanner";
 import TodaysGoals from "../screen/todaysGoal";
+import Activities from '../screen/Activities';
 
 const Stack = createStackNavigator();
 
@@ -108,6 +109,12 @@ const AppStack = () => (
       name='todaysGoal'
       component={TodaysGoals}
       options={{ title: "Today Goals" }}
+    />
+
+<    Stack.Screen
+      name='Activities'
+      component={Activities}
+      options={{ title: "Activities" }}
     />
   </Stack.Navigator>
 );
