@@ -107,6 +107,7 @@ const ProductList = () => {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
+        Alert.alert("Error", "There was an error");
         setLoading(false);
       }
     };

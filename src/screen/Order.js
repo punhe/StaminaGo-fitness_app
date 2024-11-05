@@ -39,10 +39,13 @@ const Order = () => {
 
     const newOrder = {
       id: orderId,
-      items: cartItems,
-      total: total * 1000,
+      items: cartItems.map((item) => ({
+        product: item._id,
+        quantity: item.quantity,
+      })),
+      total: total * 1000 + "",
       isPaid: false,
-      address,
+      address: address,
     };
 
     try {
@@ -55,13 +58,13 @@ const Order = () => {
         });
         Alert.alert("Order Created", "Your order was placed successfully!");
         clearCart();
-        navigation.navigate("OrderScreen");
+        navigation.navigate("Orders");
       } else {
         Alert.alert("Error", "Failed to create order.");
       }
     } catch (error) {
       console.error("Order creation error:", error);
-      Alert.alert("Error", "There was an error creating your order.");
+      Alert.alert("Error", "There was an error");
     }
   };
 

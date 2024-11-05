@@ -43,7 +43,6 @@ const OrdersScreen = () => {
       });
 
       if (response.status === 200) {
-        // Update local state
         const updatedOrders = orders.map((order) =>
           order.id === orderId
             ? { ...order, isCompleted: true, completedAt: new Date() }
