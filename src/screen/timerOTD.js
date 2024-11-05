@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../colors"; // Ensure you have defined colors
-import colors from "../../colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const TimerOTD = () => {
