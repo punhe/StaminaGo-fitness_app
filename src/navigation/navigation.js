@@ -125,6 +125,12 @@ const AppStack = () => (
       component={TodaysGoals}
       options={{ title: "Today Goals" }}
     />
+
+<    Stack.Screen
+      name='Activities'
+      component={Activities}
+      options={{ title: "Activities" }}
+    />
   </Stack.Navigator>
 );
 
