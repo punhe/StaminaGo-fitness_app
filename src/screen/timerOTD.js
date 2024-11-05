@@ -62,7 +62,15 @@ const TimerOTD = () => {
         setSecondsRemaining((prevSeconds) => prevSeconds - 1);
       }, 1000);
     } else if (secondsRemaining === 0 && isRunning) {
-      Alert.alert("Hết thời gian", "Thời gian đã kết thúc!");
+      Alert.alert(
+        "Hết thời gian", 
+        "Thời gian đã kết thúc!",
+        // [
+        //   { text: "Restart", onPress: () => startTimer(1) }, // Restart option
+        //   { text: "OK", onPress: () => setIsRunning(false) }
+        // ]
+      
+      );
       setIsRunning(false);
     }
 
@@ -85,10 +93,12 @@ const TimerOTD = () => {
           <Pressable onPress={handleGoBack} style={styles.backButton}>
             <Text style={styles.backButtonText}>{"<"} Back</Text>
           </Pressable>
-          <Text className="text-2xl font-bold text-indigo-600 mb-4 text-center">
-            Thời gian còn lại: {minutes}:
-            {seconds < 10 ? `0${seconds}` : seconds}
-          </Text>
+          {secondsRemaining !== null && (
+            <Text className="text-2xl font-bold text-indigo-600 mb-4 text-center">
+              Thời gian còn lại: {minutes}:
+              {seconds < 10 ? `0${seconds}` : seconds}
+            </Text>
+          )}
 
           <View className="flex-row justify-between mb-6">
             <Pressable
