@@ -22,7 +22,7 @@ const ExerciseHome = () => {
           style={styles.card}
           onPress={() => navigation.navigate("WorkoutOTD")}
         >
-          <FontAwesome5 name="dumbbell" size={24} color="#4F46E5" />
+          <FontAwesome5 name="dumbbell" size={24} color="#ffffff" />
           <Text style={styles.cardText}>Các bài tập</Text>
         </TouchableOpacity>
 
@@ -30,7 +30,7 @@ const ExerciseHome = () => {
           style={styles.card}
           onPress={() => navigation.navigate("TimerOTD")}
         >
-          <FontAwesome5 name="stopwatch" size={24} color="#4F46E5" />
+          <FontAwesome5 name="stopwatch" size={24} color="#ffffff" />
           <Text style={styles.cardText}>Bộ đếm thời gian</Text>
         </TouchableOpacity>
 
@@ -38,7 +38,7 @@ const ExerciseHome = () => {
           style={styles.card}
           onPress={() => navigation.navigate("calculatationOTD")}
         >
-          <FontAwesome5 name="calculator" size={24} color="#4F46E5" />
+          <FontAwesome5 name="calculator" size={24} color="#ffffff" />
           <Text style={styles.cardText}>Tính BMI</Text>
         </TouchableOpacity>
       </View>
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f3f4f6",
+    paddingTop: 20,
   },
   content: {
     flex: 1,
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     color: "#1f2937",
   },
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#4F46E5", // Thay đổi màu nền
     paddingVertical: 20,
     paddingHorizontal: 25,
     borderRadius: 15,
@@ -108,13 +109,13 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 3.84,
     elevation: 5,
   },
   cardText: {
     fontSize: 18,
-    color: "#4b5563",
+    color: "#ffffff", // Thay đổi màu chữ
     fontWeight: "600",
     marginLeft: 15,
   },
