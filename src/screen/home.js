@@ -10,10 +10,11 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>
-          StaminaGo
+        <View>
+          <Text style={styles.title}>StaminaGo</Text>
           <HomeHeader />
-        </Text>
+        </View>
+
         {/* Workout of the Day */}
         <View style={styles.workoutContainer}>
           <Text style={styles.workoutTitle}>Bài tập hôm nay</Text>
@@ -115,6 +116,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#3b82f6",
     marginBottom: 24,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   workoutContainer: {
     backgroundColor: "#ffffff",

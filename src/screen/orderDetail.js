@@ -43,7 +43,7 @@ const OrderDetailsScreen = ({ route }) => {
         Order Placed: {new Date(order.date).toLocaleDateString()}
       </Text>
       <Text style={styles.orderTotal}>
-        Total: {(order.total * 100).toLocaleString()} đ
+        Total: {order.total.toLocaleString()} đ
       </Text>
       <Text
         style={[styles.orderStatus, { color: order.isPaid ? "green" : "red" }]}
@@ -63,9 +63,8 @@ const OrderDetailsScreen = ({ route }) => {
           <View key={index} style={styles.itemContainer}>
             <Text style={styles.itemName}>{item.name}</Text>
             <Text style={styles.itemPrice}>
-              {(item.price * item.quantity * 100).toLocaleString()} đ
+              {(item.price * item.quantity).toLocaleString()} đ
             </Text>
-            <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
           </View>
         ))}
       </View>

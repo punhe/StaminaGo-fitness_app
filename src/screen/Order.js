@@ -19,7 +19,8 @@ const ORDER_API_URL = "https://mma-be-0n61.onrender.com/api/orders";
 
 const Order = () => {
   const navigation = useNavigation();
-  const { cartItems, clearCart, removeFromCartt } = useContext(CartContext);
+  const { cartItems, clearCart, removeFromCartt, placeOrder } =
+    useContext(CartContext);
   const { addOrder } = useContext(OrderContext);
   const { updateProductQuantity } = useContext(ProductContext);
   const [address, setAddress] = useState("");

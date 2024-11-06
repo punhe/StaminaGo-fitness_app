@@ -93,7 +93,7 @@ const OrdersScreen = () => {
           {new Date(item.date).toLocaleDateString()}
         </Text>
         <Text style={styles.orderTotal}>
-          Tổng: {(item.total * 100).toLocaleString()} đ
+          Tổng: {item.total.toLocaleString()} đ
         </Text>
         <Text
           style={[styles.orderStatus, { color: item.isPaid ? "green" : "red" }]}

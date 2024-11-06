@@ -17,6 +17,9 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  const deleteFromCart = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
   const clearCart = () => {
     setCartItems([]);
   };
@@ -24,10 +27,10 @@ export const CartProvider = ({ children }) => {
   const placeOrder = async (product, quantity) => {
     try {
       const response = await axios.post(
-        "https://mma-be-0n61.onrender.com/api/reduceProduct",
+        "https://mma-be-0n61.onrender.com/api/product/reduceProduct",
         {
           id: product.id,
-          quantity: quantity,
+          quantity: 1,
         }
       );
       return response.data;
@@ -39,7 +42,7 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCartt = async (product) => {
     try {
-      const result = await placeOrder(product, product.quantity);
+      const result = await placeOrder(product, product.quantity - 1);
 
       if (result.message === "Đặt hàng thành công") {
         setCartItems((prevItems) =>
@@ -54,18 +57,13 @@ export const CartProvider = ({ children }) => {
           )
         );
       }
-    } catch (error) {
-      if (error.response) {
-        alert(error.response.data.message);
-      } else {
-        alert("Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại.");
-      }
-    }
+    } catch (error) {}
   };
 
   return (
     <CartContext.Provider
       value={{
+        deleteFromCart,
         cartItems,
         addToCart,
         removeFromCart,

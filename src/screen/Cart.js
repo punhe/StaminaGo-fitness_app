@@ -11,7 +11,7 @@ import { CartContext } from "../context/cartContext";
 
 const Cart = () => {
   const navigation = useNavigation();
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, deleteFromCart } = useContext(CartContext);
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((sum, item) => {
@@ -24,9 +24,18 @@ const Cart = () => {
     <View style={styles.container}>
       <Text style={styles.header}>Giỏ hàng của bạn</Text>
       {cartItems.length === 0 ? (
-        <Text style={styles.emptyMessage}>
-          Giỏ hàng của bạn không có gì hết mua!
-        </Text>
+        <View>
+          <Text style={styles.emptyMessage}>
+            Giỏ hàng của bạn không có gì hết mua!
+          </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("Orders")}
+            disabled={cartItems.length === 0}
+          >
+            <Text style={styles.text}>Kiểm tra đơn hàng</Text>
+          </TouchableOpacity>
+        </View>
       ) : (
         <>
           <FlatList
@@ -36,7 +45,7 @@ const Cart = () => {
               <View style={styles.cartItem}>
                 <Text style={styles.itemName}>{item.name}</Text>
                 <Text style={styles.itemPrice}>{item.price}</Text>
-                <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                <TouchableOpacity onPress={() => deleteFromCart(item.id)}>
                   <Text style={styles.buttonText}>Xóa</Text>
                 </TouchableOpacity>
               </View>
@@ -52,6 +61,14 @@ const Cart = () => {
               disabled={cartItems.length === 0}
             >
               <Text style={styles.text}>Tiến hành thanh toán</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("Orders")}
+              disabled={cartItems.length === 0}
+            >
+              <Text style={styles.text}>Kiểm tra đơn hàng</Text>
             </TouchableOpacity>
           </View>
         </>
