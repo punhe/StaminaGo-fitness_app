@@ -1,17 +1,32 @@
 import React, { useState } from "react";
-import { View, Text, Switch, Pressable, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  Modal,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import HomeHeader from "../components/HomeHeader";
+import { useAuth } from "../context/authContext";
 
 export default function Settings() {
-  const [isEnabledNotifications, setIsEnabledNotifications] = useState(false);
-  const [isEnabledDarkMode, setIsEnabledDarkMode] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const { logout } = useAuth();
 
-  const toggleNotifications = () =>
-    setIsEnabledNotifications((previousState) => !previousState);
-  const toggleDarkMode = () =>
-    setIsEnabledDarkMode((previousState) => !previousState);
+  // Hàm xử lý đăng xuất
+  const handleLogout = async () => {
+    setLoading(true);
+    const response = await logout();
+    setLoading(false);
+
+    if (response.success) {
+      navigation.navigate("SignIn");
+    } else {
+      console.error("Logout failed:", response.msg);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -19,33 +34,10 @@ export default function Settings() {
         <Text style={styles.headerText}>Cài đặt</Text>
       </View>
 
-      {/* Notification Setting */}
-      {/* <View style={styles.settingContainer}>
-        <View style={styles.settingRow}>
-          <Text style={styles.settingText}>Thông báo</Text>
-          <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabledNotifications ? "#f5dd4b" : "#f4f3f4"}
-            onValueChange={toggleNotifications}
-            value={isEnabledNotifications}
-          />
-        </View>
-      </View> */}
+      <View style={styles.borderBox}>
+        <Text style={styles.staminaText}>StaminaGo</Text>
+      </View>
 
-      {/* Dark Mode Setting */}
-      {/* <View style={styles.settingContainer}>
-        <View style={styles.settingRow}>
-          <Text style={styles.settingText}>Chế độ tối</Text>
-          <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabledDarkMode ? "#f5dd4b" : "#f4f3f4"}
-            onValueChange={toggleDarkMode}
-            value={isEnabledDarkMode}
-          />
-        </View>
-      </View> */}
-
-      {/* Account Settings Button */}
       <Pressable
         style={styles.button}
         onPress={() => navigation.navigate("Profile")}
@@ -60,9 +52,21 @@ export default function Settings() {
       >
         <Text style={styles.buttonText}>Chính sách bảo mật</Text>
       </Pressable>
-      <View style={{ margin: "10px" }}>
-        <HomeHeader />
-      </View>
+
+      {/* Logout Button */}
+      <Pressable style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Đăng xuất</Text>
+      </Pressable>
+
+      {/* Modal Loading */}
+      <Modal transparent={true} visible={loading} animationType="fade">
+        <View style={styles.modalContainer}>
+          <View style={styles.loadingBox}>
+            <ActivityIndicator size="large" color="#4F46E5" />
+            <Text style={styles.loadingText}>Đang đăng xuất...</Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -70,53 +74,89 @@ export default function Settings() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F3F4F6", // Light gray background
+    backgroundColor: "#F9FAFB",
+    padding: 16,
   },
   header: {
-    backgroundColor: "#4F46E5", // Indigo color
-    paddingVertical: 16,
+    backgroundColor: "#4F46E5",
+    paddingVertical: 20,
     alignItems: "center",
+    borderRadius: 10,
     elevation: 4,
+    marginBottom: 20,
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
     color: "white",
   },
-  settingContainer: {
-    backgroundColor: "white",
-    marginHorizontal: 16,
-    marginTop: 20,
-    padding: 16,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 3, // Elevation for Android
-  },
-  settingRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+
+  borderBox: {
+    borderWidth: 2,
+    borderColor: "#FF4D4D",
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderRadius: 12,
     alignItems: "center",
+    marginBottom: 20,
   },
-  settingText: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#374151", // Dark gray color
+
+  staminaText: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#4F46E5",
+    textAlign: "center",
   },
+
   button: {
     backgroundColor: "#4F46E5",
-    marginHorizontal: 16,
-    marginTop: 16,
-    paddingVertical: 12,
-    borderRadius: 10,
+    marginVertical: 10,
+    paddingVertical: 14,
+    borderRadius: 12,
     alignItems: "center",
     elevation: 3,
   },
+
   buttonText: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+  },
+
+  logoutButton: {
+    backgroundColor: "#FF4D4D",
+    marginVertical: 10,
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: "center",
+    elevation: 3,
+  },
+
+  logoutButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+
+  loadingBox: {
+    width: "80%",
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: "white",
+    alignItems: "center",
+  },
+
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: "#374151",
   },
 });
