@@ -15,7 +15,6 @@ export default function Settings() {
 
   return (
     <View style={styles.container}>
-      
       <View style={styles.header}>
         <Text style={styles.headerText}>Cài đặt</Text>
       </View>
@@ -61,7 +60,9 @@ export default function Settings() {
       >
         <Text style={styles.buttonText}>Chính sách bảo mật</Text>
       </Pressable>
-      <HomeHeader />
+      <View style={{ margin: "10px" }}>
+        <HomeHeader />
+      </View>
     </View>
   );
 }

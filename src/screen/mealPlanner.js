@@ -10,7 +10,7 @@ import {
   Pressable,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const MealPlanner = () => {
   const navigation = useNavigation();
@@ -157,7 +157,7 @@ const MealPlanner = () => {
           </Pressable>
 
           <Pressable
-            onPress={() => navigation.navigate("profile")}
+            onPress={() => navigation.navigate("Profile")}
             style={styles.footerItem}
           >
             <FontAwesome5 name="user" size={24} color="#4F46E5" />
