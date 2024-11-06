@@ -102,7 +102,7 @@ export default function ForgetPassword() {
           </TouchableOpacity>
         )}
       </View>
-      <Pressable onPress={() => navigation.navigate("signIn")}
+      <Pressable onPress={() => navigation.navigate("SignIn")}
       style={{
               backgroundColor: "#6366F1",
               borderRadius: 20,
@@ -111,6 +111,7 @@ export default function ForgetPassword() {
               height: 50,
               marginTop: 16,
             }}>
+            
       <Text
               style={{
                 fontSize: 18,

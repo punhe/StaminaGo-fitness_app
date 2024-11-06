@@ -124,6 +124,7 @@ export default function SignIn() {
                   placeholderTextColor={"gray"}
                 />
               </View>
+              <Pressable onPress={() => navigation.navigate("forgetPassword")}>
               <Text
                 style={{
                   fontSize: hp(1.8),
@@ -134,6 +135,7 @@ export default function SignIn() {
               >
                 Quên mật khẩu?
               </Text>
+              </Pressable>
             </View>
 
             <View>
