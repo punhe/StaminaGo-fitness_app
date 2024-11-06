@@ -41,5 +41,5 @@ initializeFirebase();
 
 const usersRef = collection(db, "users");
 const chatsRef = collection(db, "chats");
-
-export { auth, db, usersRef, chatsRef };
+const goalsRef = collection(db, "goals");
+export { auth, db, usersRef, chatsRef, goalsRef };

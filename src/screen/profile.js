@@ -14,6 +14,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { useAuth } from "../context/authContext";
 
 export default function Profile() {
   const [profileData, setProfileData] = useState(null);
@@ -21,11 +22,14 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [newUsername, setNewUsername] = useState("");
   const navigation = useNavigation();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
+      if (!user) return;
+
       try {
-        const userId = "JvHDTMZkSoO9a24QjdOKAcS9VuN2";
+        const userId = user.uid;
         const userRef = doc(db, "users", userId);
         const docSnap = await getDoc(userRef);
 
@@ -37,14 +41,14 @@ export default function Profile() {
           Alert.alert("No such document!");
         }
       } catch (error) {
-        Alert.alert("Error fetching profile:", error);
+        Alert.alert("Error fetching profile:", error.message);
       } finally {
         setLoading(false);
       }
     };
 
     fetchUserProfile();
-  }, []);
+  }, [user]);
 
   const handleGoBack = () => {
     if (navigation.canGoBack()) {
@@ -55,8 +59,13 @@ export default function Profile() {
   };
 
   const handleSaveUsername = async () => {
+    if (!user) {
+      Alert.alert("Error", "User not found");
+      return;
+    }
+
     try {
-      const userId = "JvHDTMZkSoO9a24QjdOKAcS9VuN2";
+      const userId = user.uid;
       const userRef = doc(db, "users", userId);
 
       await updateDoc(userRef, {
@@ -134,15 +143,6 @@ export default function Profile() {
           </Pressable>
         ))}
       </View>
-
-      {/* <View style={styles.settingsSection}>
-        <Pressable
-          onPress={() => navigation.navigate("settings")}
-          style={styles.settingsButton}
-        >
-          <Text style={styles.settingsButtonText}>Cài đặt</Text>
-        </Pressable>
-      </View> */}
     </SafeAreaView>
   );
 }
@@ -234,26 +234,6 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   menuItemText: {
-    textAlign: "center",
-    color: "#6366f1",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  settingsSection: {
-    position: "absolute",
-    bottom: 30,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 20,
-  },
-  settingsButton: {
-    backgroundColor: "white",
-    borderRadius: 25,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    elevation: 3,
-  },
-  settingsButtonText: {
     textAlign: "center",
     color: "#6366f1",
     fontWeight: "bold",
