@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Pressable,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
@@ -14,12 +15,10 @@ import axios from "axios";
 const ORDER_API_URL = "https://mma-be-0n61.onrender.com/api/orders";
 
 const OrdersScreen = () => {
-  // Fix: Correct useState usage
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
-  // Fetch orders from MongoDB
   const fetchOrders = async () => {
     setIsLoading(true);
     try {
@@ -44,7 +43,6 @@ const OrdersScreen = () => {
       });
 
       if (response.status === 200) {
-        // Update local state
         setOrders((prevOrders) =>
           prevOrders.map((order) =>
             order.id === orderId
@@ -52,16 +50,16 @@ const OrdersScreen = () => {
               : order
           )
         );
-        Alert.alert("Success", "Order marked as completed!");
+        Alert.alert("Thành công", "Đã cập nhật trạng thái đơn hàng!");
       }
     } catch (error) {
       console.error("Error updating order:", error);
       if (error.response?.status === 404) {
-        Alert.alert("Error", "Order not found. Please refresh and try again.");
+        Alert.alert("Lỗi", "Không tìm thấy đơn hàng. Vui lòng thử lại.");
       } else {
         Alert.alert(
-          "Error",
-          "Failed to update order status. Please try again."
+          "Lỗi",
+          "Không thể cập nhật trạng thái đơn hàng. Vui lòng thử lại."
         );
       }
     }
@@ -85,49 +83,92 @@ const OrdersScreen = () => {
   }, []);
 
   const renderOrderItem = ({ item }) => (
-    <View style={styles.orderItem}>
+    <View style={styles.orderCard}>
       <TouchableOpacity
+        style={styles.orderContent}
         onPress={() => navigation.navigate("OrderDetail", { orderId: item.id })}
       >
-        <Text style={styles.orderDate}>
-          {new Date(item.date).toLocaleDateString()}
-        </Text>
-        <Text style={styles.orderTotal}>
-          Tổng: {item.total.toLocaleString()} đ
-        </Text>
-        <Text
-          style={[styles.orderStatus, { color: item.isPaid ? "green" : "red" }]}
-        >
-          {item.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
-        </Text>
-        {item.isCompleted && (
-          <Text style={[styles.orderStatus, { color: "green" }]}>
-            Đã nhận hàng
-          </Text>
-        )}
-        <Text style={styles.orderAddress}>Địa chỉ: {item.address}</Text>
-      </TouchableOpacity>
+        <View style={styles.orderHeader}>
+          <View>
+            <Text style={styles.orderNumber}>Đơn hàng #{item.id}</Text>
+            <Text style={styles.orderDate}>
+              {new Date(item.date).toLocaleDateString("vi-VN", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </Text>
+          </View>
+          <View style={styles.statusContainer}>
+            <View
+              style={[
+                styles.statusBadge,
+                { backgroundColor: item.isPaid ? "#E8F5E9" : "#FFEBEE" },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.statusText,
+                  { color: item.isPaid ? "#2E7D32" : "#C62828" },
+                ]}
+              >
+                {item.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
+              </Text>
+            </View>
+            {item.isCompleted && (
+              <View
+                style={[styles.statusBadge, { backgroundColor: "#E8F5E9" }]}
+              >
+                <Text style={[styles.statusText, { color: "#2E7D32" }]}>
+                  ✓ Đã nhận hàng
+                </Text>
+              </View>
+            )}
+          </View>
+        </View>
 
-      {!item.isCompleted && item.isPaid && (
-        <TouchableOpacity
-          style={styles.completeButton}
-          onPress={() => confirmOrderCompletion(item.id)}
-        >
-          <Text style={styles.completeButtonText}>Đã nhận hàng</Text>
-        </TouchableOpacity>
-      )}
+        <View style={styles.divider} />
+
+        <View style={styles.orderDetails}>
+          <View style={styles.addressContainer}>
+            <Text style={styles.addressLabel}>Địa chỉ giao hàng:</Text>
+            <Text style={styles.addressText}>{item.address}</Text>
+          </View>
+
+          <View style={styles.totalContainer}>
+            <Text style={styles.totalLabel}>Tổng tiền:</Text>
+            <Text style={styles.totalAmount}>
+              {item.total.toLocaleString()} đ
+            </Text>
+          </View>
+        </View>
+
+        {!item.isCompleted && item.isPaid && (
+          <TouchableOpacity
+            style={styles.completeButton}
+            onPress={() => confirmOrderCompletion(item.id)}
+          >
+            <Text style={styles.completeButtonText}>Xác nhận đã nhận hàng</Text>
+          </TouchableOpacity>
+        )}
+      </TouchableOpacity>
     </View>
   );
 
   const renderEmptyList = () => (
     <View style={styles.emptyContainer}>
-      <Text style={styles.emptyMessage}>Bạn chưa có đơn hàng nào.</Text>
+      <Text style={styles.emptyTitle}>Chưa có đơn hàng nào</Text>
+      <Text style={styles.emptyMessage}>
+        Các đơn hàng của bạn sẽ xuất hiện ở đây
+      </Text>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Đơn hàng của bạn</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Đơn hàng của bạn</Text>
+      </View>
 
       <FlatList
         data={orders}
@@ -139,8 +180,8 @@ const OrdersScreen = () => {
         contentContainerStyle={styles.listContainer}
       />
 
-      <Pressable style={styles.button} onPress={() => navigation.goBack()}>
-        <Text style={styles.text}>Quay lại giỏ hàng</Text>
+      <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.backButtonText}>Quay lại giỏ hàng</Text>
       </Pressable>
     </View>
   );
@@ -149,80 +190,153 @@ const OrdersScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    paddingTop: 30,
-    backgroundColor: "#fff",
+    backgroundColor: "#F5F5F7",
+  },
+  headerContainer: {
+    padding: 16,
+    backgroundColor: "#FFFFFF",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E5E5EA",
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#1C1C1E",
   },
   listContainer: {
-    flexGrow: 1,
+    padding: 16,
+    paddingBottom: 80,
   },
-  button: {
-    backgroundColor: "#3F51B5",
-    padding: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  text: {
-    color: "white",
-    fontSize: 18,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  orderItem: {
-    backgroundColor: "#f9f9f9",
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 5,
-    elevation: 2,
+  orderCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    marginBottom: 16,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  orderContent: {
+    padding: 16,
+  },
+  orderHeader: {
+    flexDirection: "column",
+    gap: 12,
+  },
+  orderNumber: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#1C1C1E",
   },
   orderDate: {
+    fontSize: 14,
+    color: "#8E8E93",
+    marginTop: 4,
+  },
+  statusContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginTop: 8,
+  },
+  statusBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  statusText: {
+    fontSize: 13,
+    fontWeight: "600",
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#E5E5EA",
+    marginVertical: 16,
+  },
+  orderDetails: {
+    gap: 16,
+  },
+  addressContainer: {
+    gap: 4,
+  },
+  addressLabel: {
+    fontSize: 14,
+    color: "#8E8E93",
+  },
+  addressText: {
     fontSize: 16,
-    fontWeight: "bold",
+    color: "#1C1C1E",
+    lineHeight: 22,
   },
-  orderTotal: {
-    fontSize: 14,
-    marginTop: 5,
+  totalContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  orderStatus: {
-    fontSize: 14,
-    marginTop: 5,
-    fontWeight: "bold",
+  totalLabel: {
+    fontSize: 16,
+    color: "#8E8E93",
   },
-  orderAddress: {
-    fontSize: 14,
-    marginTop: 5,
-    fontStyle: "italic",
+  totalAmount: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#007AFF",
+  },
+  completeButton: {
+    backgroundColor: "#34C759",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginTop: 16,
+  },
+  completeButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
   },
   emptyContainer: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
+    padding: 32,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#1C1C1E",
+    marginBottom: 8,
   },
   emptyMessage: {
     fontSize: 16,
+    color: "#8E8E93",
     textAlign: "center",
-    marginTop: 20,
-    color: "#666",
   },
-  completeButton: {
-    backgroundColor: "#4CAF50",
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    alignItems: "center",
+  backButton: {
+    position: "absolute",
+    bottom: 16,
+    left: 16,
+    right: 16,
+    backgroundColor: "#007AFF",
+    paddingVertical: 16,
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  completeButtonText: {
-    color: "white",
-    fontSize: 14,
-    fontWeight: "bold",
+  backButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
   },
 });
 
