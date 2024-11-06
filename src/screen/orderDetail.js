@@ -95,13 +95,8 @@ const OrderDetailsScreen = ({ route }) => {
             <View key={index} style={styles.itemContainer}>
               <View style={styles.itemDetails}>
                 <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemQuantity}>
-                  Quantity: {item.quantity}
-                </Text>
+                <Text style={styles.itemQuantity}>Quantity: 1</Text>
               </View>
-              <Text style={styles.itemPrice}>
-                {(item.price * item.quantity).toLocaleString()} đ
-              </Text>
             </View>
           ))}
         </View>

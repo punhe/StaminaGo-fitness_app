@@ -13,7 +13,7 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { CartContext } from "../context/cartContext";
 
 const { width } = Dimensions.get("window");
@@ -96,23 +96,26 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          "https://mma-be-0n61.onrender.com/api/product"
-        );
-        const data = await response.json();
-        setProducts(data);
-        setLoading(false);
-      } catch (error) {
-        Alert.alert("Error", "There was an error");
-        setLoading(false);
-      }
-    };
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(
+        "https://mma-be-0n61.onrender.com/api/product"
+      );
+      const data = await response.json();
+      setProducts(data);
+      setLoading(false);
+    } catch (error) {
+      Alert.alert("Error", "There was an error fetching products");
+      setLoading(false);
+    }
+  };
 
-    fetchProducts();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true); // Show loading when refetching
+      fetchProducts();
+    }, []) // Empty dependency array means it runs only when screen is focused
+  );
 
   if (loading) {
     return (
@@ -121,7 +124,6 @@ const ProductList = () => {
       </View>
     );
   }
-
   return (
     <FlatList
       data={products}
