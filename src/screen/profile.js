@@ -125,7 +125,7 @@ export default function Profile() {
             key={index}
             onPress={() =>
               navigation.navigate(
-                ["todaysGoal", "mealPlanner", "workoutOTD"][index]
+                ["todaysGoal", "mealPlanner", "Activities"][index]
               )
             }
             style={styles.menuItem}
@@ -135,14 +135,14 @@ export default function Profile() {
         ))}
       </View>
 
-      <View style={styles.settingsSection}>
+      {/* <View style={styles.settingsSection}>
         <Pressable
           onPress={() => navigation.navigate("settings")}
           style={styles.settingsButton}
         >
           <Text style={styles.settingsButtonText}>Cài đặt</Text>
         </Pressable>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }
