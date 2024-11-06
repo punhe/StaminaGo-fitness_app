@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,15 +7,26 @@ import {
   TextInput,
   Alert,
   Linking,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import * as Notifications from "expo-notifications";
 import { CartContext } from "../context/cartContext";
 import { OrderContext } from "../context/orderContext";
 import { ProductContext } from "../context/productContext";
 
 const SHIPPING_FEE = 20;
 const ORDER_API_URL = "https://mma-be-0n61.onrender.com/api/orders";
+
+// Configure notifications
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 const Order = () => {
   const navigation = useNavigation();
@@ -26,11 +37,52 @@ const Order = () => {
   const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Request notification permissions
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
+
+  const registerForPushNotificationsAsync = async () => {
+    try {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+
+      if (finalStatus !== "granted") {
+        Alert.alert("Failed to get push token for push notification!");
+        return;
+      }
+    } catch (error) {
+      console.log("Error requesting notification permissions:", error);
+    }
+  };
+
+  const sendOrderNotification = async (orderId) => {
+    try {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Đặt hàng thành công! 🎉",
+          body: `Đơn hàng #${orderId} đã được xác nhận. Cảm ơn bạn đã mua hàng!`,
+          data: { orderId },
+        },
+        trigger: null, // Show immediately
+      });
+    } catch (error) {
+      console.log("Error sending notification:", error);
+    }
+  };
+
   const subtotal = cartItems.reduce((sum, item) => {
     const price = parseFloat(item.price.replace(" đ", ""));
     return sum + price;
   }, 0);
   const total = subtotal + SHIPPING_FEE;
+
   const handleCreateOrder = async (orderId) => {
     if (!address) {
       Alert.alert("Error", "Please enter your address.");
@@ -43,11 +95,11 @@ const Order = () => {
         product: item._id,
         quantity: item.quantity,
       })),
-      // Add proper validation and conversion
-      total: Math.round(parseFloat(total) * 1000), // Using Math.round for integer values
+      total: Math.round(parseFloat(total) * 1000),
       isPaid: false,
       address: address,
     };
+
     try {
       if (isNaN(newOrder.total)) {
         throw new Error("Invalid order total");
@@ -58,6 +110,10 @@ const Order = () => {
         cartItems.forEach((item) => {
           removeFromCartt(item);
         });
+
+        // Send notification after successful order
+        await sendOrderNotification(orderId);
+
         Alert.alert("Order Created", "Your order was placed successfully!");
         clearCart();
         navigation.navigate("Orders");
@@ -150,6 +206,7 @@ const Order = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -194,4 +251,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
 export default Order;
