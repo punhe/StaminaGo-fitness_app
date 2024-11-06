@@ -65,7 +65,6 @@ const Order = () => {
         Alert.alert("Error", "Failed to create order.");
       }
     } catch (error) {
-      console.error("Order creation error:", error);
       Alert.alert("Error", "There was an error");
     }
   };
@@ -88,7 +87,6 @@ const Order = () => {
         Alert.alert("Lỗi", "Không thể tạo liên kết thanh toán");
       }
     } catch (error) {
-      console.error("Payment error:", error);
       Alert.alert("Lỗi", "Có lỗi xảy ra khi xử lý thanh toán");
     } finally {
       setIsLoading(false);

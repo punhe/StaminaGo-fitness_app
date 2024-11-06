@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import axios from "axios"; // Add this import
+import { Alert } from "react-native";
 
 export const CartContext = createContext();
 
@@ -35,7 +36,7 @@ export const CartProvider = ({ children }) => {
       );
       return response.data;
     } catch (error) {
-      console.error("Error placing order:", error);
+      Alert.alert("Error placing order:", error);
       throw error;
     }
   };

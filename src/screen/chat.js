@@ -26,7 +26,7 @@ export default function Chat() {
   const navigation = useNavigation();
 
   const onSignOut = () => {
-    signOut(auth).catch((error) => console.log("Error logging out: ", error));
+    signOut(auth).catch((error) => Alert.alert("Error logging out: ", error));
   };
 
   useLayoutEffect(() => {

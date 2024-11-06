@@ -73,14 +73,14 @@ function HomeScreen({ navigation }) {
             <Text style={styles.footerNavText}>Hồ sơ</Text>
           </Pressable>
           <Pressable
-            onPress={() => navigation.navigate("Chat")}
+            onPress={() => navigation.navigate("chat")}
             style={styles.footerNavItem}
           >
             <FontAwesome5 name="comment-alt" size={24} color="#4F46E5" />
             <Text style={styles.footerNavText}>Tin nhắn</Text>
           </Pressable>
           <Pressable
-            onPress={() => navigation.navigate("Settings")}
+            onPress={() => navigation.navigate("settings")}
             style={styles.footerNavItem}
           >
             <FontAwesome5 name="cog" size={24} color="#4F46E5" />

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { Text } from "react-native";
+import { Alert, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const OrderContext = createContext();
@@ -18,7 +18,7 @@ export const OrderProvider = ({ children }) => {
         setOrders(JSON.parse(savedOrders));
       }
     } catch (error) {
-      console.error("Error loading orders:", error);
+      Alert.alert("Error loading orders:", error);
     }
   };
 
@@ -26,7 +26,7 @@ export const OrderProvider = ({ children }) => {
     try {
       await AsyncStorage.setItem("orders", JSON.stringify(newOrders));
     } catch (error) {
-      console.error("Error saving orders:", error);
+      Alert.alert("Error saving orders:", error);
     }
   };
 

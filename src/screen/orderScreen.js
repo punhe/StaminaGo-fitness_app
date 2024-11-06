@@ -25,7 +25,6 @@ const OrdersScreen = () => {
       const response = await axios.get(ORDER_API_URL);
       setOrders(response.data);
     } catch (error) {
-      console.error("Error fetching orders:", error);
       Alert.alert(
         "Error",
         "Failed to load orders. Please check your connection and try again."
@@ -53,7 +52,7 @@ const OrdersScreen = () => {
         Alert.alert("Thành công", "Đã cập nhật trạng thái đơn hàng!");
       }
     } catch (error) {
-      console.error("Error updating order:", error);
+      Alert.alert("Error updating order:", error);
       if (error.response?.status === 404) {
         Alert.alert("Lỗi", "Không tìm thấy đơn hàng. Vui lòng thử lại.");
       } else {

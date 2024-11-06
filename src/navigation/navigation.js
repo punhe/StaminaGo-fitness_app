@@ -68,7 +68,7 @@ const AppStack = () => (
       component={OrderDetailsScreen}
       options={{ title: "OrderDetailsScreen" }}
     />
-    <Stack.Screen name="Chat" component={Chat} options={{ title: "chat" }} />
+    <Stack.Screen name="chat" component={Chat} options={{ title: "chat" }} />
     <Stack.Screen
       name="Profile"
       component={Profile}
@@ -81,7 +81,7 @@ const AppStack = () => (
     />
 
     <Stack.Screen
-      name="Settings"
+      name="settings"
       component={Settings}
       options={{ title: "settings" }}
     />
@@ -125,7 +125,7 @@ const AppStack = () => (
     />
 
     <Stack.Screen
-      name='Activities'
+      name="Activities"
       component={Activities}
       options={{ title: "Activities" }}
     />

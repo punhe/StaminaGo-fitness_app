@@ -20,7 +20,7 @@ const ExerciseHome = () => {
 
         <TouchableOpacity
           style={styles.card}
-          onPress={() => navigation.navigate("WorkoutOTD")}
+          onPress={() => navigation.navigate("workoutOTD")}
         >
           <FontAwesome5 name="dumbbell" size={24} color="#ffffff" />
           <Text style={styles.cardText}>Các bài tập</Text>

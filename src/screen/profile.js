@@ -34,10 +34,10 @@ export default function Profile() {
           setProfileData(userData);
           setNewUsername(userData.username);
         } else {
-          console.log("No such document!");
+          Alert.alert("No such document!");
         }
       } catch (error) {
-        console.log("Error fetching profile:", error);
+        Alert.alert("Error fetching profile:", error);
       } finally {
         setLoading(false);
       }

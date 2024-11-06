@@ -49,7 +49,6 @@ export default function SignUp() {
     );
     setLoading(false);
 
-    console.log("got result:", response);
     if (!response.success) {
       Alert.alert("Đăng kí", response.msg);
     }

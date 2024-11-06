@@ -26,7 +26,6 @@ const OrderDetailsScreen = ({ route }) => {
       const response = await axios.get(`${ORDER_API_URL}/${orderId}`);
       setOrder(response.data);
     } catch (error) {
-      console.error("Error fetching order details:", error);
       Alert.alert(
         "Error",
         "Failed to load order details. Please check your connection and try again."
