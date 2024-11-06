@@ -55,7 +55,6 @@ const Order = () => {
       if (response.status === 201) {
         addOrder(newOrder);
         cartItems.forEach((item) => {
-          updateProductQuantity(item.id, item.quantity);
           removeFromCartt(item);
         });
         Alert.alert("Order Created", "Your order was placed successfully!");

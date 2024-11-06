@@ -22,7 +22,7 @@ import Chat from "../screen/chat";
 import Settings from "../screen/settings";
 import signUp from "../screen/signUp";
 import ForgetPassword from "../screen/forgetPassword";
-import OrderDetailsScreen from "../screen/orderDtail";
+import OrderDetailsScreen from "../screen/orderDetail";
 import MealPlanner from "../screen/mealPlanner";
 import TodaysGoals from "../screen/todaysGoal";
 import PrivacyPolicy from "../screen/privacyPolicy";
@@ -46,19 +46,19 @@ const AppStack = () => (
     />
     <Stack.Screen name="Shop" component={Shop} options={{ title: "Shop" }} />
     <Stack.Screen
-      name='ProductDetail'
+      name="ProductDetail"
       component={ProductDetail}
       options={{ title: "ProductDetail" }}
     />
     <Stack.Screen
-      name='Cart'
+      name="Cart"
       component={Cart}
       options={{ title: "Shopping Cart" }}
     />
 
     <Stack.Screen name="Order" component={Order} options={{ title: "Order" }} />
     <Stack.Screen
-      name='Orders'
+      name="Orders"
       component={OrdersScreen}
       options={{ title: "orderScreen" }}
     />
@@ -69,59 +69,56 @@ const AppStack = () => (
     />
     <Stack.Screen name="Chat" component={Chat} options={{ title: "chat" }} />
     <Stack.Screen
-      name='Profile'
+      name="Profile"
       component={Profile}
       options={{ title: "Hồ sơ" }}
     />
     <Stack.Screen
-      name='PrivacyPolicy'
+      name="PrivacyPolicy"
       component={PrivacyPolicy}
       options={{ title: "Chính sách bảo mật" }}
     />
 
     <Stack.Screen
-      name='Settings'
+      name="Settings"
       component={Settings}
       options={{ title: "settings" }}
     />
 
     <Stack.Screen
-      name='Exercise'
+      name="Exercise"
       component={Exercise}
       options={{ title: "Exercise" }}
     />
     <Stack.Screen
-      name='TimerOTD'
+      name="TimerOTD"
       component={timerOTD}
       options={{ title: "Timer of the Day" }}
     />
     <Stack.Screen
-      name='calculatationOTD'
+      name="calculatationOTD"
       component={calculatationOTD}
       options={{ title: "Calculatation of the Day" }}
     />
     <Stack.Screen
-      name='workoutOTD'
+      name="workoutOTD"
       component={WorkoutOTD}
       options={{ title: "Workout of the Day" }}
     />
-    <Stack.Screen 
-    name='Map'
-    component={MapPage} 
-    options={{ title: "Map" }} />
+    <Stack.Screen name="Map" component={MapPage} options={{ title: "Map" }} />
     <Stack.Screen
-      name='WorkoutDetail'
+      name="WorkoutDetail"
       component={WorkoutDetail}
       options={{ title: "Workout Details" }}
     />
     <Stack.Screen
-      name='mealPlanner'
+      name="mealPlanner"
       component={MealPlanner}
       options={{ title: "Meal Planner" }}
     />
 
     <Stack.Screen
-      name='todaysGoal'
+      name="todaysGoal"
       component={TodaysGoals}
       options={{ title: "Today Goals" }}
     />

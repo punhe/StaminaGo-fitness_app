@@ -87,9 +87,7 @@ const OrdersScreen = () => {
   const renderOrderItem = ({ item }) => (
     <View style={styles.orderItem}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("OrderDetails", { orderId: item.id })
-        }
+        onPress={() => navigation.navigate("OrderDetail", { orderId: item.id })}
       >
         <Text style={styles.orderDate}>
           {new Date(item.date).toLocaleDateString()}
